@@ -1,0 +1,141 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="ListaCalificaciones" language="java" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7f62d50-bcf3-416d-9fcb-c6039a77a5e6">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JDBC Adapter"/>
+	<parameter name="ruta_imagenes" forPrompting="false" class="java.lang.String"/>
+	<parameter name="nombre_grupo" forPrompting="false" class="java.lang.String"/>
+	<parameter name="nombre_profesor" forPrompting="false" class="java.lang.String"/>
+	<parameter name="id_teacher" class="java.lang.String"/>
+	<parameter name="PeriodoActual" forPrompting="false" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, students.nombre_student, 
+users.nom_user, report.id_report, report.first_partial_report, report.second_partial_report, report.avg_report FROM students
+INNER JOIN users ON users.id_user = students.id_user_student
+INNER JOIN report ON report.id_report = students.id_report_student
+WHERE id_teacher_student = $P{id_teacher};]]></query>
+	<field name="id_student" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_student"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_student"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="students"/>
+	</field>
+	<field name="apellido_paterno_student" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellido_paterno_student"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellido_paterno_student"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="students"/>
+	</field>
+	<field name="apellido_materno_student" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellido_materno_student"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellido_materno_student"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="students"/>
+	</field>
+	<field name="nombre_student" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre_student"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre_student"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="students"/>
+	</field>
+	<field name="nom_user" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom_user"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom_user"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
+	</field>
+	<field name="id_report" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_report"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report"/>
+	</field>
+	<field name="first_partial_report" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="first_partial_report"/>
+		<property name="com.jaspersoft.studio.field.label" value="first_partial_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report"/>
+	</field>
+	<field name="second_partial_report" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="second_partial_report"/>
+		<property name="com.jaspersoft.studio.field.label" value="second_partial_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report"/>
+	</field>
+	<field name="avg_report" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="avg_report"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="report"/>
+	</field>
+	<background splitType="Stretch"/>
+	<pageHeader height="119" splitType="Stretch">
+		<element kind="staticText" uuid="c6015cc6-f9ac-4b1a-8edd-d7f5129951ce" mode="Opaque" x="1" y="93" width="80" height="16" forecolor="#FFFFFF" backcolor="#030303" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Left">
+			<text><![CDATA[Profesor:]]></text>
+		</element>
+		<element kind="staticText" uuid="bebbd970-7364-480b-a542-f52672c22096" mode="Opaque" x="1" y="77" width="80" height="16" forecolor="#FFFFFF" backcolor="#030303" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Left">
+			<text><![CDATA[Grupo: ]]></text>
+		</element>
+		<element kind="textField" uuid="a448a097-dfee-4993-9ae8-35cce7f44adc" x="87" y="93" width="164" height="16" fontName="DejaVu Sans Light" fontSize="8.0">
+			<expression><![CDATA[$P{nombre_profesor}]]></expression>
+		</element>
+		<element kind="textField" uuid="ba6c6f72-e629-4c02-9ae0-3c1bfc90001c" x="87" y="77" width="164" height="16" fontName="DejaVu Sans Light" fontSize="8.0">
+			<expression><![CDATA[$P{nombre_grupo}]]></expression>
+		</element>
+		<element kind="staticText" uuid="82d9b70a-ad3c-49d4-a031-4c3d237ce9b3" x="80" y="1" width="421" height="20" fontName="DejaVu Sans" fontSize="13.0" bold="true" italic="true" hTextAlign="Center">
+			<text><![CDATA[Taller de Ingles para Niños y Adolescentes]]></text>
+		</element>
+		<element kind="staticText" uuid="a3c2e834-631a-44fd-8d81-2e6761f0d5e3" x="80" y="21" width="421" height="16" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="true" hTextAlign="Center">
+			<text><![CDATA[Centro Universitario UAEM Ecatepec]]></text>
+		</element>
+		<element kind="textField" uuid="656e53fc-1381-4358-aaba-3a919790b7ce" x="80" y="37" width="421" height="16" fontName="DejaVu Sans Condensed" fontSize="10.0" italic="true" hTextAlign="Center">
+			<expression><![CDATA[$P{PeriodoActual}]]></expression>
+		</element>
+		<element kind="staticText" uuid="d9dd9f1a-dcd3-4e9c-987b-f485fcfa6e25" x="80" y="53" width="421" height="16" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="true" italic="true" hTextAlign="Center">
+			<text><![CDATA[Lista de Calificaciones]]></text>
+		</element>
+		<element kind="image" uuid="3eb5d412-7fa3-4def-b1f3-6e82741b3f4d" x="0" y="5" width="70" height="65">
+			<expression><![CDATA[$P{ruta_imagenes} + "Logo_Taller2_BN.png"]]></expression>
+		</element>
+		<element kind="image" uuid="ea1d8427-1c7c-41c0-ae7e-65379e4065f5" x="500" y="4" width="69" height="65">
+			<expression><![CDATA[$P{ruta_imagenes} + "uaem_BN.png"]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="27" splitType="Stretch">
+		<element kind="staticText" uuid="159c8bb5-2072-46a2-bb09-ed1186553177" mode="Opaque" x="0" y="2" width="220" height="20" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Nombre Completo]]></text>
+		</element>
+		<element kind="staticText" uuid="1bfba6e7-04a6-4674-82d7-65e0d8baadf1" mode="Opaque" x="225" y="2" width="104" height="20" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Usuario]]></text>
+		</element>
+		<element kind="staticText" uuid="5d798b05-df71-4d64-9a53-11029c5e339c" mode="Opaque" x="336" y="2" width="80" height="20" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[1er Parcial]]></text>
+		</element>
+		<element kind="staticText" uuid="34f14a2d-8594-4e07-b423-8bb05ac392a2" mode="Opaque" x="421" y="2" width="80" height="20" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[2do Parcial]]></text>
+		</element>
+		<element kind="staticText" uuid="d21f4bee-6c1b-4f1f-b408-a48321f36a81" mode="Opaque" x="509" y="2" width="58" height="20" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Promedio]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<element kind="textField" uuid="c47cba65-17e8-4a67-b03b-348e6194dae4" x="0" y="0" width="220" height="22" fontName="DejaVu Sans Light">
+				<expression><![CDATA[$F{apellido_paterno_student}+" " + $F{apellido_materno_student} + " " + $F{nombre_student}]]></expression>
+			</element>
+			<element kind="textField" uuid="db8cb633-1752-4258-85d1-e2386cb9cc20" x="225" y="0" width="100" height="22" fontName="DejaVu Sans Light">
+				<expression><![CDATA[$F{nom_user}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d112c901-9917-4447-8dd1-57777b585b99"/>
+			</element>
+			<element kind="textField" uuid="b8a07d8a-5657-4a28-a1b6-04c93a2310c0" x="336" y="0" width="80" height="22" fontName="DejaVu Sans Light">
+				<expression><![CDATA[$F{first_partial_report}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d48f5333-154a-482f-85ad-d10b11d08553"/>
+			</element>
+			<element kind="textField" uuid="fef2717e-d06c-4849-9c94-a47c4a09c0fa" x="421" y="0" width="79" height="22" fontName="DejaVu Sans Light">
+				<expression><![CDATA[$F{second_partial_report}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="df8666bd-708b-46c8-822d-2a7085c6a7bf"/>
+			</element>
+			<element kind="textField" uuid="95a22264-78d5-4805-aabe-97c5156f43c2" x="509" y="0" width="58" height="22" fontName="DejaVu Sans Light">
+				<expression><![CDATA[$F{avg_report}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="498e207f-f7d9-48b6-9157-58019fab224c"/>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="20" splitType="Stretch">
+		<element kind="textField" uuid="0186abe6-4ee1-468e-84a9-82ecab4daef5" x="63" y="0" width="437" height="20" fontName="DejaVu Sans Light" hTextAlign="Right">
+			<expression><![CDATA["Pagina  " + $V{PAGE_NUMBER} + " de "  ]]></expression>
+		</element>
+		<element kind="textField" uuid="17297cbd-49ea-4d05-b418-b5a060c0faa1" x="514" y="0" width="53" height="20" fontName="DejaVu Sans Light" evaluationTime="Report">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

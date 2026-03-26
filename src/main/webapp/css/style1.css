@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Times New Roman', Times, serif;
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    background-image: linear-gradient(
+        rgba(0,0,0,0.7),
+        rgba(62,84,52,0.9)
+        ),
+        url(../Images/UAEMex1.jpg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    position:absolute;
+    top: 0;
+    left:0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height:100%;
+    max-height: 80px;
+}
+
+.menu .navbar ul li {
+    position: relative;
+    float:left;
+
+}
+
+.menu .navbar ul li a:hover{
+    color: rgb(255, 213, 1);
+}
+
+.menu .navbar ul li a{
+    font-size: 20px;
+    padding:20px;
+    color: white;
+    display: block;
+    font-weight: 700;
+}
+
+#menu {
+    display: none;
+}
+
+.menu-icono {
+    width:90px;
+}
+
+.menu label {
+    cursor: pointer;
+    display: none;
+}
+
+.header {
+    text-align: center;
+}
+
+.header-content img{
+    height: 100%;
+    max-height: 250px;
+    padding-bottom: 25px;
+}
+
+.header-content p{
+    font-size: 18px;
+    font-weight: 150px;
+    color:rgb(255, 255, 255);
+    padding: 0 250px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.logo-taller {
+    width: 100%;
+    min-width: 100px;
+    max-width: 550px;
+    height: auto;
+}
+.vision {
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    background-image: url(../Images/Fondo4.jpg);
+    backdrop-filter: blur(7px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.vision-content {
+    text-align: center;
+}
+
+.vision-content h1{
+    font-size: 60px;
+    line-height: 70px;
+    color: rgb(20, 20, 20);
+    text-transform: uppercase;
+    padding: 0;
+    margin-bottom: 15px;
+    border: 15px;
+}
+
+.p-vision {
+    font-size: 18px;
+    padding: 0 250px;
+    font-weight: 150px;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.p-horarios {
+    font-size: 18px;
+    text-align: center;
+}
+iframe {
+    width: 1000px;
+    height: 700px;
+    align-content: center;
+}
+
+.vision-content h2 {
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: rgba(156,132,18,1);
+    padding-bottom: 15px;
+}
+
+.vision-content h3 {
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    color: black;
+    padding-bottom: 15px;
+}
+
+.footer{
+    width:100%;
+    background-color: rgb(255, 255, 255);
+    columns: 2;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.links {
+    color:#8f8c8c
+}
+
+li {
+    list-style: none;
+    text-overflow: clip;
+}
+
+@media (max-width: 991px){
+    .menu {
+        padding: 10px;
+    }
+
+    .menu label {
+        display: initial;
+    }
+
+    .menu .navbar {
+        position: absolute;
+        top: 100%;
+        left:0;
+        right:0;
+        background-color: rgba(156,132,18,0.4);
+    }
+
+    .menu .navbar ul li {
+        width: 100%
+    }
+
+
+    .logo-taller {
+        display: none;
+    }
+
+    .header-content p {
+        padding: 350px 150px;
+    }
+
+    .p-vision {
+        padding: 0 150px;
+    }
+
+    iframe {
+        width:80%;
+        height:450px;
+        padding: 0;
+        order: 1;
+    }
+
+    .sp-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
