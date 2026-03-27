@@ -30,13 +30,13 @@ public class cerrarSesion extends HttpServlet {
             if(rango!=null){
                 switch(rango){
                 case "ESTUDIANTE":
-                    url= "/tallerDeInglesUAEM/view/login_student.jsp";
+                    url= "/tallerDeInglesUAEM/view/loginAlumno.jsp";
                     break;
                 case "ADMINISTRADOR":
-                    url= "/tallerDeInglesUAEM/view/login_admin.jsp";
+                    url= "/tallerDeInglesUAEM/view/loginAdministrador.jsp";
                     break;
                 case "PROFESOR":
-                    url= "/tallerDeInglesUAEM/view/login_teacher.jsp";
+                    url= "/tallerDeInglesUAEM/view/loginTeacher.jsp";
                     break;
                 }     
             }

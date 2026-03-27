@@ -48,7 +48,7 @@ public class deleteInformation extends HttpServlet {
                     id_admin = id_principal;
                     bd.eliminarAdministrador(id_admin);
                     bd.eliminarUsuario(id_user);
-                    url = "/tallerDeInglesUAEM/view/listaAdmin.jsp";
+                    url = "/tallerDeInglesUAEM/view/listaAdministradores.jsp";
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Administrador eliminados correctamente");
                     break;

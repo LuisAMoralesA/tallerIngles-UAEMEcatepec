@@ -64,7 +64,7 @@
                     sesion.getAttribute("calif");
             %>
             <li>
-                <a href="../view/principal_students.jsp">
+                <a href="../view/menuAlumno.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -95,7 +95,7 @@
                     sesion.getAttribute("gruposId");
             %>
             <li>
-                <a href="../view/principal_teacher.jsp">
+                <a href="../view/menuTeacher.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -103,7 +103,7 @@
 
 
             <li>
-                <a href="../view/asignarCalificaciones.jsp">
+                <a href="../view/actualizarCalificaciones.jsp">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
@@ -118,7 +118,7 @@
             <%}
             else {%>
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -139,7 +139,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
@@ -192,7 +192,7 @@
                 <h1>Lista de Grupos</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/addInformation.jsp?add=4">
+                        <a id = "link" href="../view/agregarInformacion.jsp?add=4">
                            <i class="fa-solid fa-school-flag"></i> <br>
                             Agregar Grupo
                         </a>

@@ -49,13 +49,13 @@
                         textButton = "Volver a la sesion";
                         switch(rangoPrincipal){
                             case "ESTUDIANTE":
-                                link = "../view/principal_students.jsp";
+                                link = "../view/menuAlumno.jsp";
                                 break;
                             case "PROFESOR":
-                                link = "../view/principal_teacher.jsp"; 
+                                link = "../view/menuTeacher.jsp"; 
                                 break;
                             case "ADMINISTRADOR":
-                                link = "../view/principal_admin.jsp"; 
+                                link = "../view/menuAdministrador.jsp"; 
                                 break;
                         }
                     }

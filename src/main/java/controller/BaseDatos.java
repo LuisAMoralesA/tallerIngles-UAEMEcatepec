@@ -51,6 +51,7 @@ public class BaseDatos {
      **/
     public void insertarAdministrador(Admin_school admin){
         try{
+            //Configuracion para sistemas web desarrollados en Java
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
             con = DriverManager.getConnection(urlDB, "nbUser", "123456");
             String sql = "INSERT INTO admin_school (id_user_admin, apellido_paterno_admin, apellido_materno_admin,"
@@ -2577,7 +2578,7 @@ public class BaseDatos {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
             con = DriverManager.getConnection(urlDB, "nbUser", "123456");
-            String sql = "SELECT COUNT(*) FROM TEACHERS;";
+            String sql = "SELECT COUNT(*) FROM TEACHERS WHERE id_group_teacher IS NOT NULL;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
             

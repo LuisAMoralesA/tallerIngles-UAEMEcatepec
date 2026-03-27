@@ -36,7 +36,7 @@ public class updateSchedule extends HttpServlet {
         Pay_simbology symbol = new Pay_simbology(id_pay, mes, descripcion, mensualidad, periodo, (Object) deadline);
         bd.actualizarCalendario(symbol);
         sesion.setAttribute("actualizacionCompleta","Mensualidad del calendario actualizada correctamente");
-        String url = "/tallerDeInglesUAEM/view/schedule.jsp";
+        String url = "/tallerDeInglesUAEM/view/calendario.jsp";
         response.sendRedirect(url);
     }
     

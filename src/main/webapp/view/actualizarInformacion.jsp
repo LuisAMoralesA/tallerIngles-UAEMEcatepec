@@ -54,7 +54,7 @@
                     sesion.getAttribute("calif");
             %>
             <li>
-                <a href="../view/principal_students.jsp">
+                <a href="../view/menuAlumno.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -85,7 +85,7 @@
                     sesion.getAttribute("gruposId");
             %>
             <li>
-                <a href="../view/principal_teacher.jsp">
+                <a href="../view/menuTeacher.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -93,7 +93,7 @@
 
 
             <li>
-                <a href="../view/asignarCalificaciones.jsp">
+                <a href="../view/actualizarCalificaciones.jsp">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
@@ -108,7 +108,7 @@
             <%}
             else {%>
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -129,7 +129,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
@@ -257,7 +257,7 @@
                             birthdate = String.valueOf(per.getFecha_nacimiento_admin());
                             phone1 = per.getTelefono_admin();
                             email = per.getEmail_admin();
-                            url = "../view/principal_admin.jsp";
+                            url = "../view/menuAdministrador.jsp";
                         }
                     }
                 %>
@@ -303,7 +303,7 @@
                                     url = "../view/listaAlumnos.jsp";
                                 }
                                 else{
-                                    url = "../view/principal_students.jsp"; 
+                                    url = "../view/menuAlumno.jsp"; 
                                 }
                         %>
                     </div>
@@ -388,7 +388,7 @@
                         <input type="text" name="classroom" id="classroom" value ="<%=classroom%>" >
                         <%}
                         else {
-                            url = "../view/principal_teacher.jsp";%>
+                            url = "../view/menuTeacher.jsp";%>
                             <input type="hidden" name="status" id="status" value ="<%=status%>" >
                             <input type="hidden" name="grupo" id="grupo" value ="<%=idgrupo%>" >
                             <input type="hidden" name="classroom" id="classroom" value ="<%=classroom%>" >

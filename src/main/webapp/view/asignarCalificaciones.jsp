@@ -61,14 +61,14 @@
             </li>
 
             <li>
-                <a href="../view/principal_teacher.jsp">
+                <a href="../view/menuTeacher.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/asignarCalificaciones.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="../view/actualizarCalificaciones.jsp" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
