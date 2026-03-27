@@ -334,7 +334,7 @@
         });
     });
     </script>
-    <script src = "/tallerDeInglesUAEM/js/prueba.js"></script>
+    <script src = "/tallerDeInglesUAEM/js/login.js"></script>
     <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
 </body>
 </html>

@@ -102,7 +102,7 @@
             </ul>
         </div>
     </footer>
-        <script src = "/tallerDeInglesUAEM/js/prueba.js"></script>
+        <script src = "/tallerDeInglesUAEM/js/login.js"></script>
     </body>
     
 </html>
