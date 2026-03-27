@@ -58,7 +58,7 @@
             </li>
             
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -79,7 +79,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>

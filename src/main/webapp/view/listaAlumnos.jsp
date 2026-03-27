@@ -58,7 +58,7 @@
             </li>
             
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -79,7 +79,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
@@ -131,7 +131,7 @@
                 <h1>Lista de Estudiantes</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/addInformation.jsp?add=1">
+                        <a id = "link" href="../view/agregarInformacion.jsp?add=1">
                            <i class="fa-solid fa-user-plus"></i> <br>
                             Agregar Alumno
                         </a>
@@ -181,12 +181,12 @@
                             </td>
                             <td><%=usuario%></td>
                             <td>
-                                <a href = "../view/viewPersonalInfo.jsp?idUser=<%=id_user%>" title="Modificar Datos Personales">
+                                <a href = "../view/actualizarInformacion.jsp?idUser=<%=id_user%>" title="Modificar Datos Personales">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href = "../view/viewUserInfo.jsp?idUser=<%=id_user%>" title="Modificar Datos de Acceso">
+                                <a href = "../view/actualizarUsuario.jsp?idUser=<%=id_user%>" title="Modificar Datos de Acceso">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
                             </td> 

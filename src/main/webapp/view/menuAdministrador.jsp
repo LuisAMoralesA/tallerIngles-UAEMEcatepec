@@ -78,7 +78,7 @@
             </li>
 
             <li>
-                <a href="../view/principal_admin.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="../view/menuAdministrador.jsp" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -99,7 +99,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
@@ -164,14 +164,14 @@
             <div id = "button">
                 <ul id = "modificar">
                     <li>
-                        <a href="../view/viewPersonalInfo.jsp">
+                        <a href="../view/actualizarInformacion.jsp">
                             <i class="fa-solid fa-pen"></i> <br>
                             Modificar Datos
                         </a>
                     </li>
 
                     <li>
-                        <a href="../view/viewUserInfo.jsp">
+                        <a href="../view/actualizarUsuario.jsp">
                             <i class="fa-solid fa-key"></i> <br>
                             Cambiar Contraseña
                         </a>

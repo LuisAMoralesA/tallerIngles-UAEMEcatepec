@@ -91,7 +91,7 @@ public class addStudent extends HttpServlet {
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/addInformation.jsp?add=1");
+            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=1");
         }
     }
 

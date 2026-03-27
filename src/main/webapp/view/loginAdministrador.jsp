@@ -18,7 +18,7 @@
             https://sweetalert2.github.io/-->
     </head>
 
-    <body class = "body-teacher">  
+    <body class = "admin-body">
         <header class = "header">
             <div class="menu container">
                 <a href="https://cuecatepec.uaemex.mx/" class="logo-navbar">
@@ -33,44 +33,42 @@
                 <nav class = "navbar">
                     <ul>
                         <li>
-                            <a href="../index.html"> Inicio </a>
+                            <a href="../index.html"> Inicio </a>  
                         </li>
 
                         <li>
-                            <a href="/tallerDeInglesUAEM/view/login_student.jsp"> Alumnos </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginAlumno.jsp"> Alumnos </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/login_teacher.jsp" style = "color: rgb(255, 213, 1)"> Profesores </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginTeacher.jsp"> Profesores </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/login_admin.jsp"> Administrativos </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginAdministrador.jsp" style = "color: rgb(255, 213, 1)"> Administrativos </a>  
                         </li>
                     </ul>
                 </nav>
             </div>
         </header>
-        
-        <main>               
+
+        <main>
             <br><br>
             <div class="contenedor_login_register1">
-                <%//Este apartado usa el servlet loginTeacher%>
-                <form class = "form_login1" method = "POST" action = "../loginTeacher">
-                    <h2> 
-                        <i class="fa-solid fa-person-chalkboard"></i> <br>
-                        Bienvenido, Profesor 
+                <%//Este apartado usa el servlet loginAdmin%>
+                <form method = "POST" class = "form_login1" action = "../loginAdmin">
+                    <h2>
+                        <i class="fa-solid fa-user-tie"></i> <br>
+                        Bienvenido, Administrador 
                     </h2>
                     <p>Ingrese sus datos para iniciar Sesión</p>
                     <input type = "text" id="user" name="user"placeholder="Usuario">
                     <input type = "password" id="pass" name="pass" placeholder="Contraseña">
-                    <button type="submit" id = "submit" name="submit"> Ingresar </button>
+                    <button type ="submit" id= "submit" name="submit"> Ingresar </button>
                 </form>
-                        <%
-                            //Obtiene la sesion que se encuentra en el navegador
-                            HttpSession sesion = request.getSession();
-                            //Busca si se trato de autenticarse pero no coincidian los datos
-                            String mensaje = (String) sesion.getAttribute("errorMessage");
-                            //Si esta accion es detectada, se abre el cuadro de texto diciendo el error de autenticación
-                            if (mensaje != null && !mensaje.isEmpty()){
+                <%
+                     //Obtiene la sesion al usuario
+                    HttpSession sesion = request.getSession();
+                    String mensaje = (String) sesion.getAttribute("errorMessage");
+                    if (mensaje != null && !mensaje.isEmpty()){
                         %>
                         <script>
                             Swal.fire({
@@ -81,11 +79,10 @@
                               });
                         </script>
                         <%}
-                        //Establece que no hay mensaje de error
                         sesion.setAttribute("errorMessage", null);%>
-            </div> 
         </main>
 
+        
         <footer class="footer" > 
         <div class="ubicacion">
             <p class ="p-mapa">

@@ -67,10 +67,10 @@
             rango = per.getRango();
             switch(rangoPrincipal){
                 case "ESTUDIANTE":
-                    url = "../view/principal_students.jsp";
+                    url = "../view/menuAlumno.jsp";
                     break;
                 case "PROFESOR":
-                    url = "../view/principal_teacher.jsp";
+                    url = "../view/menuTeacher.jsp";
                     break;
                 case "ADMINISTRADOR":
                     switch(rango){
@@ -81,7 +81,7 @@
                             url = "../view/listaTeachers.jsp";
                             break;
                         default:
-                            url = "../view/principal_admin.jsp";
+                            url = "../view/menuAdministrador.jsp";
                             break;
                    }
                    break;
@@ -101,7 +101,7 @@
                     sesion.getAttribute("calif");
             %>
             <li>
-                <a href="../view/principal_students.jsp">
+                <a href="../view/menuAlumno.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -132,7 +132,7 @@
                     sesion.getAttribute("gruposId");
             %>
             <li>
-                <a href="../view/principal_teacher.jsp">
+                <a href="../view/menuTeacher.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -140,7 +140,7 @@
 
 
             <li>
-                <a href="../view/asignarCalificaciones.jsp">
+                <a href="../view/actualizarCalificaciones.jsp">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
@@ -155,7 +155,7 @@
             <%}
             else {%>
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -176,7 +176,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp">
+                <a href="../view/listaAdministradores.jsp">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>

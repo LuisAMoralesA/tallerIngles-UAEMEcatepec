@@ -39,21 +39,21 @@ public class loginTeacher extends HttpServlet {
                     //Establece una sesion al usuario
                     sesion = request.getSession(true); 
                     sesion.setAttribute("sesionIniciada", user);
-                    response.sendRedirect("/tallerDeInglesUAEM/view/principal_teacher.jsp");
+                    response.sendRedirect("/tallerDeInglesUAEM/view/menuTeacher.jsp");
                     break;
                 //Si el usuario no existe o tiene otro rango 
                 case BaseDatos.USUARIO_NO_ENCONTRADO:
                     //Impide el paso debido a que el usuario no fue encontrado
                     sesion = request.getSession(false);
                     sesion.setAttribute("errorMessage", "Usuario no encontrado");
-                    response.sendRedirect("/tallerDeInglesUAEM/view/login_teacher.jsp");
+                    response.sendRedirect("/tallerDeInglesUAEM/view/loginTeacher.jsp");
                     break;
                 //Si el usuario existe, pero tiene su contraseña incorrecta
                 case BaseDatos.DATO_INCORRECTO:
                     //Impide el paso debido a que la contraseña ingresada fue incorrecta
                     sesion = request.getSession(false);
                     sesion.setAttribute("errorMessage", "La contraseña ingresada es incorrecta");
-                    response.sendRedirect("/tallerDeInglesUAEM/view/login_teacher.jsp");
+                    response.sendRedirect("/tallerDeInglesUAEM/view/loginTeacher.jsp");
                     break;
             }
         }      

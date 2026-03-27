@@ -55,14 +55,14 @@ public class updateInfo extends HttpServlet {
                     phone1, phone2, (Object) birthdate, email, sale_solo);
             base.actualizarEstudiante(student);
             url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAlumnos.jsp" :
-                    "/tallerDeInglesUAEM/view/principal_students.jsp";
+                    "/tallerDeInglesUAEM/view/menuAlumno.jsp";
             break;
         case "ADMINISTRADOR" :
             Admin_school admin = new Admin_school(idprincipal,iduser,apaterno, amaterno,nombre,
                             (Object) birthdate, phone1, email);
             base.actualizarAdministrador(admin);
-            url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdmin.jsp" :
-                    "/tallerDeInglesUAEM/view/principal_admin.jsp"; 
+            url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdministradores.jsp" :
+                    "/tallerDeInglesUAEM/view/menuAdministrador.jsp"; 
             break;
         case "PROFESOR":
             String status = request.getParameter("status");
@@ -72,7 +72,7 @@ public class updateInfo extends HttpServlet {
                     phone1, email, (Object) birthdate,status, grupo, classroom);
             base.actualizarTeacher(teacher);
             url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaTeachers.jsp" :
-                    "/tallerDeInglesUAEM/view/principal_teacher.jsp"; 
+                    "/tallerDeInglesUAEM/view/menuTeacher.jsp"; 
             break;
         }
         sesion.setAttribute("sesionIniciada", username);

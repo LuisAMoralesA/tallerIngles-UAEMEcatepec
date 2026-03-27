@@ -58,7 +58,7 @@
             </li>
             
             <li>
-                <a href="../view/principal_admin.jsp">
+                <a href="../view/menuAdministrador.jsp">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -79,7 +79,7 @@
             </li>
             
             <li>
-                <a href="../view/listaAdmin.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="../view/listaAdministradores.jsp" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
@@ -132,11 +132,11 @@
                 <h1>Lista de Administradores</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/addInformation.jsp?add=3">
+                        <a id = "link" href="../view/agregarInformacion.jsp?add=3">
                            <i class="fa-solid fa-user-plus"></i> <br>
                             Agregar Administrador
                         </a>
-                        <a id = "link" href="../view/schedule.jsp">
+                        <a id = "link" href="../view/calendario.jsp">
                            <i class="fa-solid fa-calendar"></i><br>
                             Administrar Calendario
                         </a>
@@ -184,12 +184,12 @@
                             <td><%=telefono%></td>
                             <td><%=usuario%></td>
                             <td>
-                                <a <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": "href = '../view/viewPersonalInfo.jsp?idUser=" + id_user_admin + "'"%> title="Modificar Datos Personales">
+                                <a <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": "href = '../view/actualizarInformacion.jsp?idUser=" + id_user_admin + "'"%> title="Modificar Datos Personales">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </a>
                             </td>
                             <td>
-                                <a <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": " href = '../view/viewUserInfo.jsp?idUser=" + id_user_admin + "'"%> title="Modificar Datos de Acceso">
+                                <a <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": " href = '../view/actualizarUsuario.jsp?idUser=" + id_user_admin + "'"%> title="Modificar Datos de Acceso">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
                             </td>

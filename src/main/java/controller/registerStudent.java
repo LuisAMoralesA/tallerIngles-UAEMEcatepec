@@ -90,11 +90,11 @@ public class registerStudent extends HttpServlet {
                                                 name,phone,phone,(Object) birthdate, email, sale_solo);
                 base.insertarEstudiante(student);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/login_student.jsp");
+            response.sendRedirect("/tallerDeInglesUAEM/view/loginAlumno.jsp");
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/login_student.jsp");
+            response.sendRedirect("/tallerDeInglesUAEM/view/loginAlumno.jsp");
         }
     }
     //Para evitar fallos en el futuro

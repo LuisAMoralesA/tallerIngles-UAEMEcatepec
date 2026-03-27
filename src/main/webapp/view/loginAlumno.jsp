@@ -39,13 +39,13 @@
                         </li>
 
                         <li>
-                            <a href="/tallerDeInglesUAEM/view/login_student.jsp" style = "color: rgb(255, 213, 1)"> Alumnos </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginAlumno.jsp" style = "color: rgb(255, 213, 1)"> Alumnos </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/login_teacher.jsp"> Profesores </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginTeacher.jsp"> Profesores </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/login_admin.jsp"> Administrativos </a>  
+                            <a href="/tallerDeInglesUAEM/view/loginAdministrador.jsp"> Administrativos </a>  
                         </li>
                     </ul>
                 </nav>

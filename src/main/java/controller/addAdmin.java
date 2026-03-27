@@ -78,11 +78,11 @@ public class addAdmin extends HttpServlet {
                                             (Object) birthdate, phone, email);
                 base.insertarAdministrador(administrador);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/listaAdmin.jsp");
+            response.sendRedirect("/tallerDeInglesUAEM/view/listaAdministradores.jsp");
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/addInformation.jsp?add=3");
+            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=3");
         }
     }
 

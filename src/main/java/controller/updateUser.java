@@ -26,7 +26,7 @@ public class updateUser extends HttpServlet {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
         String rango = request.getParameter("rango");
-        String url = "/tallerDeInglesUAEM/view/viewUserInfo.jsp"; 
+        String url = "/tallerDeInglesUAEM/view/actualizarUsuario.jsp"; 
         
         //No poner atributos disabled en HTML por que no son detectados
         HttpSession sesion = request.getSession();
@@ -49,15 +49,15 @@ public class updateUser extends HttpServlet {
             switch(rango){
                 case "ESTUDIANTE": 
                     url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAlumnos.jsp": 
-                            "/tallerDeInglesUAEM/view/principal_students.jsp";
+                            "/tallerDeInglesUAEM/view/menuAlumno.jsp";
                     break;
                 case "ADMINISTRADOR" : 
-                    url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdmin.jsp" : 
-                            "/tallerDeInglesUAEM/view/principal_admin.jsp"; 
+                    url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdministradores.jsp" : 
+                            "/tallerDeInglesUAEM/view/menuAdministrador.jsp"; 
                     break;
                 case "PROFESOR":
                     url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaTeachers.jsp" : 
-                            "/tallerDeInglesUAEM/view/principal_teacher.jsp"; 
+                            "/tallerDeInglesUAEM/view/menuTeacher.jsp"; 
                     break;
             }
             sesion.setAttribute("sesionIniciada", usernameOriginal);
