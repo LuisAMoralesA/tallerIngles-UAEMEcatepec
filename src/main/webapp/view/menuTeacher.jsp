@@ -29,7 +29,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
         <!--Link para visualizar alertas
             https://sweetalert2.github.io/-->
-    <title>Control Escolar de Profesor</title>
+    <title><%=Constantes.TITULO_MENU_TEACHER%></title>
 </head>
 <body>
     <%
