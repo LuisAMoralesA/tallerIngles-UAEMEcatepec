@@ -40,4 +40,29 @@ public class Constantes {
     public static final String TITULO_SEGUIMIENTO_PAGO = "Seguimiento de Pago de Alumno";
     public static final String TITULO_SESION_EXPIRADA = "Sesion Expirada";
     public static final String TITULO_VISTA_CALIFICACIONES = "Menu de Calificaciones";
+    
+    //Constantes para URLs de Imagenes
+    public static final String URL_FONDO1 = "../Images/Fondo1.jpg";
+    public static final String URL_FONDO2 = "../Images/Fondo2.jpg";
+    public static final String URL_FONDO3 = "../Images/Fondo3.jpg";
+    public static final String URL_FONDO4 = "../Images/Fondo4.jpg";
+    public static final String URL_FONDO5 = "../Images/Fondo5.jpg";
+    public static final String URL_FOTO_ALUMNOS = "../Images/FotoAlumnos.jpg";
+    public static final String URL_FOTO_CURSOS = "../Images/FotoCursos.jpg";
+    public static final String URL_LOGO_TALLER1 = "../Images/Logo_Taller1.png";
+    public static final String URL_LOGO_TALLER1_BN = "../Images/Logo_Taller1_BN.png";
+    public static final String URL_LOGO_TALLER2 = "../Images/Logo_Taller2.png";
+    public static final String URL_LOGO_TALLER2_BN = "../Images/Logo_Taller2_BN.png";
+    public static final String URL_MENU = "../Images/Menu.png";
+    public static final String URL_NINOS1 = "../Images/Niños1.jpg";
+    public static final String URL_UAEMEX1 = "../Images/UAEMex1.jpg";
+    public static final String URL_UAEMEX2 = "../Images/UAEMEX2.jpg";
+    public static final String URL_CORREO = "../Images/correo.png";
+    public static final String URL_FACEBOOK = "../Images/facebook.png";
+    public static final String URL_SESION_EXPIRADA = "../Images/sesionExpirada1.png";
+    public static final String URL_UAEM = "../Images/uaem.png";
+    public static final String URL_UAEM_BN = "../Images/uaem_BN.png";;
+    public static final String URL_USER = "../Images/user.png";
+    public static final String URL_USER2 = "../Images/user2.png";
+    public static final String URL_USER3 = "../Images/user3.png";
 }
