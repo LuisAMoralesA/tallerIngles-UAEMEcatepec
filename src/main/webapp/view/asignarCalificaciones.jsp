@@ -30,7 +30,7 @@
         <!--Link para visualizar alertas
             https://sweetalert2.github.io/-->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <title>Control Escolar de Profesor</title>
+    <title><%=Constantes.TITULO_ASIGNAR_CALIFICACIONES%></title>
 </head>
 <body>
     <%

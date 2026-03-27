@@ -44,9 +44,7 @@ public class registerStudent extends HttpServlet {
         String email = request.getParameter("email");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
-        
-        
-        //if(request.getParameter("add")!=null){
+
         HttpSession sesion = request.getSession(false);
         if(password1.equals(password2)){
             //Crea las conexiones a la base de datos

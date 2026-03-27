@@ -4,6 +4,7 @@
  */
 package controller.servlet;
 
+import controller.Constantes;
 import controller.BaseDatos;
 import controller.SHA256;
 import java.io.IOException;
@@ -39,21 +40,21 @@ public class loginAdmin extends HttpServlet {
                 int resultado = base.inicioSesion(user, pass, "ADMINISTRADOR");
                 switch (resultado) {
                     //Si el usuario existe y tiene el rango correcto
-                    case BaseDatos.ACCESO_CONCEDIDO:
+                    case Constantes.ACCESO_CONCEDIDO:
                         //Establece una sesion al usuario
                         sesion = request.getSession(true); 
                         sesion.setAttribute("sesionIniciada", user);
                         response.sendRedirect("/tallerDeInglesUAEM/view/menuAdministrador.jsp");
                         break;
                     //Si el usuario no existe o tiene otro rango 
-                    case BaseDatos.USUARIO_NO_ENCONTRADO:
+                    case Constantes.USUARIO_NO_ENCONTRADO:
                         //Impide el paso debido a que el usuario no fue encontrado
                         sesion = request.getSession(false);
                         sesion.setAttribute("errorMessage", "Usuario no encontrado");
                         response.sendRedirect("/tallerDeInglesUAEM/view/loginAdministrador.jsp");
                         break;
                     //Si el usuario existe, pero tiene su contraseña incorrecta
-                    case BaseDatos.DATO_INCORRECTO:
+                    case Constantes.DATO_INCORRECTO:
                         //Impide el paso debido a que la contraseña ingresada fue incorrecta
                         sesion = request.getSession(false);
                         sesion.setAttribute("errorMessage", "La contraseña ingresada es incorrecta");
