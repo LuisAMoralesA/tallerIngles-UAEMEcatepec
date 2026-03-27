@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.servlet;
 
+import controller.BaseDatos;
 import model.Tables.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

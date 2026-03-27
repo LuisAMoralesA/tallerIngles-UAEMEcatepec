@@ -13,13 +13,14 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.*;
 import net.sf.jasperreports.pdf.JRPdfExporter;
+import controller.struct.ReportesStruct;
 
 /**
  * Funcion para crear reportes
  * @author Luis Morales
  */
 
-public class Reportes {
+public class Reportes implements ReportesStruct{
     Connection con = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
@@ -56,6 +57,7 @@ public class Reportes {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      **/
+    @Override
     public void bitacorasDeAlumnos(HttpServletResponse response, String ruta, String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
                                                                                     int id_teacher_student, String classroom) 
                                                                                     throws ClassNotFoundException, InstantiationException,
@@ -110,6 +112,7 @@ public class Reportes {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      **/
+    @Override
     public void bitacorasDeProfesores(HttpServletResponse response, String ruta, String ruta_imagenes, String periodoActual) throws ClassNotFoundException, InstantiationException,
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
@@ -165,6 +168,7 @@ public class Reportes {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      **/
+    @Override
     public void listasPagos(HttpServletResponse response, String ruta, String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
                                                                                     int id_teacher, String classroom, String periodoActual, String numMeses) 
                                                                             throws ClassNotFoundException, InstantiationException,
@@ -226,6 +230,7 @@ public class Reportes {
      * @throws net.sf.jasperreports.engine.JRException
      * @throws java.io.IOException
      **/
+    @Override
     public void listaCalificaciones(HttpServletResponse response, String ruta, String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
                                                                                     int id_teacher, String periodoActual) 
                                                                             throws ClassNotFoundException, InstantiationException,

@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.servlet;
 
+import controller.BaseDatos;
+import controller.SHA256;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,8 +21,8 @@ import model.Tables.*;
  * Servlet que se activa cuando un administrador desea agregar un estudiante desde su perfil 
  * @author Luis Morales
  */
-@WebServlet(name = "addStudent", urlPatterns = {"/addStudent"})
-public class addStudent extends HttpServlet {
+@WebServlet(name = "addTeacher", urlPatterns = {"/addTeacher"})
+public class addTeacher extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +42,10 @@ public class addStudent extends HttpServlet {
         String birthdate = request.getParameter("birthdate");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
-        boolean sale_solo = request.getParameter("sale_solo").equals("1") ? true : false;
+
+        String status = request.getParameter("status");
+        int grupo = Integer.parseInt(request.getParameter("grupo"));
+        String classroom = request.getParameter("classroom");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
         
@@ -57,41 +62,32 @@ public class addStudent extends HttpServlet {
             String passwordNew = hash.contraseñaNueva(password1);
 
             //Apesar de tener un valor de 1, no lo tomara en cuenta el codigo
-            Users user = new Users(1, nomUsuario, passwordNew,"ESTUDIANTE");
+            Users user = new Users(1, nomUsuario, passwordNew,"PROFESOR");
             base.insertarUsuario(user);
 
             //Define el valor de los cuadros de mensaje de confirmación
             sesion.setAttribute("actualizacionCompleta","Usuario Agregado correctamente");
             sesion.setAttribute("userNameRegistrado", nomUsuario);
-
-            //Asigna su lista de pago
-            Payment listaPago = new Payment(1, false,false,false,false,false,false,false,false,1);
-            int id_pagos = base.insertarSeguimientoDePago(listaPago);
-
-            //Asigna una lista de calificaciones nueva
-            Report reporteCalificaciones = new Report(1, 0.0, 0.0, 0.0);
-            int id_calificaciones = base.insertarReporteCalificaciones(reporteCalificaciones);
-
+            
             //Vuelve a obtener los datos del usuario en la tabla para obtener su id en la tabla
             ArrayList <Users> lista = base.obtenerUsuario(nomUsuario);
             Iterator  <Users> iter = lista.iterator();
             Users per = null;
-            
+
             //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
             if(iter.hasNext()){
                 per = iter.next();
-                int id_student = 1;
-                int id_teacher_student = 0;
-                int id_user_student = per.getId_user();
-                Students student = new Students(id_student, id_teacher_student, id_calificaciones, id_pagos, id_user_student, apaterno,amaterno,
-                                                name,phone,phone,(Object) birthdate, email, sale_solo);
-                base.insertarEstudiante(student);
+                int id_teacher = 1;
+                int id_user_teacher = per.getId_user();
+                Teachers teacher = new Teachers(id_teacher, id_user_teacher, apaterno,amaterno,
+                                                name,phone,email, (Object) birthdate, status, grupo, classroom);
+                base.insertarTeacher(teacher);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/listaAlumnos.jsp");
+            response.sendRedirect("/tallerDeInglesUAEM/view/listaTeachers.jsp");
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=1");
+            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=2");
         }
     }
 

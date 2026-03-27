@@ -7,17 +7,19 @@ package controller;
 //Librerias para importar el criptosistema
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import controller.struct.SHA256Struct;
 
 /**
  * Funcion para encriptar la contraseña
  * @author Luis Morales
  */
-public class SHA256 {
+public class SHA256 implements SHA256Struct{
     /**
      * Este metodo permite encriptar una contraseña para almacenarla en la base de datos usando el metodo SHA-256
      * @param pass Contraseña sin hashear
      * @return String: Contraseña hasheada
      **/
+    @Override
     public String contraseñaNueva(String pass){
         try{
             //Importar el algoritmo SHA-256
