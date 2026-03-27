@@ -4,6 +4,7 @@
  */
 package controller;
 
+import controller.struct.BaseDatosStruct;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.util.Iterator;
  * Funcion que contiene todas las operaciones de la Base de Datos
  * @author Luis Morales
  */
-public class BaseDatos {
+public class BaseDatos implements BaseDatosStruct{
     
     //Implementa constantes de inicio de sesión
     public static final int DATO_INCORRECTO = 1;
@@ -49,6 +50,7 @@ public class BaseDatos {
      * Este metodo permite insertar un administrador a la base de datos por un comando SQL
      * @param admin : Un objeto de tipo admin_school que contiene los datos para agregar a la tabla correspondiente 
      **/
+    @Override
     public void insertarAdministrador(Admin_school admin){
         try{
             //Configuracion para sistemas web desarrollados en Java
@@ -85,6 +87,7 @@ public class BaseDatos {
      * @param category : Un objeto de tipo Category que contiene los datos para agregar a la tabla correspondiente 
      **/
     //
+    @Override 
     public void insertarCategoria(Category category) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -111,6 +114,7 @@ public class BaseDatos {
      * @param status : Un objeto de tipo Payment_status que contiene los datos para agregar a la tabla correspondiente 
      **/
     
+    @Override 
     public void insertarEstatusDePago(Payment_status status) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -137,6 +141,7 @@ public class BaseDatos {
      * @return id_pago
      * @param pay : Un objeto de tipo Payment que contiene los datos para agregar a la tabla correspondiente 
      **/
+    @Override 
     public int insertarSeguimientoDePago(Payment pay) {
         int id_pay = 0;
         try{
@@ -176,6 +181,7 @@ public class BaseDatos {
      * Este metodo permite insertar un estudiante a la base de datos por un comando SQL
      * @param student : Un objeto de tipo student que contiene los datos para agregar a la tabla correspondiente 
      **/
+    @Override 
     public void insertarEstudiante(Students student) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -220,6 +226,7 @@ public class BaseDatos {
      * Este metodo permite insertar un grupo a la base de datos por un comando SQL
      * @param group : Un objeto de tipo Grupos que contiene los datos para agregar a la tabla correspondiente 
      **/
+    @Override 
     public void insertarGrupos(Grupos group) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -251,6 +258,7 @@ public class BaseDatos {
      * @param grade : Un objeto de tipo Grade o Nivel que contiene los datos para agregar a la tabla correspondiente 
      **/
     
+    @Override 
     public void insertarNivel(Grade grade) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -278,6 +286,7 @@ public class BaseDatos {
      * @param symbol : Un objeto de tipo Pay_simbology que contiene los datos para agregar a la tabla correspondiente 
      **/
 
+    @Override 
     public void insertarMes(Pay_simbology symbol) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -309,6 +318,7 @@ public class BaseDatos {
      * @param report : Un objeto de tipo report que contiene los datos para agregar a la tabla correspondiente 
      **/
     
+    @Override 
     public int insertarReporteCalificaciones(Report report) {
         int id_reporte = 0;
         try{
@@ -341,6 +351,7 @@ public class BaseDatos {
      * Este metodo permite insertar un profesor a la base de datos por un comando SQL
      * @param teacher : Un objeto de tipo teacher que contiene los datos para agregar a la tabla correspondiente 
      **/    
+    @Override 
     public void insertarTeacher(Teachers teacher) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -381,6 +392,7 @@ public class BaseDatos {
      * Este metodo permite insertar un usuario a la base de datos por un comando SQL
      * @param user : Un objeto de tipo usuario que contiene los datos para agregar a la tabla correspondiente 
      **/
+    @Override 
     public void insertarUsuario(Users user) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -409,6 +421,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar los datos de un usuario especifico 
      * @param user: Un objeto de tipo User con todos sus datos 
      **/
+    @Override 
     public void actualizarUsuario(Users user){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -437,6 +450,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar los datos de un usuario especifico 
      * @param teacher: Un objeto de tipo Teacher con todos sus datos 
      **/
+    @Override 
     public void actualizarTeacher(Teachers teacher){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -478,6 +492,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar los datos de un administrador especifico 
      * @param admin: Un objeto de tipo Admin_school con todos sus datos 
      **/
+     @Override 
      public void actualizarAdministrador(Admin_school admin){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -510,6 +525,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar los datos de un estudiante especifico 
      * @param student: Un objeto de tipo Student con todos sus datos 
      **/ 
+    @Override 
     public void actualizarEstudiante(Students student){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -552,6 +568,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar el grupo del alumno
      * @param student: Un objeto de tipo Student con todos sus datos. 
      **/ 
+    @Override 
     public void cambiarEstudianteDeGrupo(Students student){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -580,6 +597,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar las calificaciones de un alumno especifico 
      * @param report: Un objeto de tipo Report con todos sus datos 
      **/
+    @Override 
     public void actualizarReporteCalificaciones(Report report) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -607,6 +625,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar la descripcion de un estatus de pago especifico 
      * @param status: Un objeto de tipo Payment_status con todos sus datos 
      **/
+    @Override 
     public void actualizarEstatusDePago(Payment_status status) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -632,6 +651,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar el registro de pago de un alumno especifico. 
      * @param pay: Un objeto de tipo Payment con todos sus datos 
      **/
+    @Override 
     public void actualizarSeguimientoDePago(Payment pay) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -667,6 +687,7 @@ public class BaseDatos {
      * @param symbol: Un objeto de tipo Pay_simbology con todos sus datos 
      **/
     //Simbologia de Pagos
+    @Override 
     public void actualizarCalendario(Pay_simbology symbol) {
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -703,6 +724,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar la informacion de un grupo especifico
      * @param group: Un objeto de tipo Grupos con todos sus datos 
      **/
+    @Override 
     public void actualizarGrupos(Grupos group){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -731,6 +753,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar la descripcion de un nivel especifico 
      * @param grade: Un objeto de tipo Grade con todos sus datos 
      **/
+     @Override 
      public void actualizarNivel(Grade grade){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -739,7 +762,7 @@ public class BaseDatos {
             pstm = con.prepareStatement(sql);
             pstm.setString(1, grade.getDescription_grade());
             pstm.setInt(2, grade.getId_grade());
-            rs = pstm.executeQuery();
+            pstm.executeUpdate();
             
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -757,6 +780,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para actualizar la descripcion de una categoria especifica
      * @param category: Un objeto de tipo Category con todos sus datos 
      **/ 
+    @Override 
     public void actualizarCategorias(Category category){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -765,7 +789,7 @@ public class BaseDatos {
             pstm = con.prepareStatement(sql);
             pstm.setString(1, category.getDescription_category());
             pstm.setInt(2, category.getId_category());
-            rs = pstm.executeQuery();
+            pstm.executeUpdate();
 
             
         }catch(SQLException ex){
@@ -785,6 +809,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Usuarios
      * @return ArrayList: Lista de usuarios de la Base de datos
      **/
+    @Override 
     public ArrayList<Users> obtenerUsuarios(){
         ArrayList<Users> listaUsuarios = new ArrayList<>();
         try{
@@ -822,6 +847,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Teachers
      * @return ArrayList: Lista de profesores de la Base de datos
      **/
+    @Override 
     public ArrayList<Teachers> obtenerTeachers(){
         ArrayList<Teachers> listaTeachers = new ArrayList<>();
         try{
@@ -867,6 +893,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Students
      * @return ArrayList: Lista de estudiantes de la Base de datos
      **/
+    @Override 
     public ArrayList<Students> obtenerEstudiantes(){
         ArrayList<Students> listaStudents = new ArrayList<>();
         try{
@@ -918,6 +945,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Admin_school
      * @return ArrayList: Lista de Administradores de la Base de datos
      **/
+    @Override 
     public ArrayList<Admin_school> obtenerAdministrador(){
         ArrayList<Admin_school> listaAdministrador = new ArrayList<>();
         try{
@@ -961,6 +989,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Report
      * @return ArrayList: Lista de las calificaciones de los alumnos registrados en la Base de datos
      **/
+    @Override 
     public ArrayList<Report> obtenerCalificaciones(){
         ArrayList<Report> listaCalificaciones = new ArrayList<>();
         try{
@@ -999,6 +1028,7 @@ public class BaseDatos {
      * @return ArrayList: Lista de Descripcion de Estatus de pago de la Base de datos
      **/
     
+    @Override 
     public ArrayList<Payment_status> obtenerEstatus(){
         ArrayList<Payment_status> listaEstatus = new ArrayList<>();
         try{
@@ -1034,6 +1064,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Payment
      * @return ArrayList: Lista de seguimiento de Pago de todos los alumnos de la Base de datos
      **/
+    @Override 
     public ArrayList<Payment> obtenerSeguimiento(){
         ArrayList<Payment> listaSeguimiento = new ArrayList<>();
         try{
@@ -1077,6 +1108,7 @@ public class BaseDatos {
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Pay_simbology
      * @return ArrayList: Calendario con su simbologia de pago registrado en la Base de datos
      **/
+    @Override 
     public ArrayList<Pay_simbology> obtenerCalendario(){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
@@ -1116,6 +1148,7 @@ public class BaseDatos {
      * @return ArrayList: Lista de grupos del Taller de Ingles de la Base de datos
      **/
     
+    @Override 
     public ArrayList<Grupos> obtenerGrupos(){
         ArrayList<Grupos> listaGrupos = new ArrayList<>();
         try{
@@ -1155,6 +1188,7 @@ public class BaseDatos {
      * @return ArrayList: Lista de niveles de Ingles de la Base de datos
      **/
     
+    @Override 
     public ArrayList<Grade> obtenerNivel(){
         ArrayList<Grade> listaNiveles = new ArrayList<>();
         try{
@@ -1191,6 +1225,7 @@ public class BaseDatos {
      * @return ArrayList: Lista de Categorias de Ingles de la Base de datos
      **/
     
+    @Override 
     public ArrayList<Category> obtenerCategorias(){
         ArrayList<Category> listaCategorias = new ArrayList<>();
         try{
@@ -1229,6 +1264,7 @@ public class BaseDatos {
      * @return ArrayList: Datos de un usuario especifico en la base de datos
      **/
     
+    @Override 
     public ArrayList<Users> obtenerUsuario(String usuario){
         ArrayList<Users> listaUsuario = new ArrayList<>();
         try{
@@ -1270,6 +1306,7 @@ public class BaseDatos {
      * @return ArrayList: Datos de un profesor especifico en la base de datos
      **/
     
+    @Override 
     public ArrayList<Teachers> obtenerTeacher(int id_user){
         ArrayList<Teachers> listaTeachers = new ArrayList<>();
         try{
@@ -1316,7 +1353,9 @@ public class BaseDatos {
      * @param id_user: Id de usuario del administrador para comparar en la base de datos
      * @return ArrayList: Datos de un administrador especifico en la base de datos
      **/
-     public ArrayList<Admin_school> obtenerAdministrador(int id_user){
+    
+    @Override 
+    public ArrayList<Admin_school> obtenerAdministrador(int id_user){
         ArrayList<Admin_school> listaAdministrador = new ArrayList<>();
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -1361,6 +1400,7 @@ public class BaseDatos {
      * @return ArrayList: Datos de un  alumno especifico en la base de datos
      **/
      
+    @Override 
     public ArrayList<Students> obtenerEstudiante(int id_user){
         ArrayList<Students> listaStudents = new ArrayList<>();
         try{
@@ -1414,6 +1454,7 @@ public class BaseDatos {
      * @param id: Id de la lista de calificaciones a buscar
      * @return ArrayList: Lista de calificaciones de un alumno especifico
      **/
+    @Override 
     public ArrayList<Report> obtenerCalificaciones(int id){
         ArrayList<Report> listaCalificaciones = new ArrayList<>();
         try{
@@ -1453,6 +1494,7 @@ public class BaseDatos {
      * @return ArrayList: Estatus e identificador en la base de datos
      **/
     
+    @Override 
     public String obtenerEstatus(int id){
         ArrayList<Payment_status> listaEstatus = new ArrayList<>();
         String estatusEncontrado = "";
@@ -1492,6 +1534,7 @@ public class BaseDatos {
      * @return ArrayList: Lista de seguimiento de un alumno especifico
      **/
     
+    @Override 
     public ArrayList<Payment> obtenerSeguimiento(int id){
         ArrayList<Payment> listaSeguimiento = new ArrayList<>();
         try{
@@ -1531,6 +1574,13 @@ public class BaseDatos {
         return listaSeguimiento;
     }
     
+    /**
+     * Este metodo permite obtener el periodo del mes que se desea buscar
+     * @param mes: Mes a buscar en la base de datos
+     * @return ArrayList: Lista de seguimiento de un alumno especifico
+     **/
+    
+    @Override 
     public String obtenerPeriodo(String mes){
         String periodoEncontrado = "";
         try{
@@ -1557,12 +1607,14 @@ public class BaseDatos {
         }
         return periodoEncontrado;
     }
+    
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un mes especifico
      * @param periodo: Periodo Escolar buscado en la base de datos
      * @return ArrayList: Informacion del mes solicitado
      **/
     
+    @Override 
     public ArrayList<Pay_simbology> obtenerCalendario(String periodo){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
@@ -1603,6 +1655,7 @@ public class BaseDatos {
      * @return ArrayList: Informacion del mes solicitado
      **/
     
+    @Override 
     public ArrayList<Pay_simbology> obtenerDatosDeMes(int id_month){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
@@ -1636,11 +1689,13 @@ public class BaseDatos {
         }
         return calendario;
     }
+    
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un grupo especifico
      * @param id: Id del grupo  buscado en la base de datos
      * @return ArrayList: Informacion del grupo solicitado
      **/
+    @Override 
     public ArrayList<Grupos> obtenerGrupos(int id){
         ArrayList<Grupos> listaGrupos = new ArrayList<>();
         try{
@@ -1682,6 +1737,7 @@ public class BaseDatos {
      * @param id: Id del nivel buscado en la base de datos
      * @return ArrayList: Informacion del nivel solicitado
      **/
+    @Override 
     public String obtenerNivel(int id){
         ArrayList<Grade> listaNiveles = new ArrayList<>();
         String nivelObtenido = "";
@@ -1722,8 +1778,8 @@ public class BaseDatos {
      * @param id: Id de la categroia en la base de datos
      * @return ArrayList: Informacion de la categoria solicitada
      **/
+    @Override
     public String obtenerCategorias(int id){
-        ArrayList<Category> listaCategorias = new ArrayList<>();
         String categoriaObtenida = "";
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -1736,9 +1792,6 @@ public class BaseDatos {
             while(rs.next()){
                 int id_category = rs.getInt("id_category");
                 String description_category = rs.getString("description_category");
-                
-                Category cat = new Category(id_category, description_category);
-                listaCategorias.add(cat);
                 categoriaObtenida = description_category;
             }
             
@@ -1763,6 +1816,7 @@ public class BaseDatos {
      * @return ArrayList: Informacion del administrador localizada en diferentes tablas.
      **/
     
+    @Override 
     public ArrayList<ConsultasAdmin> obtenerDatosAdministradores(){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultasAdmin> listaDatos = new ArrayList<>();
@@ -1815,6 +1869,14 @@ public class BaseDatos {
         }
         return listaDatos;
     }
+    
+    /**
+     * Este metodo permite el id del ultimo registro de la tabla de reportes para asignar a nuevos alumnos. 
+     * <br>
+     * 
+     * @return int: El ultimo id de la tabla <b>Payment</b>
+     **/
+    @Override 
     public int actualizarListas(){
         int ultimoRegistro = 0;
         try{
@@ -1844,6 +1906,7 @@ public class BaseDatos {
      * 
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaAlumnos> obtenerDatosAlumnos(){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaAlumnos> listaDatos = new ArrayList<>();
@@ -1918,6 +1981,7 @@ public class BaseDatos {
      * 
      * @return ArrayList: Informacion del todos los grupos localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaGrupos> obtenerDatosGrupos(){
         ArrayList <ConsultaGrupos> datosGrupo = new ArrayList<>();
          try{
@@ -1970,6 +2034,7 @@ public class BaseDatos {
      * 
      * @return ArrayList: Informacion del profesor localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaTeacher> obtenerDatosProfesores(){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaTeacher> listaDatos = new ArrayList<>();
@@ -2041,6 +2106,7 @@ public class BaseDatos {
      *          USUARIO_NO_ENCONTRADO = 2<br>
      *          ACCESO_CONCEDIDO = 3<br>
      **/
+    @Override 
     public int inicioSesion(String user, String password, String rol){
         int pagina = 0;
         try{
@@ -2091,6 +2157,7 @@ public class BaseDatos {
      * @return ArrayList: Informacion del administrador localizada en diferentes tablas.
      **/
     
+    @Override 
     public ArrayList<ConsultasAdmin> obtenerDatosAdministrador(String usuario){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultasAdmin> listaDatos = new ArrayList<>();
@@ -2146,11 +2213,7 @@ public class BaseDatos {
         }
         return listaDatos;
     }
-    
-    
-    
-    
-    
+
     /**
      * Este metodo permite hacer una consulta SQL de varias tablas enfocada en 
      * un alumno UNICO y visualizar su informacion en la pagina web. 
@@ -2158,6 +2221,7 @@ public class BaseDatos {
      * @param usuario: Nombre de usuario a buscar en la base de datos
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaAlumnos> obtenerDatosAlumno(String usuario){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaAlumnos> listaDatos = new ArrayList<>();
@@ -2235,6 +2299,7 @@ public class BaseDatos {
      * @param id_grupo: Id del grupo a buscar en la base de datos
      * @return ArrayList: Informacion del todos los grupos localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaGrupos> obtenerDatosGrupo(int id_grupo){
         ArrayList <ConsultaGrupos> datosGrupo = new ArrayList<>();
          try{
@@ -2287,6 +2352,7 @@ public class BaseDatos {
      * @param id_grupo: Id del grupo a obtener 
      * @return String: Concatenacion de grupo.
      **/
+    @Override 
     public String concatenarInfoGrupo(int id_grupo){
         String datosGrupo = "";
         try{
@@ -2320,6 +2386,7 @@ public class BaseDatos {
      * @param id_prof: Id del profesor responsable 
      * @return String: Concatenacion de grupo.
      **/
+    @Override 
     public String concatenarDatosGrupo(int id_prof){
         String datosGrupo = "";
          try{
@@ -2370,6 +2437,7 @@ public class BaseDatos {
      * @param id_prof: Id del profesor responsable 
      * @return String: Concatenacion de grupo.
      **/
+    @Override 
     public String concatenarDatosProfesor(int id_prof){
         String datosProf = "";
          try{
@@ -2410,6 +2478,7 @@ public class BaseDatos {
      * @param id_student: Id del alumno 
      * @return String: Concatenacion de grupo.
      **/
+    @Override 
     public String concatenarDatosAlumno(int id_student){
         String datosAlumno = "";
          try{
@@ -2443,6 +2512,7 @@ public class BaseDatos {
      * @param id_admin: Id del administrador
      * @return String: Concatenacion de grupo.
      **/
+    @Override 
     public String concatenarDatosAdministrador(int id_admin){
         String datosAdmin = "";
          try{
@@ -2476,6 +2546,7 @@ public class BaseDatos {
      * @param usuario: Nombre de usuario a buscar en la base de datos
      * @return ArrayList: Informacion del profesor localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaTeacher> obtenerDatosProfesores(String usuario){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaTeacher> listaDatos = new ArrayList<>();
@@ -2543,6 +2614,7 @@ public class BaseDatos {
      * <br>
      * @return int: Cantidad de grupos en la base de datos. 
      **/
+    @Override 
     public int conteoAlumnos(){
         int conteo = 0;
         try{
@@ -2573,6 +2645,7 @@ public class BaseDatos {
      * <br>
      * @return int: Cantidad de grupos en la base de datos. 
      **/
+    @Override 
     public int conteoProfesores(){
         int conteo = 0;
         try{
@@ -2605,6 +2678,7 @@ public class BaseDatos {
      * @param  id_teacher: Id del profesor
      * @return int: Cantidad de grupos en la base de datos. 
      **/
+    @Override 
     public int conteoAlumnos(int id_teacher){
         int conteo = 0;
         try{
@@ -2643,6 +2717,7 @@ public class BaseDatos {
      * @param  periodoActual: Id del profesor
      * @return int: Cantidad de grupos en la base de datos. 
      **/
+    @Override 
     public int conteoMeses(String periodoActual){
         int conteo = 0;
         try{
@@ -2675,6 +2750,7 @@ public class BaseDatos {
      * @param id_teacher: Id del profesor a buscar en la base de datos
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaBitacorasAlumnos> obtenerBitacorasDeAlumnos(int id_teacher){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaBitacorasAlumnos> listaAlumnos = new ArrayList<>();
@@ -2722,6 +2798,7 @@ public class BaseDatos {
      * @param id_teacher: Id del profesor a buscar en la base de datos
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaPagos> obtenerListasSeguimientoDePago(int id_teacher){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaPagos> listaAlumnos = new ArrayList<>();
@@ -2782,6 +2859,7 @@ public class BaseDatos {
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
     
+    @Override 
     public ArrayList<ConsultaBitacorasProfesores> obtenerBitacoraProfesores(){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaBitacorasProfesores> listaDatos = new ArrayList<>();
@@ -2835,6 +2913,7 @@ public class BaseDatos {
      * @param id_teacher: Id del profesor a buscar en la base de datos
      * @return ArrayList: Informacion del alumno localizada en diferentes tablas.
      **/
+    @Override 
     public ArrayList<ConsultaCalificaciones> obtenerCalificacionesPorGrupo(int id_teacher){
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaCalificaciones> listaAlumnos = new ArrayList<>();
@@ -2894,6 +2973,7 @@ public class BaseDatos {
      * <br>
      * @param id_user: Id del usuario a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarUsuario(int id_user){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -2925,6 +3005,7 @@ public class BaseDatos {
      * <br>
      * @param id_admin: Id del administrador a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarAdministrador(int id_admin){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -2953,6 +3034,7 @@ public class BaseDatos {
      * <br>
      * @param id_teacher: Id del profesor a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarTeacher(int id_teacher){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -2983,6 +3065,7 @@ public class BaseDatos {
      * <br>
      * @param id_student: Id del estudiante a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarAlumno(int id_student){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -3013,6 +3096,7 @@ public class BaseDatos {
      * <br>
      * @param id_report: Id de la lista de calificaciones a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarListaCalificaciones(int id_report){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -3042,6 +3126,7 @@ public class BaseDatos {
      * <br>
      * @param id_payment: Id de la lista de Seguimiento a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarListaDePago(int id_payment){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -3073,6 +3158,7 @@ public class BaseDatos {
      * <br>
      * @param id_group: Id del grupo a eliminar en la base de datos
      **/
+    @Override 
     public void eliminarGrupo(int id_group){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -3103,6 +3189,7 @@ public class BaseDatos {
      * <br>
      * @param id_group: Id del grupo a desvincular en la base de datos
      **/
+    @Override 
     public void desvincularProfesores(int id_group){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
@@ -3132,6 +3219,7 @@ public class BaseDatos {
      * <br>
      * @param id_teacher: Id del profesor a desvincular en la base de datos
      **/
+    @Override 
     public void desvincularAlumnos(int id_teacher){
         try{
             String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
