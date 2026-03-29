@@ -122,11 +122,13 @@
                         ArrayList <ConsultaCalificaciones> listaAlumnos = base.obtenerCalificacionesPorGrupo(Integer.parseInt(id_teacher));
                         Iterator<ConsultaCalificaciones> iter = listaAlumnos.iterator();
                         ConsultaCalificaciones per = null;
+                        int conteo = 0;
                         while(iter.hasNext()){
+                            conteo++;
                             per = iter.next();
                     %>
                         <tr id = "register">
-                            <th scope="row"><%=per.getId_student()%></th>
+                            <th scope="row"><%=conteo%></th>
                             <td><%=per.getApellido_paterno_student()%></td>
                             <td><%=per.getApellido_materno_student()%></td>    
                             <td><%=per.getNombre_student()%></td>
