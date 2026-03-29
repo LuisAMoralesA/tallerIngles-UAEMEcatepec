@@ -44,7 +44,7 @@
         String usuario = (String) sesion.getAttribute("sesionIniciada");
         
         if(usuario == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         String rangoPrincipal = String.valueOf(sesion.getAttribute("rango"));
@@ -72,21 +72,21 @@
             rango = per.getRango();
             switch(rangoPrincipal){
                 case "ESTUDIANTE":
-                    url = "../view/menuAlumno.jsp";
+                    url = Constantes.VentanasJSP.URL_MENU_ALUMNO;
                     break;
                 case "PROFESOR":
-                    url = "../view/menuTeacher.jsp";
+                    url = Constantes.VentanasJSP.URL_MENU_TEACHER;
                     break;
                 case "ADMINISTRADOR":
                     switch(rango){
                         case "ESTUDIANTE":
-                            url = "../view/listaAlumnos.jsp";
+                            url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                             break;
                         case "PROFESOR":
-                            url = "../view/listaTeachers.jsp";
+                            url = Constantes.VentanasJSP.URL_LISTA_TEACHERS;
                             break;
                         default:
-                            url = "../view/menuAdministrador.jsp";
+                            url = Constantes.VentanasJSP.URL_LISTA_ADMIN;
                             break;
                    }
                    break;
@@ -96,7 +96,7 @@
     <aside id = "menu_lateral">
         <ul id="menu_opciones">
             <li>
-                <img src="../Images/Logo_Taller2.png" alt=""> 
+                <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" alt="">  
             </li>
             
             <%
@@ -106,28 +106,28 @@
                     sesion.getAttribute("calif");
             %>
             <li>
-                <a href="../view/menuAlumno.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ALUMNO%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/seguimientoPago.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_SEGUIMIENTO_PAGO%>">
                     <i class="fa-solid fa-dollar-sign"></i> <br>
                     Seguimiento
                 </a>
             </li>
 
             <li>
-                <a href="../view/vistaCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Calificaciones
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -137,7 +137,7 @@
                     sesion.getAttribute("gruposId");
             %>
             <li>
-                <a href="../view/menuTeacher.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_TEACHER%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -145,14 +145,14 @@
 
 
             <li>
-                <a href="../view/actualizarCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -160,49 +160,49 @@
             <%}
             else {%>
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -227,7 +227,7 @@
                 sesion.setAttribute("contraseñaIncorrecta", null);%>
         <div id = "perfil_usuario">
             <div class="form-container">
-                <form action="../updateUser" method="post">
+                <form action="<%=Constantes.Servlets.SERVLET_ACTUALIZAR_USUARIO%>" method="post">
                 <h1> 
                     <i class="fa-solid fa-arrows-rotate"></i><br> 
                     Actualizar Datos de Inicio de Sesión 
@@ -266,7 +266,7 @@
             </div>
         </div>
     </article>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 
 </html>

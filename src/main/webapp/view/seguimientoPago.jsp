@@ -142,15 +142,13 @@
     <article>
         <div id = "perfil_usuario">
             <div class="form-container2">
-                <form class = "form" action = "../updatePay" method = "post">
+                <form class = "form" action = "<%=Constantes.Servlets.SERVLET_ACTUALIZAR_PAGOS%>" method = "post">
                     <h1> 
                     <i class="fa-solid fa-graduation-cap"></i><br> 
                     Seguimiento de Pago
                     </h1>
                 <%
-                    LocalDate hoy = LocalDate.now();
-                    String mesActual = hoy.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-                    mesActual = mesActual.substring(0, 1).toUpperCase() + mesActual.substring(1);
+                    String mesActual = Constantes.MES.substring(0, 1).toUpperCase() + Constantes.MES.substring(1);
                 %>
 
                 
@@ -293,7 +291,7 @@
                             <td>
                                 <select name="<%=nombreSelect%>" id="<%=nombreSelect%>" style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>">
                                     <option value = "1" <%=mensualidadPagada ? "selected" : ""%> style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>"> PAGADA </option>
-                                    <option value = "0" <%=!mensualidadPagada ? "selected" : ""%> style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>"> PENDIENTE </option>
+                                    <option value = "0" <%=!mensualidadPagada ? "selected" : ""%> style = "background-color: rgba<%=mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>"> PENDIENTE </option>
                                 </select>
                             </td>
                             <%}%>
@@ -306,10 +304,10 @@
                     String urlBack = "";
                     switch(rangoPrincipal){
                         case "ADMINISTRADOR":
-                            urlBack ="../view/listaAlumnos.jsp";
+                            urlBack = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                             break;
                         case "PROFESOR":
-                            urlBack = "../view/actualizarCalificaciones.jsp";
+                            urlBack = Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES;
                             break;
                     }
                 %>
@@ -330,9 +328,9 @@
             </div>
         </div>
     </article>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({
@@ -345,7 +343,6 @@
         });
     });
     </script>
-    <script src = "/tallerDeInglesUAEM/js/login.js"></script>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 </html>

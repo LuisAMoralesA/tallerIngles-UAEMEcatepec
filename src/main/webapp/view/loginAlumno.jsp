@@ -72,7 +72,7 @@
     
                 <div class="contenedor_login_register">
                     <%//Este apartado usa el servlet loginStudent%>
-                    <form class = "form_login" method = "POST" action = "../loginStudent" >
+                    <form class = "form_login" method = "POST" action = "<%=Constantes.Servlets.SERVLET_SESION_ALUMNO%>" >
                         <h2> 
                             <i class="fa-solid fa-user-graduate"></i> <br>
                             Bienvenido, Alumno
@@ -106,7 +106,7 @@
                         %>
                         
                     <%//Este apartado usa el servlet registerStudent%>
-                    <form class = "form_register" method = "POST" action = "../registerStudent">
+                    <form class = "form_register" method = "POST" action = "<%=Constantes.Servlets.SERVLET_REGISTRO_ALUMNO%>">
                         <h2> Registrarse </h2>
                         <p> Por favor, rellene los siguientes campos para registrarse al taller. </p>
                         <input type = "text" name = "apaterno" id = "apaterno" placeholder="Apellido Paterno" required>

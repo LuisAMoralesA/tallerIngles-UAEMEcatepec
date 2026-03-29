@@ -41,7 +41,7 @@
         String id_userPrincipal = "";
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         else{
@@ -63,82 +63,106 @@
                     sesion.getAttribute("pagos");
                     sesion.getAttribute("calif");
             %>
+            
             <li>
-                <a href="../view/menuAlumno.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ALUMNO%>" ">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/seguimientoPago.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_SEGUIMIENTO_PAGO%>">
                     <i class="fa-solid fa-dollar-sign"></i> <br>
                     Seguimiento
                 </a>
             </li>
 
             <li>
-                <a href="../view/vistaCalificaciones.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-school"></i> <br>
                     Calificaciones
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
+                    <i class="fa-solid fa-right-from-bracket"></i> <br>
+                    Cerrar Sesión
+                </a>
+            </li>    
+            <%}else if(rangoPrincipal.equals("PROFESOR")){%>
+
+            <li>
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_TEACHER%>">
+                    <i class="fa-solid fa-circle-user"></i> <br>
+                        Cuenta
+                </a>
+            </li>
+            <li>
+                <a href="<%=Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES%>">
+                    <i class="fa-solid fa-school"></i> <br>
+                    Información del grupo
+                </a>
+            </li>
+
+            <li>
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
+            
             <%}else {%>
-            <li>
-                <a href="../view/menuAdministrador.jsp">
+ 
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
+            
             <%}%>
         </ul>
     </aside>
@@ -150,10 +174,9 @@
                 Calificaciones
                 </h1>
                 <%
-                    LocalDate hoy = LocalDate.now();
-                    String mesActual = hoy.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
-                    mesActual = mesActual.substring(0, 1).toUpperCase() + mesActual.substring(1);
-                    String periodoActual = hoy.getYear() + " " + base.obtenerPeriodo(mesActual);
+                    String mesActual = Constantes.MES.substring(0, 1).toUpperCase() + Constantes.MES.substring(1);
+                    String periodoActual = Constantes.HOY.getYear() + " " + base.obtenerPeriodo(mesActual);
+                    String urlBack ="";
                 %>
 
                 <%
@@ -224,7 +247,7 @@
                             </td> 
                             <%}
                             else{%>
-                            <form class = "form" action = "../updateGrade" method = "post">
+                            <form class = "form" action = "<%=Constantes.Servlets.SERVLET_ACTUALIZAR_CALIFICACIONES%>" method = "post">
                                 <input type = "hidden" id = "idGrade" name = "idGrade" value = "<%=usuarioModificar%>"/> 
                                 <td>
                                     <input type="number" name="firstPartial" id="firstPartial" step = "0.1" min = "0" max = 10 value ="<%=per.getFirst_partial_report() %>"> 
@@ -235,14 +258,16 @@
                                 <td>
                                     <%=per.getAvg_report()%>
                                 </td>
-                            
                             <%}%>
                         </tr>
                     </tbody>
                 </table>
                 <%if(!rangoPrincipal.equals("ESTUDIANTE")){%>
                 <%
-                    String urlBack = urlBack ="../view/listaAlumnos.jsp";
+                    if(rangoPrincipal.equals("ADMINISTRADOR"))
+                        urlBack  = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
+                    else
+                        urlBack = Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES;
                 %>
                 <div class = "options">
                     <div id = "modificar">
@@ -287,10 +312,10 @@
             </div>
         </div>
     </article>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({

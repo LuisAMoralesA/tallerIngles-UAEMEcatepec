@@ -41,7 +41,7 @@
         String id_teacher = "";
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         else{
@@ -59,21 +59,22 @@
             </li>
 
             <li>
-                <a href="../view/menuTeacher.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_TEACHER%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
+
             <li>
-                <a href="../view/actualizarCalificaciones.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -94,7 +95,7 @@
         <%}
         sesion.setAttribute("actualizacionCompleta", null);
         if(!rangoPrincipal.equals("PROFESOR")){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }%>
     <article >
@@ -133,7 +134,7 @@
                             <td><%=per.getSecond_partial_report()%></td>
                             <td><%=per.getAverage_report()%></td>
                             <td>
-                                <a href = "../view/vistaCalificaciones.jsp?idGrade=<%=per.getId_report()%>" title="Calificaciones">
+                                <a href = "<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>?idGrade=<%=per.getId_report()%>" title="Calificaciones">
                                     <i class="fa-solid fa-graduation-cap"></i>
                                 </a>  
                             </td>
@@ -142,12 +143,18 @@
                     </tbody>
                 </table>
                 <div class = "documents"> 
-                    <a id = "link" <%=base.conteoAlumnos(Integer.parseInt(id_teacher)) == 0 ? "disabled": "" %>href = "../reportesServlet?Attendance=<%=Integer.parseInt(id_teacher)%>&c=<%=classroom%>" title="Ver lista de Seguimiento de Pago" target="_blank">
+                    <a id = "link" <%=base.conteoAlumnos(Integer.parseInt(id_teacher)) == 0 ? 
+                            "style = 'pointer-events: none; background-color:gray'": 
+                            "href = ' " + Constantes.Servlets.SERVLET_GENERAR_REPORTES + "?Attendance=" + Integer.parseInt(id_teacher) + "&c=" + classroom + "'"%>
+                            title="Ver lista de Seguimiento de Pago" target="_blank">
                        <i class="fa-solid fa-print"></i> <br>
                         Imprimir Bitacora de Asistencia
                     </a>
 
-                    <a id = "link" <%=base.conteoAlumnos(Integer.parseInt(id_teacher)) == 0 ? "disabled": "" %>href = "../reportesServlet?Grade=<%=Integer.parseInt(id_teacher)%>&c=<%=classroom%>" title="Ver lista de Calificaciones" target="_blank">
+                    <a id = "link" <%=base.conteoAlumnos(Integer.parseInt(id_teacher)) == 0 ? 
+                            "style = 'pointer-events: none; background-color:gray'": 
+                            "href = ' " + Constantes.Servlets.SERVLET_GENERAR_REPORTES + "?Grade=" + Integer.parseInt(id_teacher) + "&c=" + classroom + "'"%>
+                            title="Ver lista de Calificaciones" target="_blank">
                       <i class="fa-solid fa-star"></i> <br>
                         Imprimir Lista de Calificaciones
                     </a>
@@ -156,9 +163,9 @@
             </div>
         </div>
     </article>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({

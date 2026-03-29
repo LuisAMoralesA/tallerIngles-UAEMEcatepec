@@ -35,7 +35,7 @@
         HttpSession sesion = request.getSession();
         String usuario = (String) sesion.getAttribute("sesionIniciada");
         if(usuario == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         //Accede a la base de datos y accede a los datos del usuario
@@ -69,49 +69,49 @@
                 <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" alt=""> 
             </li>
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -130,26 +130,26 @@
                     switch(opcion){
                         case "1":
                             encabezado += "Estudiante";
-                            accion = "../addStudent";
-                            url = "../view/listaAlumnos.jsp";
+                            accion =    Constantes.Servlets.SERVLET_AGREGAR_ALUMNO;
+                            url =       Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                             rango = "ESTUDIANTE";
                             break;
                         case "2":
                             encabezado += "Profesor";
-                            accion = "../addTeacher";
-                            url = "../view/listaTeachers.jsp";
+                            accion =    Constantes.Servlets.SERVLET_AGREGAR_TEACHER;
+                            url =       Constantes.VentanasJSP.URL_LISTA_TEACHERS;
                             rango = "PROFESOR";
                             break;
                         case "3":
                             encabezado += "Administrador";
-                            accion = "../addAdmin";
-                            url = "../view/listaAdministradores.jsp";
+                            accion =    Constantes.Servlets.SERVLET_AGREGAR_ADMIN;
+                            url =       Constantes.VentanasJSP.URL_LISTA_ADMIN;
                             rango = "ADMINISTRADOR";
                             break;
                         case "4":
                             encabezado += "Grupo";
-                            accion = "../addGroup";
-                            url = "../view/listaGrupos.jsp";
+                            accion =    Constantes.Servlets.SERVLET_AGREGAR_GRUPO;
+                            url =       Constantes.VentanasJSP.URL_LISTA_GRUPOS;
                             break;
                     }
                 }
@@ -327,6 +327,6 @@
             </div>
         </div>
     </article>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 </html>

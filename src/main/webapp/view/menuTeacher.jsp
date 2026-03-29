@@ -35,7 +35,7 @@
         HttpSession sesion = request.getSession();
         String usuario = (String) sesion.getAttribute("sesionIniciada");
         if(usuario == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         //Accede a la base de datos y accede a los datos del usuario
@@ -57,7 +57,7 @@
             per = iter.next();
             //FUNCIONES DE CONCATENAR STRINGS Y COLOCAR TEXTO EN FORMS
             nombreCompleto = base.concatenarDatosProfesor(per.getId_teacher());
-            grupo = base.concatenarDatosGrupo(per.getId_group_teacher());
+            grupo = base.concatenarInfoGrupo(per.getId_group_teacher());
             nombreUser = per.getNom_user();
             telefono = per.getTelefono_teacher();
             rangoPrincipal = per.getRango();
@@ -81,23 +81,21 @@
             <li>
                 <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" alt=""> 
             </li>
-
             <li>
-                <a href="../view/menuTeacher.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_TEACHER%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
-
             <li>
-                <a href="../view/asignarCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -117,9 +115,8 @@
         </script>
         <%}
         sesion.setAttribute("actualizacionCompleta", null);
-        //NOTA: SOLO EL ADMINISTRADOR TIENE ACCESO A LAS LISTAS DE TODO EL PERSONAL
         if(!rangoPrincipal.equals("PROFESOR")){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         %>
@@ -143,14 +140,14 @@
             <div id = "button">
             <ul id = "modificar">
                 <li>
-                    <a href="../view/actualizarInformacion.jsp">
+                    <a href="<%=Constantes.VentanasJSP.URL_ACTUALIZAR_INFORMACION%>">
                         <i class="fa-solid fa-pen"></i> <br>
                         Modificar Datos
                     </a>
                 </li>
 
                 <li>
-                    <a href="../view/actualizarUsuario.jsp">
+                    <a href="<%=Constantes.VentanasJSP.URL_ACTUALIZAR_USUARIO%>">
                         <i class="fa-solid fa-key"></i> <br>
                         Cambiar Contraseña
                     </a>

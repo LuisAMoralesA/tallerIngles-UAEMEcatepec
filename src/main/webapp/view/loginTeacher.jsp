@@ -58,7 +58,7 @@
             <br><br>
             <div class="contenedor_login_register1">
                 <%//Este apartado usa el servlet loginTeacher%>
-                <form class = "form_login1" method = "POST" action = "../loginTeacher">
+                <form class = "form_login1" method = "POST" action = "<%=Constantes.Servlets.SERVLET_SESION_TEACHER%>">
                     <h2> 
                         <i class="fa-solid fa-person-chalkboard"></i> <br>
                         Bienvenido, Profesor 

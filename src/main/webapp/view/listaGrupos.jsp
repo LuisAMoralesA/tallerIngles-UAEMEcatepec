@@ -40,7 +40,7 @@
         String id_userPrincipal = "";
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         else{
@@ -56,115 +56,55 @@
                 <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" alt=""> 
             </li>
             
-            <%
-                if (rangoPrincipal.equals("ESTUDIANTE")){
-                    //Obtiene el atributo del Id de pagos y calificaciones para el resto de la sesion
-                    sesion.getAttribute("pagos");
-                    sesion.getAttribute("calif");
-            %>
             <li>
-                <a href="../view/menuAlumno.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/seguimientoPago.jsp">
-                    <i class="fa-solid fa-dollar-sign"></i> <br>
-                    Seguimiento
-                </a>
-            </li>
-
-            <li>
-                <a href="../view/vistaCalificaciones.jsp">
-                    <i class="fa-solid fa-school"></i> <br>
-                    Calificaciones
-                </a>
-            </li>
-
-            <li>
-                <a href="../cerrarSesion">
-                    <i class="fa-solid fa-right-from-bracket"></i> <br>
-                    Cerrar Sesión
-                </a>
-            </li>
-            <%}
-                else if (rangoPrincipal.equals("PROFESOR")){
-                    sesion.getAttribute("gruposId");
-            %>
-            <li>
-                <a href="../view/menuTeacher.jsp">
-                    <i class="fa-solid fa-circle-user"></i> <br>
-                        Cuenta
-                </a>
-            </li>
-
-
-            <li>
-                <a href="../view/actualizarCalificaciones.jsp">
-                    <i class="fa-solid fa-school"></i> <br>
-                    Información del grupo
-                </a>
-            </li>
-
-            <li>
-                <a href="../cerrarSesion">
-                    <i class="fa-solid fa-right-from-bracket"></i> <br>
-                    Cerrar Sesión
-                </a>
-            </li>
-            <%}
-            else {%>
-            <li>
-                <a href="../view/menuAdministrador.jsp">
-                    <i class="fa-solid fa-circle-user"></i> <br>
-                        Cuenta
-                </a>
-            </li>
-
-            <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>" style = "background-color: rgba(44, 82, 52, 1)">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
-            <%}%>
+            
         </ul>
     </aside>
     <article>
@@ -191,7 +131,7 @@
                 <h1>Lista de Grupos</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/agregarInformacion.jsp?add=4">
+                        <a id = "link" href="<%=Constantes.VentanasJSP.URL_AGREGAR_INFORMACION%>?add=4">
                            <i class="fa-solid fa-school-flag"></i> <br>
                             Agregar Grupo
                         </a>
@@ -208,7 +148,7 @@
                     <%
                         //NOTA: SOLO EL ADMINISTRADOR TIENE ACCESO A LAS LISTAS DE TODO EL PERSONAL
                         if(!rangoPrincipal.equals("ADMINISTRADOR")){
-                            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+                            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
                             return;
                         }
                         ArrayList <ConsultaGrupos> listaGrupos = base.obtenerDatosGrupos();
@@ -231,8 +171,8 @@
                             </a>
                         </td>
                         <td>
-                            <form action = "../deleteInformation?rango=g&id=<%=id_group%>" method = "post">
-                                <button type =  "button" id ="del" title="Eliminar Alumno" onclick = "showAlertDelete()">
+                            <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=g&id=<%=id_group%>" method = "post">
+                                <button type =  "button" id ="del" title="Eliminar Grupo" onclick = "showAlertDelete()">
                                     <i class="fa-solid fa-x"></i>
                                 </button> 
                             </form> 
@@ -244,9 +184,9 @@
             </div>
         </div>
     </article>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({
@@ -259,7 +199,7 @@
         });
     });
     </script>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 
 </html>

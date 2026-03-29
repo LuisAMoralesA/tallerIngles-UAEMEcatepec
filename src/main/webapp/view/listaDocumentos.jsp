@@ -171,17 +171,23 @@
                             <td><%=base.conteoAlumnos(per.getId_teacher())%></td>
                             <td> 
                                     
-                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? "disabled": "" %> href = "../reportesServlet?Attendance=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver bitacoras de Asistencia" target="_blank">
+                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? 
+                                        "style = 'pointer-events: none; color:gray'": 
+                                        "" %> href = "../reportesServlet?Attendance=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver bitacoras de Asistencia" target="_blank">
                                     <i class="fa-solid fa-clipboard-user"></i>
                                 </a>
                             </td>
                             <td>
-                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? "disabled": "" %> href = "../reportesServlet?Payment=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver lista de Seguimiento de Pago" target="_blank">
+                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? 
+                                        "style = 'pointer-events: none; color:gray'": 
+                                        "" %> href = "../reportesServlet?Payment=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver lista de Seguimiento de Pago" target="_blank">
                                     <i class="fa-solid fa-dollar-sign"></i>
                                 </a>
                             </td>
                             <td>
-                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? "disabled": "" %> href = "../reportesServlet?Grade=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver lista de calificaciones" target="_blank">
+                                <a <%=base.conteoAlumnos(per.getId_teacher()) == 0 ? 
+                                        "style = 'pointer-events: none; color:gray'": 
+                                        "" %> href = "../reportesServlet?Grade=<%=per.getId_teacher()%>&c=<%=per.getClassroom_teacher()%>" title="Ver lista de calificaciones" target="_blank">
                                     <i class="fa-solid fa-graduation-cap"></i>
                                 </a>  
                             </td>
