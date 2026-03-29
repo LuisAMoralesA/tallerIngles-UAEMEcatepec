@@ -37,7 +37,7 @@
         String usuarioPrincipal = (String) sesion.getAttribute("sesionIniciada");
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         
@@ -59,28 +59,28 @@
                     sesion.getAttribute("calif");
             %>
             <li>
-                <a href="../view/menuAlumno.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ALUMNO%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/seguimientoPago.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_SEGUIMIENTO_PAGO%>">
                     <i class="fa-solid fa-dollar-sign"></i> <br>
                     Seguimiento
                 </a>
             </li>
 
             <li>
-                <a href="../view/vistaCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Calificaciones
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -90,7 +90,7 @@
                     sesion.getAttribute("gruposId");
             %>
             <li>
-                <a href="../view/menuTeacher.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_TEACHER%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
@@ -98,14 +98,14 @@
 
 
             <li>
-                <a href="../view/actualizarCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Información del grupo
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -113,49 +113,49 @@
             <%}
             else {%>
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -166,7 +166,7 @@
     <article>
         <div id = "perfil_usuario">
             <div class="form-container1">
-                <form action="../updateInfo" method="post">
+                <form action="<%=Constantes.Servlets.SERVLET_ACTUALIZAR_INFORMACION%>" method="post">
                     <div class ="titulo-form">
                         <h1> 
                         <i class="fa-solid fa-arrows-rotate"></i><br> 
@@ -262,7 +262,7 @@
                             birthdate = String.valueOf(per.getFecha_nacimiento_admin());
                             phone1 = per.getTelefono_admin();
                             email = per.getEmail_admin();
-                            url = "../view/menuAdministrador.jsp";
+                            url = Constantes.VentanasJSP.URL_MENU_ADMIN;
                         }
                     }
                 %>
@@ -305,10 +305,10 @@
                         <%
                             if (rangoModificar.equals("ESTUDIANTE")){
                                 if(rangoPrincipal.equals("ADMINISTRADOR")){
-                                    url = "../view/listaAlumnos.jsp";
+                                    url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                                 }
                                 else{
-                                    url = "../view/menuAlumno.jsp"; 
+                                    url = Constantes.VentanasJSP.URL_MENU_ALUMNO; 
                                 }
                         %>
                     </div>
@@ -344,6 +344,8 @@
                                     String datosProfesor = "";
                                     int idSelect = per3.getId_teacher();
                                     String grupoSelect = base.concatenarDatosGrupo(idSelect) ;
+                                    if(grupoSelect.equals(""))
+                                        grupoSelect = "GRUPO SIN ASIGNAR";
                                     String nombreProfesorSelect = base.concatenarDatosProfesor(idSelect);
                             %>
                                 <option value = "<%=idSelect%>" <%=idSelect == idprofesor ? "selected" : ""%>> <%=grupoSelect + "    -->    " + nombreProfesorSelect%> </option>
@@ -418,6 +420,6 @@
         </div>
     </article>
                             
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 </html>

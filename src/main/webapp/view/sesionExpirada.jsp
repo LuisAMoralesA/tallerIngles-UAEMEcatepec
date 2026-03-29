@@ -36,19 +36,19 @@
                     //Obtiene la sesion al usuario principal
                     HttpSession sesion = request.getSession();
                     String rangoPrincipal = (String) sesion.getAttribute("rango");
-                    String link = "../index.html";
+                    String link = Constantes.VentanasJSP.URL_INDEX;
                     String textButton = "Volver a Inicio";
                     if(rangoPrincipal != null){
                         textButton = "Volver a la sesion";
                         switch(rangoPrincipal){
                             case "ESTUDIANTE":
-                                link = "../view/menuAlumno.jsp";
+                                link = Constantes.VentanasJSP.URL_MENU_ALUMNO;
                                 break;
                             case "PROFESOR":
-                                link = "../view/menuTeacher.jsp"; 
+                                link = Constantes.VentanasJSP.URL_MENU_TEACHER;
                                 break;
                             case "ADMINISTRADOR":
-                                link = "../view/menuAdministrador.jsp"; 
+                                link = Constantes.VentanasJSP.URL_MENU_ADMIN;
                                 break;
                         }
                     }
@@ -90,6 +90,6 @@
             </ul>
         </div>
     </footer>
-    <script src = "/tallerDeInglesUAEM/js/login.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_LOGIN%>"></script>
     </body>
 </html>

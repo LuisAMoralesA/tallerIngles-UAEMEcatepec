@@ -57,7 +57,7 @@
             <br><br>
             <div class="contenedor_login_register1">
                 <%//Este apartado usa el servlet loginAdmin%>
-                <form method = "POST" class = "form_login1" action = "../loginAdmin">
+                <form method = "POST" class = "form_login1" action = "<%=Constantes.Servlets.SERVLET_SESION_ADMIN%>">
                     <h2>
                         <i class="fa-solid fa-user-tie"></i> <br>
                         Bienvenido, Administrador 

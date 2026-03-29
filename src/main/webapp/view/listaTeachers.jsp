@@ -38,7 +38,7 @@
         String usuarioPrincipal = (String)sesion.getAttribute("sesionIniciada");
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         
@@ -54,53 +54,54 @@
             </li>
             
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>" >
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
+            
         </ul>
     </aside>
     <article>
@@ -127,7 +128,7 @@
                 <h1>Lista de Profesores</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/agregarInformacion.jsp?add=2">
+                        <a id = "link" href="<%=Constantes.VentanasJSP.URL_AGREGAR_INFORMACION%>?add=2">
                            <i class="fa-solid fa-user-plus"></i> <br>
                             Agregar Profesor
                         </a>
@@ -147,7 +148,7 @@
                     <%
                         //NOTA: SOLO EL ADMINISTRADOR TIENE ACCESO A LAS LISTAS DE TODO EL PERSONAL
                         if(!rangoPrincipal.equals("ADMINISTRADOR")){
-                            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+                            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
                             return;
                         }
                         ArrayList <ConsultaTeacher> listaTeachers = base.obtenerDatosProfesores();
@@ -171,17 +172,17 @@
                             <td><%=telefono%></td>
                             <td><%=usuario%></td>
                             <td>
-                                <a href = "../view/actualizarInformacion.jsp?idUser=<%=id_user_teacher%>" title="Modificar Datos Personales">
+                                <a href = "<%=Constantes.VentanasJSP.URL_ACTUALIZAR_INFORMACION%>?idUser=<%=id_user_teacher%>" title="Modificar Datos Personales">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href = "../view/actualizarUsuario.jsp?idUser=<%=id_user_teacher%>" title="Modificar Datos de Acceso">
+                                <a href = "<%=Constantes.VentanasJSP.URL_ACTUALIZAR_USUARIO%>?idUser=<%=id_user_teacher%>" title="Modificar Datos de Acceso">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
                             </td> 
                             <td>
-                                <form action = "../deleteInformation?rango=t&id=<%=id_teacher%>&user=<%=id_user_teacher%>" method = "post">
+                                <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=t&id=<%=id_teacher%>&user=<%=id_user_teacher%>" method = "post">
                                     <button type = "button" id ="del" title="Eliminar Profesor" onclick = "showAlertDelete()">
                                         <i class="fa-solid fa-x"></i>
                                     </button> 
@@ -194,9 +195,9 @@
             </div>
         </div>
     </article>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({
@@ -209,7 +210,7 @@
         });
     });
     </script>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 
 </html>

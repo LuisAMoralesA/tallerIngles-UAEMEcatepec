@@ -40,7 +40,7 @@
         String id_userPrincipal = "";
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         else{
@@ -57,53 +57,54 @@
             </li>
             
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>" style = "background-color: rgba(44, 82, 52, 1)">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
+            
         </ul>
     </aside>
     <article>
@@ -130,7 +131,7 @@
                 <h1>Lista de Estudiantes</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <a id = "link" href="../view/agregarInformacion.jsp?add=1">
+                        <a id = "link" href="<%=Constantes.VentanasJSP.URL_AGREGAR_INFORMACION%>?add=1">
                            <i class="fa-solid fa-user-plus"></i> <br>
                             Agregar Alumno
                         </a>
@@ -153,7 +154,7 @@
                     <%
                         //NOTA: SOLO EL ADMINISTRADOR TIENE ACCESO A LAS LISTAS DE TODO EL PERSONAL
                         if(!rangoPrincipal.equals("ADMINISTRADOR")){
-                            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+                            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
                             return;
                         }
                         ArrayList <ConsultaAlumnos> listaAlumnos = base.obtenerDatosAlumnos();
@@ -180,27 +181,27 @@
                             </td>
                             <td><%=usuario%></td>
                             <td>
-                                <a href = "../view/actualizarInformacion.jsp?idUser=<%=id_user%>" title="Modificar Datos Personales">
+                                <a href = "<%=Constantes.VentanasJSP.URL_ACTUALIZAR_INFORMACION%>?idUser=<%=id_user%>" title="Modificar Datos Personales">
                                     <i class="fa-solid fa-pen-clip"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href = "../view/actualizarUsuario.jsp?idUser=<%=id_user%>" title="Modificar Datos de Acceso">
+                                <a href = "<%=Constantes.VentanasJSP.URL_ACTUALIZAR_USUARIO%>?idUser=<%=id_user%>" title="Modificar Datos de Acceso">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
                             </td> 
                             <td>
-                                <a href = "../view/seguimientoPago.jsp?idPay=<%=id_payment%>" title="Seguimiento de Pago">
+                                <a href = "<%=Constantes.VentanasJSP.URL_SEGUIMIENTO_PAGO%>?idPay=<%=id_payment%>" title="Seguimiento de Pago">
                                     <i class="fa-solid fa-dollar-sign"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href = "../view/vistaCalificaciones.jsp?idGrade=<%=id_report%>" title="Calificaciones">
+                                <a href = "<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>?idGrade=<%=id_report%>" title="Calificaciones">
                                     <i class="fa-solid fa-graduation-cap"></i>
                                 </a>  
                             </td>
                             <td>
-                                <form action = "../deleteInformation?rango=s&id=<%=id_student%>&user=<%=id_user%>" method = "post">
+                                <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=s&id=<%=id_student%>&user=<%=id_user%>" method = "post">
                                     <button type =  "button" id ="del" title="Eliminar Alumno" onclick = "showAlertDelete()">
                                         <i class="fa-solid fa-x"></i>
                                     </button> 
@@ -213,9 +214,9 @@
             </div>
         </div>
     </article>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
     <script>
     $(document).ready(function() {
         $('#tablaAlumnos').DataTable({
@@ -228,7 +229,7 @@
         });
     });
     </script>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 
 </html>
