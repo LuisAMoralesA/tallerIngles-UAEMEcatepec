@@ -20,6 +20,7 @@ public class updateGrade extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
+        String rangoPrincipal = (String) sesion.getAttribute("rango");
         int idGrade = Integer.parseInt(request.getParameter("idGrade"));
         double firstPartial = Double.parseDouble(request.getParameter("firstPartial"));
         double secondPartial = Double.parseDouble(request.getParameter("secondPartial"));
@@ -28,7 +29,11 @@ public class updateGrade extends HttpServlet {
         Report calificaciones = new Report(idGrade, firstPartial, secondPartial, avg);
         bd.actualizarReporteCalificaciones(calificaciones);
         sesion.setAttribute("actualizacionCompleta","Lista de Calificaciones actualizada correctamente ");
-        String url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
+        String url = "";
+        if (rangoPrincipal.equals("ADMINISTRADOR"))
+            url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
+        else
+            url = Constantes.VentanasJSP.URL_ASIGNAR_CALIFICACIONES;
         response.sendRedirect(url);
     }
     
