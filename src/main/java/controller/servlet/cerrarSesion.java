@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
+import controller.Constantes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -30,24 +27,24 @@ public class cerrarSesion extends HttpServlet {
             if(rango!=null){
                 switch(rango){
                 case "ESTUDIANTE":
-                    url= "/tallerDeInglesUAEM/view/loginAlumno.jsp";
+                    url = Constantes.VentanasJSP.URL_LOGIN_ALUMNO;
                     break;
                 case "ADMINISTRADOR":
-                    url= "/tallerDeInglesUAEM/view/loginAdministrador.jsp";
+                    url = Constantes.VentanasJSP.URL_LOGIN_ADMIN;
                     break;
                 case "PROFESOR":
-                    url= "/tallerDeInglesUAEM/view/loginTeacher.jsp";
+                    url = Constantes.VentanasJSP.URL_LOGIN_TEACHER;
                     break;
                 }     
             }
             else{
-                url= "/tallerDeInglesUAEM/view/index.jsp";
+                url = Constantes.VentanasJSP.URL_INDEX;
             }
             //Al terminar de asignar la URL, quitar los atributos de sesion al usuario
             sesion.invalidate();
         }
         else{
-            url= "/tallerDeInglesUAEM/view/index.jsp";
+            url = Constantes.VentanasJSP.URL_INDEX;
         }
         response.sendRedirect(url);
     }

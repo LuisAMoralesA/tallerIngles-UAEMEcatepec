@@ -1,0 +1,161 @@
+body{
+    background-image:
+        url(../Images/UAEMEX2.jpg);
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(7px);
+}
+#perfil_usuario{
+    display:grid;
+    place-items: left;
+    height: 100vh;
+    padding:10px 16px;
+    margin-left:10px;
+}
+
+article {
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    width: 85%;
+    height: 100%;
+    border: 1px solid #ccc;
+}
+
+
+#perfil_usuario {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#perfil_usuario h1 {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    column-span: 2;
+}
+
+#datos_personales {
+    margin-left: 30px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+
+#datos_personales h2, b {
+    color:rgba(44, 82, 52, 1);
+}
+#datos_personales p {
+    padding-left: 30px;
+}
+#button {
+    border: none;
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -70px;
+    padding-right: 90px;
+}
+#modificar {
+    background-color: rgba(255,255,255,0.8);
+    margin:0;
+    display: flex;
+    flex-direction: row;
+}
+#modificar li {
+    display: block;
+}
+
+#modificar a{
+    border-radius: 8px;
+    width: 190px;
+    padding-left: 5px;
+    margin-left: 5px;
+}
+
+#menu_opciones a, button{
+    text-decoration: none;
+    background-color: rgba(156, 132, 18, 1);
+    color: rgb(255,255,255);
+    width: 150px;
+    padding: 10px 16px 10px;
+    display: block;
+    text-align:center;
+}
+
+/*Parte del formularios*/
+.form-container1 {
+    width: 1000px;
+    background-color: #FEFFFC;
+    padding: 10px;
+    margin: auto;
+    border-radius: 4;
+    align-items: center;
+    text-align: center;
+    column-count: 2;
+    break-inside: avoid; 
+}
+.form-container1 button{
+    margin: 20px auto;
+    width:50%;
+    display: block;
+    border: none;
+    font-size: 20px;
+}
+
+.form-container1 h1, i {
+    font-size: 40px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+#button {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 20px; 
+    padding-right: 50px;
+}
+
+.form-container1 label{
+    font-size: 15px;
+    width: 300px;
+    padding: 5px;
+    font-style: oblique;
+}
+
+.form-container1 input {
+    width: 80%;
+    background-color: #FDFFD4;
+    padding:5px;
+    margin-bottom: 15px;
+}
+
+
+.titulo-form {
+    column-span: all;
+}
+/*location.href ayuda a que el boton funcione de hipervinculo*/
+
+
+select {
+    background-color: rgba(156, 132, 18, 1);
+    color: rgb(255,255,255);
+    border: none;
+    width:80%;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    gap:3px;
+}
+
+select:hover{
+    box-shadow: 0 0 0 3px rgba(44, 82, 52, 1);
+}
+
+ #passSquare {
+      background-color: rgba(237, 255, 168,0.8);
+ }

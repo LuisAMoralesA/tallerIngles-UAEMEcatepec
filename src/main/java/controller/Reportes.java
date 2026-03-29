@@ -14,6 +14,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.*;
 import net.sf.jasperreports.pdf.JRPdfExporter;
 import controller.struct.ReportesStruct;
+import controller.BaseDatos.configuracionBD;
 
 /**
  * Funcion para crear reportes
@@ -22,19 +23,34 @@ import controller.struct.ReportesStruct;
 
 public class Reportes implements ReportesStruct{
     Connection con = null;
-    PreparedStatement pstm = null;
-    ResultSet rs = null;
-    
+    BaseDatos bd = new BaseDatos();
     /**
      * Este constructor funciona para hacer conexion con la base de datos,
      * usando un URL y un Driver de conexion (8.0)
      **/
     public Reportes(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-            con = DriverManager.getConnection(urlDB, "nbUser", "123456");
+            Class.forName(configuracionBD.NOMBRE_DRIVER);
+            String urlDB = configuracionBD.URL_DB;
+            String nombreUser = configuracionBD.NOMBRE_USUARIO;
+            String password = configuracionBD.PASSWORD_USUARIO;
+            con = DriverManager.getConnection(urlDB, nombreUser, password);
         }catch(ClassNotFoundException | SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    /**
+     * Esta funcion permite hacer la conexion de manera local a la Base de Datos
+     * para los reportes
+     **/
+    @Override
+    public void conexionBDReportes(){
+        try{
+            String urlDB = configuracionBD.URL_DB;
+            String usuario = configuracionBD.NOMBRE_USUARIO;
+            String password = configuracionBD.PASSWORD_USUARIO;
+            con = DriverManager.getConnection(urlDB, usuario, password);
+        }catch(SQLException ex){
             ex.printStackTrace();
         }
     }
@@ -64,13 +80,9 @@ public class Reportes implements ReportesStruct{
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
             //Hacer la conexion a la base de datos
-            String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-            con = DriverManager.getConnection(urlDB, "nbUser", "123456");
-
+            conexionBDReportes();
             //Se definen parametros de que requiera el reporte
             Map parametros = new HashMap();
-            
-            
             parametros.put("nombre_grupo", nombre_grupo);
             parametros.put("nombre_profesor", nombre_profesor);
             parametros.put("id_teacher_student", id_teacher_student);
@@ -88,7 +100,7 @@ public class Reportes implements ReportesStruct{
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
-        }catch(SQLException ex){
+        }catch(Exception ex){
             ex.printStackTrace();
         }finally{
             try{
@@ -117,9 +129,7 @@ public class Reportes implements ReportesStruct{
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
             //Hacer la conexion a la base de datos
-            String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-            con = DriverManager.getConnection(urlDB, "nbUser", "123456");
-
+            conexionBDReportes();
             //Se definen parametros de que requiera el reporte
             Map parametros = new HashMap();
             
@@ -137,7 +147,7 @@ public class Reportes implements ReportesStruct{
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
-        }catch(SQLException ex){
+        }catch(Exception ex){
             ex.printStackTrace();
         }finally{
             try{
@@ -175,9 +185,7 @@ public class Reportes implements ReportesStruct{
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
             //Hacer la conexion a la base de datos
-            String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-            con = DriverManager.getConnection(urlDB, "nbUser", "123456");
-
+            conexionBDReportes();
             //Se definen parametros de que requiera el reporte
             Map parametros = new HashMap();
             parametros.put("nombre_grupo", nombre_grupo);
@@ -200,7 +208,7 @@ public class Reportes implements ReportesStruct{
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
-        }catch(SQLException ex){
+        }catch(Exception ex){
             ex.printStackTrace();
         }finally{
             try{
@@ -237,9 +245,7 @@ public class Reportes implements ReportesStruct{
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
             //Hacer la conexion a la base de datos
-            String urlDB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-            con = DriverManager.getConnection(urlDB, "nbUser", "123456");
-
+            conexionBDReportes();
             //Se definen parametros de que requiera el reporte
             Map parametros = new HashMap();
             parametros.put("nombre_grupo", nombre_grupo);
@@ -260,7 +266,7 @@ public class Reportes implements ReportesStruct{
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
-        }catch(SQLException ex){
+        }catch(Exception ex){
             ex.printStackTrace();
         }finally{
             try{

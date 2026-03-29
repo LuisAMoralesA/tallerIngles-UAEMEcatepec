@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import model.Tables.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -31,7 +28,7 @@ public class updateGrade extends HttpServlet {
         Report calificaciones = new Report(idGrade, firstPartial, secondPartial, avg);
         bd.actualizarReporteCalificaciones(calificaciones);
         sesion.setAttribute("actualizacionCompleta","Lista de Calificaciones actualizada correctamente ");
-        String url = "/tallerDeInglesUAEM/view/listaAlumnos.jsp";
+        String url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
         response.sendRedirect(url);
     }
     

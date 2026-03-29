@@ -1,28 +1,36 @@
-<%@page import="java.sql.*" %>
-<%@page import="com.mysql.jdbc.Driver" %>
+<%-- 
+    Document   : calendario
+    Author     : Luis Morales
+--%>
+<%@page import ="java.sql.*" %>
+<%@page import ="com.mysql.jdbc.Driver" %>
 <%@page import ="controller.*"%>
 <%@page import ="model.Consultas.*"%>
 <%@page import ="model.Tables.*"%>
 <%@page import ="java.util.*"%>
-<%@page import="java.time.*" %>
-<%@page import="java.time.format.TextStyle" %>
-<%@page import = "jakarta.servlet.http.HttpSession"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true"%>
+<%@page import ="java.time.*" %>
+<%@page import ="java.time.format.TextStyle" %>
+<%@page import ="jakarta.servlet.http.HttpSession"%>
+<%@page contentType ="text/html" pageEncoding ="UTF-8"%>
+<%@page session ="true"%>
 <!DOCTYPE html>
-<html lang="es">
+<html lang = "es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=Constantes.TITULO_CALENDARIO%> </title>
-    <link href = <%=Constantes.URL_LOGO_TALLER2%> rel = "icon"/>
-    <link rel="stylesheet" href="../css/style_menuprincipal.css" >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title><%=Constantes.Titulos.TITULO_CALENDARIO%> </title>
+    <link href = "<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" rel = "icon"/>
+    <link rel = "stylesheet" href = "<%=Constantes.EstilosCSS.URL_CSS_MENU_OPCIONES%>">
+    <link rel = "stylesheet" href = "<%=Constantes.EstilosCSS.URL_CSS_BOTONES%>">
+    <link rel = "stylesheet" href = "<%=Constantes.EstilosCSS.URL_CSS_CALENDARIO%>">
+    <link rel = "stylesheet" href = "<%=Constantes.LinksExternos.URL_CSS_FONTAWESOME%>" 
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel = "stylesheet" href = "<%=Constantes.LinksExternos.URL_CSS_BOOTSTRAP%>"  
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--Librerias para alertas emergentes-->
-        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel = "stylesheet" href = "<%=Constantes.LinksExternos.URL_CSS_SWEETALERT%>" >
+    <script src="<%=Constantes.LinksExternos.URL_JS_SWEETALERT%>"></script>
+    <link rel="stylesheet" href="<%=Constantes.LinksExternos.URL_CSS_DATATABLES%>">
 </head>
 
 <body>
@@ -44,7 +52,7 @@
     <aside id = "menu_lateral">
         <ul id="menu_opciones">
             <li>
-                <img src="../Images/Logo_Taller2.png" alt=""> 
+                <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" alt=""> 
             </li>
             
             <%
@@ -308,13 +316,13 @@
                     </form>
                     <%}%>
                     <div id = "button">
-                    <div id = "modificar"> 
-                        <button type = "button" name = "back" id ="back" onclick = "location.href = '<%=url%>'">
-                            <i class="fa-solid fa-arrow-left-long"></i><br>
-                            Regresar
-                        </button>
+                        <div id = "modificar"> 
+                            <button type = "button" name = "back" id ="back" onclick = "location.href = '<%=url%>'">
+                                <i class="fa-solid fa-arrow-left-long"></i><br>
+                                Regresar
+                            </button>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </article>

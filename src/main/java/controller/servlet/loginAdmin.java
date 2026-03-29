@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.Constantes;
@@ -40,25 +36,25 @@ public class loginAdmin extends HttpServlet {
                 int resultado = base.inicioSesion(user, pass, "ADMINISTRADOR");
                 switch (resultado) {
                     //Si el usuario existe y tiene el rango correcto
-                    case Constantes.ACCESO_CONCEDIDO:
+                    case BaseDatos.constantesLogin.ACCESO_CONCEDIDO:
                         //Establece una sesion al usuario
                         sesion = request.getSession(true); 
                         sesion.setAttribute("sesionIniciada", user);
-                        response.sendRedirect("/tallerDeInglesUAEM/view/menuAdministrador.jsp");
+                        response.sendRedirect(Constantes.VentanasJSP.URL_MENU_ADMIN);
                         break;
                     //Si el usuario no existe o tiene otro rango 
-                    case Constantes.USUARIO_NO_ENCONTRADO:
+                    case BaseDatos.constantesLogin.USUARIO_NO_ENCONTRADO:
                         //Impide el paso debido a que el usuario no fue encontrado
                         sesion = request.getSession(false);
                         sesion.setAttribute("errorMessage", "Usuario no encontrado");
-                        response.sendRedirect("/tallerDeInglesUAEM/view/loginAdministrador.jsp");
+                        response.sendRedirect(Constantes.VentanasJSP.URL_LOGIN_ADMIN);
                         break;
                     //Si el usuario existe, pero tiene su contraseña incorrecta
-                    case Constantes.DATO_INCORRECTO:
+                    case BaseDatos.constantesLogin.DATO_INCORRECTO:
                         //Impide el paso debido a que la contraseña ingresada fue incorrecta
                         sesion = request.getSession(false);
                         sesion.setAttribute("errorMessage", "La contraseña ingresada es incorrecta");
-                        response.sendRedirect("/tallerDeInglesUAEM/view/loginAdministrador.jsp");
+                        response.sendRedirect(Constantes.VentanasJSP.URL_LOGIN_ADMIN);
                         break;
                 }
             }      

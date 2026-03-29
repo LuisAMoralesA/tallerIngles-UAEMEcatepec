@@ -5,6 +5,7 @@
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import controller.Reportes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -60,7 +61,7 @@ public class reportesServlet extends HttpServlet {
             try{
                 //Si se solicita la bitacora de Asistencia
                 if(attendance != null){
-                    URLJasper = "/reports/BitacorasDeAlumnos.jasper";
+                    URLJasper = Constantes.Reportes.URL_JASPER_BITACORA_ALUMNOS;
                     id_teacher = Integer.parseInt(attendance);
                     grupo = bd.concatenarDatosGrupo(id_teacher);
                     profesor = bd.concatenarDatosProfesor(id_teacher);
@@ -71,7 +72,7 @@ public class reportesServlet extends HttpServlet {
                 }
                 //Si se solicita la lista de seguimiento de Pagos
                 else if(payment != null){
-                    URLJasper = "/reports/ListaSeguimientoPago.jasper";
+                    URLJasper = Constantes.Reportes.URL_JASPER_LISTA_SEGUIMIENTO_PAGO;
                     periodo = año + " " + periodoActual;
                     id_teacher = Integer.parseInt(payment);
                     grupo = bd.concatenarDatosGrupo(id_teacher);
@@ -83,7 +84,7 @@ public class reportesServlet extends HttpServlet {
                 }
                 //Si se solicita la lista de calificaciones
                 else if(grade !=null){
-                    URLJasper = "/reports/ListaCalificaciones.jasper";
+                    URLJasper = Constantes.Reportes.URL_JASPER_LISTA_CALIFICACIONES;
                     periodo = año + " " + periodoActual;
                     id_teacher = Integer.parseInt(grade);
                     grupo = bd.concatenarDatosGrupo(id_teacher);
@@ -93,7 +94,7 @@ public class reportesServlet extends HttpServlet {
                 }
                 //Si se solicita la bitacora de profesores
                 else{
-                    URLJasper = "/reports/BitacoraProfesores.jasper";
+                    URLJasper = Constantes.Reportes.URL_JASPER_BITACORA_PROFESORES;
                     periodo = año + " " + periodoActual;
                     ruta = getServletContext().getRealPath(URLJasper);
                     r.bitacorasDeProfesores(response, ruta, imagenes, periodo);

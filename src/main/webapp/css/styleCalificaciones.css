@@ -1,0 +1,70 @@
+body{
+    background-image:
+        url(../Images/UAEMEX2.jpg);
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(7px);
+}
+
+#perfil_usuario{
+    display:flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: 100vh;
+    padding:10px 16px;
+    margin-left:10px;
+}
+
+article {
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    width: 85%;
+    height: 100%;
+    border: 1px solid #ccc;
+}
+
+#perfil_usuario h1 {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    column-span: 2;
+}
+
+/*Parte del formularios*/
+.form-container2 {
+    width: 1200px;
+    background-color: #FEFFFC;
+    padding: 10px;
+    margin: auto;
+    border-radius: 4;
+    align-items: center;
+    text-align: center;
+}
+.form-container2 a i{
+    font-size: 30px;
+}
+
+.form-container2 table tr:hover{
+    background-color: rgba(44, 82, 52, 0.1);
+}
+
+.form-container2 a {
+    text-decoration: none;
+    color: rgba(156, 132, 18, 1);
+}
+
+.form-container2 a:hover {
+    color: rgba(44, 82, 52, 1);
+}
+.form-container2 i {
+    height: 2px;
+    width: auto;
+}
+
+
+/*location.href ayuda a que el boton funcione de hipervinculo*/
+
+
+
+

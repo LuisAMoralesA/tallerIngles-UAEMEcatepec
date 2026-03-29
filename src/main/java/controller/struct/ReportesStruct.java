@@ -14,6 +14,7 @@ import net.sf.jasperreports.engine.JRException;
  * @author anton
  */
 public interface ReportesStruct {
+    public void conexionBDReportes();
     public void bitacorasDeAlumnos(HttpServletResponse response, String ruta, 
             String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
             int id_teacher_student, String classroom) 

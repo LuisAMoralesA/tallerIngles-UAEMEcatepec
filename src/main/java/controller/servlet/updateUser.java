@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import controller.SHA256;
 import model.Tables.Users;
 import java.io.IOException;
@@ -28,7 +25,7 @@ public class updateUser extends HttpServlet {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
         String rango = request.getParameter("rango");
-        String url = "/tallerDeInglesUAEM/view/actualizarUsuario.jsp"; 
+        String url = Constantes.VentanasJSP.URL_ACTUALIZAR_USUARIO; 
         
         //No poner atributos disabled en HTML por que no son detectados
         HttpSession sesion = request.getSession();
@@ -50,16 +47,16 @@ public class updateUser extends HttpServlet {
 
             switch(rango){
                 case "ESTUDIANTE": 
-                    url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAlumnos.jsp": 
-                            "/tallerDeInglesUAEM/view/menuAlumno.jsp";
+                    url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_ALUMNOS :
+                    Constantes.VentanasJSP.URL_MENU_ALUMNO;
                     break;
                 case "ADMINISTRADOR" : 
-                    url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdministradores.jsp" : 
-                            "/tallerDeInglesUAEM/view/menuAdministrador.jsp"; 
+                    url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_ADMIN :
+                    Constantes.VentanasJSP.URL_MENU_ADMIN;
                     break;
                 case "PROFESOR":
-                    url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaTeachers.jsp" : 
-                            "/tallerDeInglesUAEM/view/menuTeacher.jsp"; 
+                    url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_TEACHERS:
+                    Constantes.VentanasJSP.URL_MENU_TEACHER;
                     break;
             }
             sesion.setAttribute("sesionIniciada", usernameOriginal);

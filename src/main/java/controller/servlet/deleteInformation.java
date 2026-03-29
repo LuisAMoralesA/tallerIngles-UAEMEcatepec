@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,9 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
-import model.Tables.*;
 
 /**
  *
@@ -49,7 +43,7 @@ public class deleteInformation extends HttpServlet {
                     id_admin = id_principal;
                     bd.eliminarAdministrador(id_admin);
                     bd.eliminarUsuario(id_user);
-                    url = "/tallerDeInglesUAEM/view/listaAdministradores.jsp";
+                    url = Constantes.VentanasJSP.URL_LISTA_ADMIN;
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Administrador eliminados correctamente");
                     break;
@@ -61,7 +55,7 @@ public class deleteInformation extends HttpServlet {
                     bd.eliminarListaCalificaciones(id_student);
                     bd.eliminarAlumno(id_student);
                     bd.eliminarUsuario(id_user);
-                    url = "/tallerDeInglesUAEM/view/listaAlumnos.jsp";
+                    url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Estudiante eliminados correctamente");
                     break;
@@ -72,7 +66,7 @@ public class deleteInformation extends HttpServlet {
                     bd.desvincularAlumnos(id_teacher);
                     bd.eliminarTeacher(id_teacher);
                     bd.eliminarUsuario(id_user);
-                    url = "/tallerDeInglesUAEM/view/listaTeachers.jsp";
+                    url = Constantes.VentanasJSP.URL_LISTA_TEACHERS;
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Profesor eliminados correctamente");
                     break;
@@ -81,7 +75,7 @@ public class deleteInformation extends HttpServlet {
                     id_group = id_principal;
                     bd.desvincularProfesores(id_group);
                     bd.eliminarGrupo(id_group);
-                    url = "/tallerDeInglesUAEM/view/listaGrupos.jsp";
+                    url = Constantes.VentanasJSP.URL_LISTA_GRUPOS;
                     sesion.setAttribute("actualizacionCompleta","Datos del Grupo eliminados correctamente");
                     break;
             }
