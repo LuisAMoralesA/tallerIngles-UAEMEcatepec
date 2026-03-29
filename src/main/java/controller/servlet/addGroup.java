@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,8 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Iterator;
 import model.Tables.*;
 
 /**
@@ -49,7 +44,7 @@ public class addGroup extends HttpServlet {
         //Define el valor de los cuadros de mensaje de confirmación
         sesion.setAttribute("actualizacionCompleta","Grupo Agregado correctamente");
         sesion.setAttribute("userNameRegistrado", "");
-        response.sendRedirect("/tallerDeInglesUAEM/view/listaGrupos.jsp");
+        response.sendRedirect(Constantes.VentanasJSP.URL_LISTA_GRUPOS);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

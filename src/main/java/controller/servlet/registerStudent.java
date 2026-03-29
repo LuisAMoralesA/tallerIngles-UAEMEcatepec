@@ -5,6 +5,7 @@
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import controller.SHA256;
 import model.Tables.*;
 
@@ -90,11 +91,11 @@ public class registerStudent extends HttpServlet {
                                                 name,phone,phone,(Object) birthdate, email, sale_solo);
                 base.insertarEstudiante(student);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/loginAlumno.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_LOGIN_ALUMNO);
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/loginAlumno.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_LOGIN_ALUMNO);
         }
     }
     //Para evitar fallos en el futuro

@@ -24,25 +24,58 @@ public class BaseDatos implements BaseDatosStruct{
     Connection con = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
+    
+    /**
+     * Esas constantes sirven para definir la configuracion de inicio de Sesion
+     **/
+    public static final class constantesLogin {
+        //Implementa constantes de inicio de sesión
+        public static final int DATO_INCORRECTO = 1;
+        public static final int USUARIO_NO_ENCONTRADO = 2;
+        public static final int ACCESO_CONCEDIDO = 3; 
+    }
+    /**
+     * Esas constantes sirven para definir la configuracion de la Base de Datos
+     **/
+    public static final class configuracionBD {
+        //Constantes para hacer la conexion a la base de datos
+        public static final String NOMBRE_DRIVER = "com.mysql.jdbc.Driver";
+        public static final String URL_DB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
+        public static final String NOMBRE_USUARIO = "nbUser";
+        public static final String PASSWORD_USUARIO = "123456";
+    }
+    
     /**
      * Este constructor funciona para hacer conexion con la base de datos,
      * usando un URL y un Driver de conexion (8.0)
      **/
-    
     public BaseDatos(){
         try{
-            String nombreDriver = Constantes.NOMBRE_DRIVER;
+            String nombreDriver = configuracionBD.NOMBRE_DRIVER;
             Class.forName(nombreDriver);
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
+            String urlDB = configuracionBD.URL_DB;
+            String usuario = configuracionBD.NOMBRE_USUARIO;
+            String password = configuracionBD.PASSWORD_USUARIO;
             con = DriverManager.getConnection(urlDB, usuario, password);
-            
         }catch(ClassNotFoundException | SQLException ex){
             ex.printStackTrace();
         }
     }
     
+    /**
+     * Esta funcion permite hacer la conexion de manera local a la Base de Datos
+     **/
+    @Override
+    public void conexionBD(){
+        try{
+            String urlDB = configuracionBD.URL_DB;
+            String usuario = configuracionBD.NOMBRE_USUARIO;
+            String password = configuracionBD.PASSWORD_USUARIO;
+            con = DriverManager.getConnection(urlDB, usuario, password);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
     //PARTE 1: Operaciones de Insersion de Datos
     /**
      * Este metodo permite insertar un administrador a la base de datos por un comando SQL
@@ -52,10 +85,7 @@ public class BaseDatos implements BaseDatosStruct{
     public void insertarAdministrador(Admin_school admin){
         try{
             //Configuracion para sistemas web desarrollados en Java
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO admin_school (id_user_admin, apellido_paterno_admin, apellido_materno_admin,"
                     + "nombre_admin, fecha_nacimiento_admin, telefono_admin, email_admin) VALUES (?,?,?,?,?,?,?)";
             pstm = con.prepareStatement(sql);
@@ -90,10 +120,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarCategoria(Category category) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO category (description_category) VALUES (?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, category.getDescription_category());
@@ -119,10 +146,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarEstatusDePago(Payment_status status) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO payment_status (description_status) VALUES (?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, status.getDescription_status());
@@ -149,10 +173,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int insertarSeguimientoDePago(Payment pay) {
         int id_pay = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO payment(register_payment, pay_1, pay_2, pay_3, pay_4"
                     + ",pay_5, pay_6, pay_7, payment_status) VALUES (?,?,?,?,?,?,?,?,?)";
             pstm = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
@@ -190,10 +211,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarEstudiante(Students student) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO students (id_teacher_student, id_report_student, id_payment_student,"
                     + "id_user_student, apellido_paterno_student, apellido_materno_student, nombre_student, telefono1_student, "
                     + "telefono2_student, fecha_nacimiento_student, email_student, sale_solo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -237,10 +255,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarGrupos(Grupos group) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO grupos (id_grade, level_group, id_category_group, classroom_group) VALUES (?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, group.getId_grade());
@@ -271,10 +286,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarNivel(Grade grade) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO grade (description_grade) VALUES (?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, grade.getDescription_grade());
@@ -301,10 +313,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarMes(Pay_simbology symbol) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO pay_simbology (month, description_pay, cost_pay, period_pay, deadline_pay) VALUES (?,?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, symbol.getMonth());
@@ -336,10 +345,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int insertarReporteCalificaciones(Report report) {
         int id_reporte = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO report (first_partial_report, second_partial_report, avg_report) VALUES (?,?,?)";
             pstm = con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS);
             pstm.setDouble(1, report.getFirst_partial_report());
@@ -370,10 +376,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarTeacher(Teachers teacher) {
         try{
-           String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO teachers (id_user_teacher, apellido_paterno_teacher, apellido_materno_teacher,"
                     + "nombre_teacher, telefono_teacher, email_teacher, fecha_nacimiento_teacher, status_teacher, "
                     + "id_group_teacher) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -413,10 +416,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void insertarUsuario(Users user) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "INSERT INTO users (nom_user, password, rango) VALUES (?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, user.getNom_user());
@@ -444,10 +444,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarUsuario(Users user){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE users SET nom_user=?, password = ?, rango = ? WHERE id_user = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, user.getNom_user());
@@ -475,10 +472,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarTeacher(Teachers teacher){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE teachers SET apellido_paterno_teacher = ?, apellido_materno_teacher = ?, "
                     + "nombre_teacher = ?, telefono_teacher = ?, email_teacher = ?, fecha_nacimiento_teacher = ?,"
                     + "status_teacher = ?, id_group_teacher = ?, classroom_teacher = ? WHERE id_user_teacher = ?;";
@@ -519,10 +513,7 @@ public class BaseDatos implements BaseDatosStruct{
      @Override 
      public void actualizarAdministrador(Admin_school admin){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE admin_school SET apellido_paterno_admin = ?, apellido_materno_admin = ?, "
                     + "nombre_admin =?, fecha_nacimiento_admin = ?, telefono_admin = ?, email_admin = ? WHERE id_user_admin = ?;";
             pstm = con.prepareStatement(sql);
@@ -554,10 +545,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarEstudiante(Students student){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "UPDATE students SET "
                     + "apellido_paterno_student = ?, apellido_materno_student = ?, nombre_student = ?, telefono1_student = ?, "
@@ -599,10 +587,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void cambiarEstudianteDeGrupo(Students student){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "UPDATE students SET id_teacher_student = ? "
                     + "WHERE id_user_student = ?;";
@@ -630,10 +615,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarReporteCalificaciones(Report report) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE report SET first_partial_report = ?, second_partial_report = ?, avg_report = ? WHERE id_report = ?";
             pstm = con.prepareStatement(sql);
             pstm.setDouble(1, report.getFirst_partial_report());
@@ -660,10 +642,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarEstatusDePago(Payment_status status) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE payment_status SET description_status = ? WHERE id_ststus = (?)";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, status.getDescription_status());
@@ -688,10 +667,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarSeguimientoDePago(Payment pay) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE payment SET register_payment = ?, pay_1 = ?, pay_2 = ?, pay_3 = ?, pay_4 = ?"
                     + ",pay_5 = ?, pay_6 = ?, pay_7 = ?, payment_status = ? WHERE id_payment = ?";
             pstm = con.prepareStatement(sql);
@@ -726,10 +702,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarCalendario(Pay_simbology symbol) {
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE pay_simbology SET month = ?, description_pay = ?, cost_pay = ?, period_pay = ?, "
                     + "deadline_pay = ? WHERE id_pay = ?";
             pstm = con.prepareStatement(sql);
@@ -765,10 +738,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarGrupos(Grupos group){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE grupos SET id_grade =?, level_group = ?, id_category_group = ?, classroom_group = ? WHERE id_group = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, group.getId_grade());
@@ -796,10 +766,7 @@ public class BaseDatos implements BaseDatosStruct{
      @Override 
      public void actualizarNivel(Grade grade){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE grade SET description_grade = ? WHERE id_grade = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, grade.getDescription_grade());
@@ -825,10 +792,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void actualizarCategorias(Category category){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "UPDATE category SET description_category = ? WHERE id_category = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, category.getDescription_category());
@@ -857,10 +821,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Users> obtenerUsuarios(){
         ArrayList<Users> listaUsuarios = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String pass = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, pass);
+            conexionBD();
             String sql = "SELECT * FROM users;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -897,10 +858,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Teachers> obtenerTeachers(){
         ArrayList<Teachers> listaTeachers = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM teachers ORDER BY apellido_paterno_teacher ASC;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -945,10 +903,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Students> obtenerEstudiantes(){
         ArrayList<Students> listaStudents = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM STUDENTS ORDER BY apellido_paterno_student;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -999,10 +954,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Admin_school> obtenerAdministrador(){
         ArrayList<Admin_school> listaAdministrador = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM admin_school ORDER BY apellido_paterno_admin;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1045,10 +997,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Report> obtenerCalificaciones(){
         ArrayList<Report> listaCalificaciones = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM report;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1086,10 +1035,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Payment_status> obtenerEstatus(){
         ArrayList<Payment_status> listaEstatus = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM payment_status;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1124,10 +1070,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Payment> obtenerSeguimiento(){
         ArrayList<Payment> listaSeguimiento = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM payment;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1170,10 +1113,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Pay_simbology> obtenerCalendario(){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM pay_simbology;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1212,10 +1152,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Grupos> obtenerGrupos(){
         ArrayList<Grupos> listaGrupos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM grupos;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1254,10 +1191,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Grade> obtenerNivel(){
         ArrayList<Grade> listaNiveles = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM grade;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1293,10 +1227,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Category> obtenerCategorias(){
         ArrayList<Category> listaCategorias = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM category;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -1334,10 +1265,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Users> obtenerUsuario(String usuario){
         ArrayList<Users> listaUsuario = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String userLog = Constantes.NOMBRE_USUARIO;
-            String pass = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, userLog, pass);
+            conexionBD();
             String sql = "SELECT * FROM users WHERE nom_user = ? or id_user = ?;";
             
             pstm = con.prepareStatement(sql);
@@ -1378,10 +1306,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Teachers> obtenerTeacher(int id_user){
         ArrayList<Teachers> listaTeachers = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM TEACHERS WHERE id_user_teacher = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id_user);
@@ -1428,10 +1353,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Admin_school> obtenerAdministrador(int id_user){
         ArrayList<Admin_school> listaAdministrador = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM admin_school WHERE id_user_admin = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id_user);
@@ -1476,10 +1398,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Students> obtenerEstudiante(int id_user){
         ArrayList<Students> listaStudents = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT * FROM STUDENTS WHERE id_user_student = ?;";
             pstm = con.prepareStatement(sql);
@@ -1532,10 +1451,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Report> obtenerCalificaciones(int id){
         ArrayList<Report> listaCalificaciones = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM report WHERE id_report = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
@@ -1574,10 +1490,7 @@ public class BaseDatos implements BaseDatosStruct{
     public String obtenerEstatus(int id){
         String estatusEncontrado = "";
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM payment_status WHERE id_status = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
@@ -1612,10 +1525,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Payment> obtenerSeguimiento(int id){
         ArrayList<Payment> listaSeguimiento = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM payment WHERE id_payment = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
@@ -1660,10 +1570,7 @@ public class BaseDatos implements BaseDatosStruct{
     public String obtenerPeriodo(String mes){
         String periodoEncontrado = "";
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT period_pay FROM pay_simbology WHERE month = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, mes);
@@ -1696,10 +1603,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Pay_simbology> obtenerCalendario(String periodo){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM pay_simbology WHERE period_pay = ? OR period_pay = 'Cualquiera';";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, periodo);
@@ -1739,10 +1643,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Pay_simbology> obtenerDatosDeMes(int id_month){
         ArrayList<Pay_simbology> calendario = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM pay_simbology WHERE id_pay = ? ;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id_month);
@@ -1781,10 +1682,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Grupos> obtenerGrupos(int id){
         ArrayList<Grupos> listaGrupos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM GRUPOS WHERE id_group = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
@@ -1823,24 +1721,16 @@ public class BaseDatos implements BaseDatosStruct{
      **/
     @Override 
     public String obtenerNivel(int id){
-        ArrayList<Grade> listaNiveles = new ArrayList<>();
         String nivelObtenido = "";
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM grade WHERE id_grade = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
             rs = pstm.executeQuery();
             
             while(rs.next()){
-                int id_grade = rs.getInt("id_grade");
                 String description_grade = rs.getString("description_grade");
-                
-                Grade nivel = new Grade(id_grade, description_grade);
-                listaNiveles.add(nivel);
                 nivelObtenido = description_grade;
             }
             
@@ -1868,10 +1758,7 @@ public class BaseDatos implements BaseDatosStruct{
     public String obtenerCategorias(int id){
         String categoriaObtenida = "";
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT * FROM category WHERE id_category = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
@@ -1909,10 +1796,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultasAdmin> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT admin_school.id_admin, admin_school.apellido_paterno_admin, admin_school.apellido_materno_admin, \n" +
                         "admin_school.nombre_admin, users.rango, users.id_user, users.nom_user, admin_school.telefono_admin, \n" + 
@@ -1970,10 +1854,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int actualizarListas(){
         int ultimoRegistro = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT MAX(id_payment) AS ultimo_registro FROM payment;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -2003,10 +1884,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaAlumnos> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, \n" +
                             "students.nombre_student, users.nom_user, students.telefono1_student, students.telefono2_student, \n" +
@@ -2079,10 +1957,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<ConsultaGrupos> obtenerDatosGrupos(){
         ArrayList <ConsultaGrupos> datosGrupo = new ArrayList<>();
          try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT grupos.id_group, grupos.id_grade, grade.description_grade ," +
                             "grupos.level_group,  grupos.id_category_group, category.description_category FROM " +
@@ -2135,10 +2010,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaTeacher> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT teachers.id_teacher, teachers.apellido_paterno_teacher, teachers.apellido_materno_teacher,\n" +
                             "teachers.nombre_teacher, teachers.fecha_nacimiento_teacher, teachers.telefono_teacher, \n" +
@@ -2208,10 +2080,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int inicioSesion(String user, String password, String rol){
         int pagina = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String pass = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, pass);
+            conexionBD();
             String SQL = "SELECT * FROM users WHERE rango = (?) and nom_user = (?) " ;
             pstm = con.prepareStatement(SQL);
             pstm.setString(1, rol);
@@ -2223,15 +2092,15 @@ public class BaseDatos implements BaseDatosStruct{
                 String contraBD = rs.getString("password");
                 if(password.equals(contraBD)){
                     //3. Menu de inicio de cierto rol
-                    pagina = Constantes.ACCESO_CONCEDIDO;
+                    pagina = constantesLogin.ACCESO_CONCEDIDO;
                     
                 }else{
                     //1 = Un dato es incorrecto
-                    pagina  = Constantes.DATO_INCORRECTO;
+                    pagina  = constantesLogin.DATO_INCORRECTO;
                 }
             }
             else{
-                pagina = Constantes.USUARIO_NO_ENCONTRADO;
+                pagina = constantesLogin.USUARIO_NO_ENCONTRADO;
             }
             
         }catch(SQLException ex){
@@ -2262,10 +2131,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultasAdmin> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String user = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, user, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT admin_school.id_admin, admin_school.apellido_paterno_admin, admin_school.apellido_materno_admin, \n" +
                         "admin_school.nombre_admin, users.rango, users.id_user, users.nom_user, admin_school.telefono_admin, \n" + 
@@ -2328,11 +2194,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaAlumnos> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String user = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, user, password);
-            
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, \n" +
                             "students.nombre_student, users.nom_user, students.telefono1_student, students.telefono2_student, \n" +
@@ -2408,10 +2270,7 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<ConsultaGrupos> obtenerDatosGrupo(int id_grupo){
         ArrayList <ConsultaGrupos> datosGrupo = new ArrayList<>();
          try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT grupos.id_group, grupos.id_grade, grade.description_grade ," +
                             "grupos.level_group,  grupos.id_category_group, category.description_category FROM " +
@@ -2658,11 +2517,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaTeacher> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String user = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, user, password);
-            
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT teachers.id_teacher, teachers.apellido_paterno_teacher, teachers.apellido_materno_teacher,\n" +
                             "teachers.nombre_teacher, teachers.fecha_nacimiento_teacher, teachers.telefono_teacher, \n" +
@@ -2728,10 +2583,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int conteoAlumnos(){
         int conteo = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT COUNT(*) FROM STUDENTS;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -2761,10 +2613,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int conteoProfesores(){
         int conteo = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT COUNT(*) FROM TEACHERS WHERE id_group_teacher IS NOT NULL;";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
@@ -2796,10 +2645,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int conteoAlumnos(int id_teacher){
         int conteo = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             if (id_teacher != 0){
                 String sql = "SELECT COUNT(*) FROM STUDENTS WHERE id_teacher_student = ?;";
                 pstm = con.prepareStatement(sql);
@@ -2837,11 +2683,7 @@ public class BaseDatos implements BaseDatosStruct{
     public int conteoMeses(String periodoActual){
         int conteo = 0;
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-            
+            conexionBD();
             String sql = "SELECT COUNT(*) FROM PAY_SIMBOLOGY WHERE period_pay = ?;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, periodoActual);
@@ -2874,10 +2716,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaBitacorasAlumnos> listaAlumnos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT id_student, apellido_paterno_student, apellido_materno_student, nombre_student, sale_solo FROM students\n" +
                          "WHERE id_teacher_student = ? ;";
@@ -2924,10 +2763,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaPagos> listaAlumnos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, students.nombre_student, students.telefono1_student,  "
                         + "payment.id_payment, payment.register_payment, payment.pay_1, payment.pay_2, payment.pay_3, payment.pay_4, "
@@ -2987,10 +2823,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaBitacorasProfesores> listaDatos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             String sql = "SELECT teachers.id_teacher, teachers.apellido_paterno_teacher, teachers.apellido_materno_teacher, \n" +
                         "teachers.nombre_teacher, grupos.id_group, grupos.id_grade, grade.description_grade , grupos.level_group,  \n" +
                         "grupos.id_category_group, category.description_category, teachers.classroom_teacher FROM teachers \n" +
@@ -3043,10 +2876,7 @@ public class BaseDatos implements BaseDatosStruct{
         //1. Obtiene los datos de ingreso del usuario
         ArrayList <ConsultaCalificaciones> listaAlumnos = new ArrayList<>();
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sql = "SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, students.nombre_student, users.nom_user, \n" +
                             "report.id_report, report.first_partial_report, report.second_partial_report, report.avg_report FROM students \n" +
@@ -3103,11 +2933,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarUsuario(int id_user){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-
+            conexionBD();
             //Ejecuta la consulta de eliminacion de MySQL
             String sqlEliminar = "DELETE FROM users WHERE id_user = (?);";
            
@@ -3137,10 +2963,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarAdministrador(int id_admin){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Ejecuta la consulta de eliminacion de MySQL
             String sqlEliminar = "DELETE FROM admin_school WHERE id_admin = (?);";
             pstm = con.prepareStatement(sqlEliminar);
@@ -3168,10 +2991,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarTeacher(int id_teacher){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Ejecuta la consulta de eliminacion de MySQL
             String sqlEliminar = "DELETE FROM teachers WHERE id_teacher = (?);";
             
@@ -3200,11 +3020,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarAlumno(int id_student){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-            
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sqlEliminar = "DELETE FROM students WHERE id_student = (?);";
             
@@ -3233,11 +3049,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarListaCalificaciones(int id_report){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-            
+            conexionBD();
             //Lo busca con respecto al id de usuario de su respectiva tabla
             String sqlEliminar = "DELETE FROM report WHERE id_report = (?);";
             
@@ -3265,14 +3077,9 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarListaDePago(int id_payment){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-
+            conexionBD();
             //Ejecuta la consulta de eliminacion de MySQL
             String sqlEliminar = "DELETE FROM payment WHERE id_payment = (?);";
-
             pstm = con.prepareStatement(sqlEliminar);
             pstm.setInt(1, id_payment);
             pstm.executeUpdate();
@@ -3299,10 +3106,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void eliminarGrupo(int id_group){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
+            conexionBD();
             //Ejecuta la consulta de eliminacion de MySQL
             String sqlEliminar = "DELETE FROM grupos WHERE id_group = (?);";
             pstm = con.prepareStatement(sqlEliminar);
@@ -3332,11 +3136,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void desvincularProfesores(int id_group){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-            
+            conexionBD();
             //A la hora de eliminar grupo, se actualiza teachers ya que esta relacionada
             String sqlActualizar = "UPDATE teachers SET id_group_teacher = null WHERE id_group_teacher = (?)";
             pstm = con.prepareStatement(sqlActualizar);
@@ -3364,11 +3164,7 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void desvincularAlumnos(int id_teacher){
         try{
-            String urlDB = Constantes.URL_DB;
-            String usuario = Constantes.NOMBRE_USUARIO;
-            String password = Constantes.PASSWORD_USUARIO;
-            con = DriverManager.getConnection(urlDB, usuario, password);
-            
+            conexionBD();
             //A la hora de eliminar grupo, se actualiza teachers ya que esta relacionada
             String sqlActualizar = "UPDATE students SET id_teacher_student = null WHERE id_teacher_student = (?)";
             pstm = con.prepareStatement(sqlActualizar);

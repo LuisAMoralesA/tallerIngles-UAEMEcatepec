@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
 import controller.SHA256;
+import controller.Constantes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -80,11 +77,11 @@ public class addAdmin extends HttpServlet {
                                             (Object) birthdate, phone, email);
                 base.insertarAdministrador(administrador);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/listaAdministradores.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_LISTA_ADMIN);
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=3");
+            response.sendRedirect(Constantes.VentanasJSP.URL_AGREGAR_INFORMACION+"?add=3");
         }
     }
 

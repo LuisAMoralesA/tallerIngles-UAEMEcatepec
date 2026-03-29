@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
 import controller.SHA256;
+import controller.Constantes;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -89,11 +86,11 @@ public class addStudent extends HttpServlet {
                                                 name,phone,phone,(Object) birthdate, email, sale_solo);
                 base.insertarEstudiante(student);
             }
-            response.sendRedirect("/tallerDeInglesUAEM/view/listaAlumnos.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_LISTA_ALUMNOS);
         }
         else{
             sesion.setAttribute("contraseñaIncorrecta","Las contraseñas ingresadas son diferentes");
-            response.sendRedirect("/tallerDeInglesUAEM/view/agregarInformacion.jsp?add=1");
+            response.sendRedirect(Constantes.VentanasJSP.URL_AGREGAR_INFORMACION+"?add=1");
         }
     }
 

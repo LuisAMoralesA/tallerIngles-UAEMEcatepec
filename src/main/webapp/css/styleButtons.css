@@ -1,0 +1,109 @@
+/* 
+    Created on : Mar 28, 2026, 3:32:36 PM
+    Author     : anton
+*/
+
+#modificar {
+    list-style-type: none;
+    background-color: transparent; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 15px; 
+}
+
+#modificar a, button{
+    text-decoration: none;
+    background-color: rgba(156, 132, 18, 1);
+    color: rgb(255,255,255);
+    width: 150px;
+    padding: 10px 16px 10px ;
+    display: block;
+    text-align:center;
+}
+
+#button {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -70px;
+    padding-right: 90px;
+}
+
+#modificar a:hover{
+    background-color: rgba(44, 82, 52, 1);
+}
+#modificar li {
+    display: block;
+}
+#modificar a{
+    border-radius: 8px;
+    width: 190px;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+/*Botones de agregar informacion*/
+.documents {
+    gap: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+}
+
+.options {
+    gap: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+}
+
+#link {
+    text-decoration: none;
+    background-color: rgba(156, 132, 18, 1);
+    color: rgb(255,255,255);
+    width: 150px;
+    padding: 10px;
+    display: block;
+    text-align:center;
+}
+#menu_opciones a:hover, #modificar a:hover, button:hover, #link:hover, #update-btn:hover {
+    background-color: rgba(44, 82, 52, 1);
+}
+#update-btn {
+    text-decoration: none;
+    background-color: rgba(156, 132, 18, 1);
+    color: rgb(255,255,255);
+    width: 150px;
+    padding: 10px;
+    display: block;
+    text-align:center;
+}
+
+ #del, #upd {
+     font-size: 1.2rem;
+     background-color: transparent;
+     width:100%;
+     padding: 0;
+     align-items: center;
+     justify-content: center;
+     vertical-align: middle;
+ }
+
+ #del {
+     color: red;
+     border-color: red;
+ }
+ 
+ #upd {
+     color: green;
+     border-color: green;
+ }
+ 
+ #del:hover {
+    border-color:rgba(44, 82, 52, 1);
+    color: rgba(44, 82, 52, 1);
+ }

@@ -1,0 +1,84 @@
+body{
+    background-image:
+        url(../Images/UAEMEX2.jpg);
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(7px);
+}
+
+article {
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    width: 85%;
+    height: 100%;
+    border: 1px solid #ccc;
+}
+
+#perfil_usuario {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#perfil_usuario h1 {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    column-span: 2;
+}
+/*Parte del formularios*/
+
+.form-container {
+    width: 400px;
+    background-color: #FEFFFC;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4;
+    align-items: center;
+    text-align: center;
+    border-color: rgb(0,0,0);
+}
+
+.form-container h1, i{
+    font-size: 40px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+#button {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 20px; 
+    padding-right: 50px;
+}
+#modificar {
+    background-color: transparent; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 15px; 
+}
+.form-container label{
+    font-size: 15px;
+    width: 300px;
+    padding: 5px;
+    font-style: oblique;
+}
+.form-container input{
+    width: 80%;
+    background-color: #FDFFD4;
+    padding:5px;
+    margin-bottom: 15px;
+}
+.form-container button {
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+/*location.href ayuda a que el boton funcione de hipervinculo*/

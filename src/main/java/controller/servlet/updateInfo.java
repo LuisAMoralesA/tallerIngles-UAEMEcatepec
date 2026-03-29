@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import model.Tables.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -36,7 +33,7 @@ public class updateInfo extends HttpServlet {
         String phone1 = request.getParameter("phone1");
         String email = request.getParameter("email");
                 
-        String url = "/tallerDeInglesUAEM/view/updateInfo.jsp"; 
+        String url = Constantes.VentanasJSP.URL_ACTUALIZAR_INFORMACION; 
   
         //if(request.getParameter("update")!=null){
         HttpSession sesion = request.getSession();
@@ -55,15 +52,15 @@ public class updateInfo extends HttpServlet {
             Students student = new Students(idprincipal, idprofesor, pagos,calif, iduser,apaterno,amaterno,nombre,
                     phone1, phone2, (Object) birthdate, email, sale_solo);
             base.actualizarEstudiante(student);
-            url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAlumnos.jsp" :
-                    "/tallerDeInglesUAEM/view/menuAlumno.jsp";
+            url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_ALUMNOS :
+                    Constantes.VentanasJSP.URL_MENU_ALUMNO;
             break;
         case "ADMINISTRADOR" :
             Admin_school admin = new Admin_school(idprincipal,iduser,apaterno, amaterno,nombre,
                             (Object) birthdate, phone1, email);
             base.actualizarAdministrador(admin);
-            url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaAdministradores.jsp" :
-                    "/tallerDeInglesUAEM/view/menuAdministrador.jsp"; 
+            url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_ADMIN :
+                    Constantes.VentanasJSP.URL_MENU_ADMIN;
             break;
         case "PROFESOR":
             String status = request.getParameter("status");
@@ -72,8 +69,8 @@ public class updateInfo extends HttpServlet {
             Teachers teacher = new Teachers(idprincipal,iduser,apaterno,amaterno,nombre,
                     phone1, email, (Object) birthdate,status, grupo, classroom);
             base.actualizarTeacher(teacher);
-            url = rangoActual.equals("ADMINISTRADOR") ? "/tallerDeInglesUAEM/view/listaTeachers.jsp" :
-                    "/tallerDeInglesUAEM/view/menuTeacher.jsp"; 
+            url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_TEACHERS:
+                    Constantes.VentanasJSP.URL_MENU_TEACHER;
             break;
         }
         sesion.setAttribute("sesionIniciada", username);

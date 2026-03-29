@@ -1,38 +1,32 @@
+<%-- 
+    Document   : sesionExpirada
+    Author     : Luis Morales
+--%>
 <%@page import="java.sql.*" %>
 <%@page import="com.mysql.jdbc.Driver" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="controller.*"%>
-<%@page import = "jakarta.servlet.http.HttpSession"%>
-
+<%@page import ="jakarta.servlet.http.HttpSession"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang = "es">
-    
     <head>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width-device-width, initial-scale = 1.0">
-        <title> <%=Constantes.TITULO_SESION_EXPIRADA%> </title>
-        <link href = <%=Constantes.URL_LOGO_TALLER2%> rel = "icon"/>
-        <link rel = "stylesheet" href = "/tallerDeInglesUAEM/css/style_login.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title> <%=Constantes.Titulos.TITULO_SESION_EXPIRADA%> </title>
+        <link href = "<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" rel = "icon"/>
+        <link rel = "stylesheet" href = "<%=Constantes.EstilosCSS.URL_CSS_SESION_EXPIRADA%>">
+        <link rel = "stylesheet" href = "<%=Constantes.LinksExternos.URL_CSS_FONTAWESOME%>" 
+              integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!--Librerias para alertas emergentes-->
-        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
-        <!--Link para visualizar alertas
-            https://sweetalert2.github.io/-->
+        <link rel = "stylesheet" href="<%=Constantes.LinksExternos.URL_CSS_SWEETALERT%>">
+        <script src = "<%=Constantes.LinksExternos.URL_JS_SWEETALERT%>"></script>
     </head>
 
     <body class = "body-expired">
         <header class = "header">
             <div class="menu1 container">
-                <img src="/tallerDeInglesUAEM/Images/Logo_Taller1.png" class = "logo-sesion" alt="" >
-
-                <nav class = "navbar">
-                    <ul>
-                        <li>
-                            
-                        </li>
-                    </ul>
-                </nav>
+                <img src="<%=Constantes.Imagenes.URL_LOGO_TALLER1%>" class = "logo-sesion" alt="" >
             </div>
         </header>
 
@@ -59,15 +53,12 @@
                         }
                     }
                 %>
-                <img class ="img2" src="/tallerDeInglesUAEM/Images/sesionExpirada1.png" alt="alt"/>
+                <img class ="img2" src="<%=Constantes.Imagenes.URL_SESION_EXPIRADA%>" alt="alt"/>
                 <h1> Pagina no encontrada </h1>
                 <b><p> Lo sentimos, no se puede acceder al URL deseado. </p></b>
-                
                 <a href=<%=link%>> <%=textButton%> </a>
             </div>
         </main>
-
-        
         <footer class="footer" > 
         <div class="ubicacion">
             <p class ="p-mapa">
@@ -81,8 +72,6 @@
                 <i>55020</i>
             </p>
         </div>
-        
-
         <div class="links">
             <ul>
                 <li>
@@ -94,14 +83,13 @@
 
                 <li>
                     <a href="mailto:tallerdeinglesuaem@gmail.com">
-                        <i class="fa-brands fa-square-instagram"></i>&nbsp; 
+                        <i class="fa-solid fa-envelope"></i>&nbsp; 
                         tallerdeinglesuaem@gmail.com
                     </a>         
                 </li>
             </ul>
         </div>
     </footer>
-        <script src = "/tallerDeInglesUAEM/js/login.js"></script>
+    <script src = "/tallerDeInglesUAEM/js/login.js"></script>
     </body>
-    
 </html>

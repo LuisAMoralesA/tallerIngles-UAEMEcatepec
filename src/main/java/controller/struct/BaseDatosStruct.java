@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * @author Luis Morales
  */
 public interface BaseDatosStruct {
+    //Conexion a Base de Datos
+    public void conexionBD();
     //Parte 1: Metodos de insersión de datos
     public void insertarAdministrador(Admin_school admin);
     public void insertarCategoria(Category category);

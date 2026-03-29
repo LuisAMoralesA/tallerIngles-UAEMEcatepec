@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.servlet;
 
 import controller.BaseDatos;
+import controller.Constantes;
 import model.Tables.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -37,7 +34,7 @@ public class updateSchedule extends HttpServlet {
         Pay_simbology symbol = new Pay_simbology(id_pay, mes, descripcion, mensualidad, periodo, (Object) deadline);
         bd.actualizarCalendario(symbol);
         sesion.setAttribute("actualizacionCompleta","Mensualidad del calendario actualizada correctamente");
-        String url = "/tallerDeInglesUAEM/view/calendario.jsp";
+        String url = Constantes.VentanasJSP.URL_CALENDARIO;
         response.sendRedirect(url);
     }
     

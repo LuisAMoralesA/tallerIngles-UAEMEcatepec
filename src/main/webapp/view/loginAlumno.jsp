@@ -1,50 +1,53 @@
+<%-- 
+    Document   : loginAlumno
+    Author     : Luis Morales
+--%>
 <%@page import="java.sql.*" %>
 <%@page import="com.mysql.jdbc.Driver" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import ="controller.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang = "es">
-    
     <head>
         <meta charset = "UTF-8">
         <meta name = "viewport" content = "width-device-width, initial-scale = 1.0">
-        <title> <%=Constantes.TITULO_LOGIN_ALUMNO%> </title>
-        <link href = <%=Constantes.URL_LOGO_TALLER2%> rel = "icon"/>
-        <link rel = "stylesheet" href = "/tallerDeInglesUAEM/css/style_login.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title> <%=Constantes.Titulos.TITULO_LOGIN_ALUMNO%> </title>
+        <link href = "<%=Constantes.Imagenes.URL_LOGO_TALLER2%>" rel = "icon"/>
+        <link rel = "stylesheet" href = "<%=Constantes.EstilosCSS.URL_CSS_LOGIN%>">
+        <link rel = "stylesheet" href = "<%=Constantes.LinksExternos.URL_CSS_FONTAWESOME%>" 
+              integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!--Librerias para alertas emergentes-->
-        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.19.1/dist/sweetalert2.all.min.js"></script>
-        <!--Link para visualizar alertas
-            https://sweetalert2.github.io/-->
+        <link rel = "stylesheet" href="<%=Constantes.LinksExternos.URL_CSS_SWEETALERT%>">
+        <script src = "<%=Constantes.LinksExternos.URL_JS_SWEETALERT%>"></script>
     </head>
 
     <body class = "body-student">
         <header class = "header">
             <div class="menu container">
                 <a href="https://cuecatepec.uaemex.mx/" class="logo-navbar">
-                    <img src="/tallerDeInglesUAEM/Images/uaem.png" class = "logo-navbar" alt="" >
+                    <img src="<%=Constantes.Imagenes.URL_UAEM%>" class = "logo-navbar" alt="" >
                 </a>
     
                 <input type = "checkbox" id = "menu" />
                 <label for="menu"> 
-                    <img src="/tallerDeInglesUAEM/Images/Menu.png" class = "menu-icono" alt="">
+                    <img src="<%=Constantes.Imagenes.URL_MENU%>" class = "menu-icono" alt="">
                 </label>
     
                 <nav class = "navbar">
                     <ul>
                         <li>
-                            <a href="../index.html"> Inicio </a>
+                            <a href="<%=Constantes.VentanasJSP.URL_INDEX%>"> Inicio </a>
                         </li>
 
                         <li>
-                            <a href="/tallerDeInglesUAEM/view/loginAlumno.jsp" style = "color: rgb(255, 213, 1)"> Alumnos </a>  
+                            <a href="<%=Constantes.VentanasJSP.URL_LOGIN_ALUMNO%>" style = "color: rgb(255, 213, 1)"> Alumnos </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/loginTeacher.jsp"> Profesores </a>  
+                            <a href="<%=Constantes.VentanasJSP.URL_LOGIN_TEACHER%>"> Profesores </a>  
                         </li>
                         <li> 
-                            <a href="/tallerDeInglesUAEM/view/loginAdministrador.jsp"> Administrativos </a>  
+                            <a href="<%=Constantes.VentanasJSP.URL_LOGIN_ADMIN%>"> Administrativos </a>  
                         </li>
                     </ul>
                 </nav>
@@ -80,14 +83,14 @@
                         <button type="submit" id = "submit" name="submit"> Ingresar </button>
                         
                     </form>
-                        <%
-                            //Obtiene la sesion que se encuentra en el navegador
-                            HttpSession sesion = request.getSession();
-                            //Busca si se trato de autenticarse pero no coincidian los datos
-                            String errorMessage = (String) sesion.getAttribute("errorMessage");
-                            //Si esta accion es detectada, se abre el cuadro de texto diciendo el error de autenticación
-                            if (errorMessage != null && !errorMessage.isEmpty()){
-                        %>
+                    <%
+                        //Obtiene la sesion que se encuentra en el navegador
+                        HttpSession sesion = request.getSession();
+                        //Busca si se trato de autenticarse pero no coincidian los datos
+                        String errorMessage = (String) sesion.getAttribute("errorMessage");
+                        //Si esta accion es detectada, se abre el cuadro de texto diciendo el error de autenticación
+                        if (errorMessage != null && !errorMessage.isEmpty()){
+                    %>
                         <script>
                             Swal.fire({
                                 icon: "error",
@@ -178,15 +181,14 @@
 
                 <li>
                     <a href="mailto:tallerdeinglesuaem@gmail.com">
-                        <i class="fa-brands fa-square-instagram"></i>&nbsp; 
+                        <i class="fa-solid fa-envelope"></i>&nbsp; 
                         tallerdeinglesuaem@gmail.com
                     </a>         
                 </li>
             </ul>
         </div>
     </footer>
-    <script src = "/tallerDeInglesUAEM/js/login.js"></script>
-    <script src = "/tallerDeInglesUAEM/js/mensajesEmergentes.js"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_LOGIN%>"></script>
+    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
     </body>
-    
 </html>
