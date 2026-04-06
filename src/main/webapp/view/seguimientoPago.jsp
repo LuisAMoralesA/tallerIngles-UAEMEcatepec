@@ -3,7 +3,7 @@
     Author     : Luis Morales
 --%>
 <%@page import="java.sql.*" %>
-<%@page import="com.mysql.jdbc.Driver" %>
+<%@page import="com.mysql.cj.jdbc.Driver" %>
 <%@page import ="controller.*"%>
 <%@page import ="model.Consultas.*"%>
 <%@page import ="model.Tables.*"%>
@@ -39,7 +39,7 @@
         String usuarioPrincipal = (String)sesion.getAttribute("sesionIniciada");
         
         if(usuarioPrincipal == null){
-            response.sendRedirect("/tallerDeInglesUAEM/view/sesionExpirada.jsp");
+            response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
             return;
         }
         
@@ -60,78 +60,80 @@
                     sesion.getAttribute("pagos");
                     sesion.getAttribute("calif");
             %>
+            
             <li>
-                <a href="../view/menuAlumno.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ALUMNO%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/seguimientoPago.jsp" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_SEGUIMIENTO_PAGO%>" style = "background-color: rgba(44, 82, 52, 1)">
                     <i class="fa-solid fa-dollar-sign"></i> <br>
                     Seguimiento
                 </a>
             </li>
 
             <li>
-                <a href="../view/vistaCalificaciones.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_VISTA_CALIFICACIONES%>">
                     <i class="fa-solid fa-school"></i> <br>
                     Calificaciones
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
             </li>
+            
             <%}else {%>
             <li>
-                <a href="../view/menuAdministrador.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_MENU_ADMIN%>">
                     <i class="fa-solid fa-circle-user"></i> <br>
                         Cuenta
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaAlumnos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>">
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaTeachers.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>">
                     <i class="fa-solid fa-chalkboard-user"></i>  <br>
                     Maestros
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaAdministradores.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ADMIN%>">
                     <i class="fa-brands fa-black-tie"></i><br>
                     Administradores
                 </a>
             </li>
             
             <li>
-                <a href="../view/listaGrupos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_GRUPOS%>">
                    <i class="fa-solid fa-school"></i><br>
                     Grupos
                 </a>
             </li>
 
             <li>
-                <a href="../view/listaDocumentos.jsp">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_DOCUMENTOS%>">
                     <i class="fa-solid fa-print"></i><br>
                     Documentos
                 </a>
             </li>
 
             <li>
-                <a href="../cerrarSesion">
+                <a href="<%=Constantes.Servlets.SERVLET_CERRAR_SESION%>">
                     <i class="fa-solid fa-right-from-bracket"></i> <br>
                     Cerrar Sesión
                 </a>
@@ -236,7 +238,7 @@
                                 ArrayList <Pay_simbology> listaPagos = base.obtenerCalendario(periodoActual);
                                 Iterator <Pay_simbology> iter = listaPagos.iterator();
                                 Pay_simbology per = null;
-
+                                int conteo = 0;
                                 while(iter.hasNext()){
                                     per = iter.next();
                                     boolean mensualidadPagada = false;
@@ -275,23 +277,25 @@
                                             nombreSelect = "mensualidadInscripcion";
                                             break;
                                     }
+                                    conteo++;
+                                    
                             %>
-                            <th scope="col"><%=per.getId_pay()%></th>
+                            <th scope="col"><%=conteo%></th>
                             <th scope="col"><%=per.getMonth()%></th>
                             <td scope="col"><%=per.getDescription_pay()%> </td>
                             <td><%=per.getCost_pay()%></td>
                             <td><%=per.getDeadline_pay() != null ? per.getDeadline_pay() : "NO APLICA" %></td>
                             <%if (!rangoPrincipal.equals("ADMINISTRADOR")){%>
-                            <td style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 0.1)" :"(39, 245, 135, 0.1)"%>">
+                            <td style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(63, 166, 83, 1)"%>">
                                 <%=mensualidadPagada ? "PAGADO" : "PENDIENTE"%>
                             </td>
                             <%}
                             else{
                             %>
                             <td>
-                                <select name="<%=nombreSelect%>" id="<%=nombreSelect%>" style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>">
-                                    <option value = "1" <%=mensualidadPagada ? "selected" : ""%> style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>"> PAGADA </option>
-                                    <option value = "0" <%=!mensualidadPagada ? "selected" : ""%> style = "background-color: rgba<%=mensualidadPagada ? "(245, 39, 39, 1)" :"(39, 245, 135, 1)"%>"> PENDIENTE </option>
+                                <select name="<%=nombreSelect%>" id="<%=nombreSelect%>" class="select-pago" style = "background-color: rgba<%=!mensualidadPagada ? "(245, 39, 39, 1)" :"(63, 166, 83, 1)"%>">
+                                    <option value = "1" <%=mensualidadPagada ? "selected" : ""%>> PAGADA </option>
+                                    <option value = "0" <%=!mensualidadPagada ? "selected" : ""%>> PENDIENTE </option>
                                 </select>
                             </td>
                             <%}%>
@@ -328,21 +332,10 @@
             </div>
         </div>
     </article>
-    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
-    <script src="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
-    <script src="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
-    <script>
-    $(document).ready(function() {
-        $('#tablaAlumnos').DataTable({
-            "pageLength": 5, 
-            "responsive": true,
-            "lengthChange": false,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            }
-        });
-    });
-    </script>
-    <script src = "<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
+    <script src ="<%=Constantes.LinksExternos.URL_JS_JQUERY%>"></script>
+    <script src ="<%=Constantes.LinksExternos.URL_JS_JQUERY_DATATABLES%>"></script>
+    <script src ="<%=Constantes.LinksExternos.URL_JS_DATATABLES%>"></script>
+    <script src ="<%=Constantes.JavaScript.URL_JS_SEGUIMIENTO_PAGO%>"></script>
+    <script src ="<%=Constantes.JavaScript.URL_JS_MENSAJES_EMERGENTES%>"></script>
 </body>
 </html>

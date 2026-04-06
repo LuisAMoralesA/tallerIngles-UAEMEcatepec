@@ -3,7 +3,7 @@
     Author     : Luis Morales
 --%>
 <%@page import ="java.sql.*" %>
-<%@page import ="com.mysql.jdbc.Driver" %>
+<%@page import ="com.mysql.cj.jdbc.Driver" %>
 <%@page import ="controller.*"%>
 <%@page import ="model.Consultas.*"%>
 <%@page import ="model.Tables.*"%>
@@ -125,6 +125,7 @@
                 </script>
                 <%}
                 sesion.setAttribute("actualizacionCompleta", null);
+                sesion.setAttribute("userNameRegistrado", null); 
             %>
             <div class="form-container2">
                 <i class="fa-solid fa-people-group"></i> <br>

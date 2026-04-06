@@ -3,7 +3,7 @@
     Author     : Luis Morales
 --%>
 <%@page import="java.sql.*" %>
-<%@page import="com.mysql.jdbc.Driver" %>
+<%@page import="com.mysql.cj.jdbc.Driver" %>
 <%@page import ="controller.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>

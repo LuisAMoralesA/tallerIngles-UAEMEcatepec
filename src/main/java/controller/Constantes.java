@@ -102,6 +102,7 @@ public class Constantes {
     public static final class JavaScript {
         public static final String URL_JS_LOGIN =                               DOMINIO_JS + "login.js";
         public static final String URL_JS_MENSAJES_EMERGENTES=                  DOMINIO_JS + "mensajesEmergentes.js";
+        public static final String URL_JS_SEGUIMIENTO_PAGO =                    DOMINIO_JS + "seguimientoPagoJScript.js";
     }
     
     public static final class VentanasJSP {

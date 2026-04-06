@@ -3,7 +3,7 @@
     Author     : Luis Morales
 --%>
 <%@page import ="java.sql.*" %>
-<%@page import ="com.mysql.jdbc.Driver" %>
+<%@page import ="com.mysql.cj.jdbc.Driver" %>
 <%@page import ="controller.*"%>
 <%@page import ="model.Consultas.*"%>
 <%@page import ="model.Tables.*"%>
@@ -359,7 +359,7 @@
                 }
                     else if(rangoModificar.equals("PROFESOR")){
                         if(rangoPrincipal.equals("ADMINISTRADOR")){
-                            url = "../view/listaTeachers.jsp";
+                            url = Constantes.VentanasJSP.URL_LISTA_TEACHERS;
                 %>
                     <div>
                         <label for="status">
@@ -395,7 +395,7 @@
                         <input type="text" name="classroom" id="classroom" value ="<%=classroom%>" >
                         <%}
                         else {
-                            url = "../view/menuTeacher.jsp";%>
+                            url = Constantes.VentanasJSP.URL_MENU_TEACHER;%>
                             <input type="hidden" name="status" id="status" value ="<%=status%>" >
                             <input type="hidden" name="grupo" id="grupo" value ="<%=idgrupo%>" >
                             <input type="hidden" name="classroom" id="classroom" value ="<%=classroom%>" >
