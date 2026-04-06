@@ -36,6 +36,7 @@ public class updatePay extends HttpServlet {
                                 , mensualidad5, mensualidad6, mensualidad7, status);
         bd.actualizarSeguimientoDePago(pay);
         sesion.setAttribute("actualizacionCompleta","Lista de Seguimiento actualizada correctamente ");
+        sesion.setAttribute("userNameRegistrado", "Oprimir el boton OK para finalizar");
         String url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
         response.sendRedirect(url);
     }

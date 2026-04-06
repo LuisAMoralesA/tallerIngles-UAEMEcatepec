@@ -29,6 +29,7 @@ public class updateGrade extends HttpServlet {
         Report calificaciones = new Report(idGrade, firstPartial, secondPartial, avg);
         bd.actualizarReporteCalificaciones(calificaciones);
         sesion.setAttribute("actualizacionCompleta","Lista de Calificaciones actualizada correctamente ");
+        sesion.setAttribute("userNameRegistrado", "Oprimir el boton OK para finalizar");
         String url = "";
         if (rangoPrincipal.equals("ADMINISTRADOR"))
             url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;

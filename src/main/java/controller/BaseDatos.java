@@ -39,7 +39,7 @@ public class BaseDatos implements BaseDatosStruct{
      **/
     public static final class configuracionBD {
         //Constantes para hacer la conexion a la base de datos
-        public static final String NOMBRE_DRIVER = "com.mysql.jdbc.Driver";
+        public static final String NOMBRE_DRIVER = "com.mysql.cj.jdbc.Driver";
         public static final String URL_DB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
         public static final String NOMBRE_USUARIO = "nbUser";
         public static final String PASSWORD_USUARIO = "123456";
