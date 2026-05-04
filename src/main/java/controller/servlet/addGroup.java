@@ -29,6 +29,7 @@ public class addGroup extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         //Busca los parametros de los cuadros de texto del alumno para inscripción
         int id_group = 1;
         int id_grade = Integer.parseInt(request.getParameter("grade"));

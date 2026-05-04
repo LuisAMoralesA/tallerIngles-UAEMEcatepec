@@ -206,7 +206,7 @@
                     if(iterAlumno.hasNext()){
                         perAlumno = iterAlumno.next();
                         grupo = base.concatenarDatosGrupo(perAlumno.getId_teacher_student());
-                        profesor = base.concatenarDatosGrupo(perAlumno.getId_teacher_student());
+                        profesor = base.concatenarDatosProfesor(perAlumno.getId_teacher_student());
                     }
                     String nombreCompleto = base.concatenarDatosAlumno(usuarioModificar);
 

@@ -166,13 +166,10 @@
                         <th scope="row"><%=conteo%></th>
                         <td><%=base.concatenarInfoGrupo(per.getId_group())%></td>
                         <td>
-                            <a href ="">
-                                <i class="fa-solid fa-pen-clip"></i>
-                            </a>
                         </td>
                         <td>
                             <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=g&id=<%=id_group%>" method = "post">
-                                <button type =  "button" id ="del" title="Eliminar Grupo" onclick = "showAlertDelete()">
+                                <button type =  "button" id ="del" title="Eliminar Grupo" onclick = "showAlertDelete(this.form)">
                                     <i class="fa-solid fa-x"></i>
                                 </button> 
                             </form> 

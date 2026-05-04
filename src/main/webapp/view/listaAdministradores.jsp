@@ -199,7 +199,7 @@
                             </td>
                             <td>
                                 <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=a&id=<%=id_admin%>&user=<%=id_user_admin%>" method = "post">
-                                    <button type = "button" id ="del" <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": ""%> title="Eliminar Administrador" onclick = "showAlertDelete()">
+                                    <button type = "button" id ="del" <%=id_userPrincipal.equals(String.valueOf(id_user_admin)) ? "style = 'visibility: hidden'": ""%> title="Eliminar Administrador" onclick = "showAlertDelete(this.form)">
                                         <i class="fa-solid fa-x"></i>
                                     </button>
                                 </form>

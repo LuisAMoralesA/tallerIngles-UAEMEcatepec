@@ -4,7 +4,7 @@
  */
 
 //Este mensaje funciona para marcar mensaje de actualizacion de Informacion de Usuario
-function showAlertDelete(){
+function showAlertDelete(formulario){
     event.preventDefault();
     Swal.fire({
         title: "¿Estas seguro de eliminación la información?",
@@ -14,10 +14,10 @@ function showAlertDelete(){
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Si",
-        cancelButtonText: "No"
+        cancelButtonText: "No" 
       }).then((result) => {
         if (result.isConfirmed) {
-            document.querySelector("form").submit();
+            formulario.submit();
         }
       });
 }

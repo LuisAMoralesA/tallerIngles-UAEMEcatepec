@@ -114,4 +114,6 @@ public interface BaseDatosStruct {
     //Parte 11: Operaciones de desvinculacion de tablas
     public void desvincularProfesores(int id_group);
     public void desvincularAlumnos(int id_teacher);
+    public void desvincularListas(int id_student);
+    public void desvincularGrupo(int id_group);
 }

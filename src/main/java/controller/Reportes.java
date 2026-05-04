@@ -89,17 +89,23 @@ public class Reportes implements ReportesStruct{
             parametros.put("ruta_imagenes", ruta_imagenes);
             parametros.put("classroom", classroom);
             
+            
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
             response.setContentType("application/pdf");
+            
             
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que 
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"bitacoraAlumnos.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -142,11 +148,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"bitacoraProfesores.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -203,11 +213,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"listaPagos.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -261,11 +275,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"listaCalificaciones.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{

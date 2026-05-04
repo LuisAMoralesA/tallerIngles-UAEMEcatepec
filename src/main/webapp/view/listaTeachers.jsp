@@ -183,7 +183,7 @@
                             </td> 
                             <td>
                                 <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=t&id=<%=id_teacher%>&user=<%=id_user_teacher%>" method = "post">
-                                    <button type = "button" id ="del" title="Eliminar Profesor" onclick = "showAlertDelete()">
+                                    <button type = "button" id ="del" title="Eliminar Profesor" onclick = "showAlertDelete(this.form)">
                                         <i class="fa-solid fa-x"></i>
                                     </button> 
                                 </form>

@@ -51,9 +51,10 @@ public class deleteInformation extends HttpServlet {
                 case "s":
                     id_user = Integer.parseInt(request.getParameter("user"));
                     id_student = id_principal;
+                    //bd.desvincularListas(id_student);
+                    bd.eliminarAlumno(id_student);
                     bd.eliminarListaDePago(id_student);
                     bd.eliminarListaCalificaciones(id_student);
-                    bd.eliminarAlumno(id_student);
                     bd.eliminarUsuario(id_user);
                     url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
                     //Define el valor de los cuadros de mensaje de confirmación

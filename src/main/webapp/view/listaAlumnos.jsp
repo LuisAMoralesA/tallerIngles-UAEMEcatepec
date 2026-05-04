@@ -203,7 +203,7 @@
                             </td>
                             <td>
                                 <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=s&id=<%=id_student%>&user=<%=id_user%>" method = "post">
-                                    <button type =  "button" id ="del" title="Eliminar Alumno" onclick = "showAlertDelete()">
+                                    <button type =  "button" id ="del" title="Eliminar Alumno" onclick = "showAlertDelete(this.form)">
                                         <i class="fa-solid fa-x"></i>
                                     </button> 
                                 </form>

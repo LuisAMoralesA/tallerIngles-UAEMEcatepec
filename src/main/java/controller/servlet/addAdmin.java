@@ -32,6 +32,7 @@ public class addAdmin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         //Busca los parametros de los cuadros de texto del alumno para inscripción
         String apaterno = request.getParameter("apaterno").toUpperCase();
         String amaterno = request.getParameter("amaterno").toUpperCase();
