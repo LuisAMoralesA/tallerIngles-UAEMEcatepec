@@ -123,7 +123,8 @@ public class reportesServlet extends HttpServlet {
                     }
                     r.bitacorasDeProfesores(response, ruta, imagenes, periodo);
                 }
-            }catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new ServletException("Error al generar reporte", ex);
             }  
     }

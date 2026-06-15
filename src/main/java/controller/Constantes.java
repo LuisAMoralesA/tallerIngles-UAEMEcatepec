@@ -156,6 +156,7 @@ public class Constantes {
         public static final String SERVLET_ACTUALIZAR_INFORMACION = "../updateInfo";
         public static final String SERVLET_ACTUALIZAR_PAGOS = "../updatePay";
         public static final String SERVLET_ACTUALIZAR_CALENDARIO = "../updateSchedule";
-        public static final String SERVLET_ACTUALIZAR_USUARIO = "../updateUser";
+        public static final String SERVLET_ACTUALIZAR_USUARIO = "../updateUser"; 
+        public static final String SERVLET_RESPALDO = "../backupServlet"; 
     }
 }

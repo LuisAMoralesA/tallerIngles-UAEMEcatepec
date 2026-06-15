@@ -23,9 +23,9 @@ public class ConsultaAlumnos {
     private int id_report_student;
     private String email_student;
     private boolean sale_solo;
-    private Object fecha_nacimiento_teacher;
+    private Object fecha_nacimiento_student;
 
-    public ConsultaAlumnos(int id_student, String apellido_paterno_student, String apellido_materno_student, String nombre_student, String nom_user, String telefono1_student, String telefono2_student, int id_teacher_student, String rango, int id_user_student, int id_payment_student, int id_report_student, String email_student, boolean sale_solo, Object fecha_nacimiento_teacher) {
+    public ConsultaAlumnos(int id_student, String apellido_paterno_student, String apellido_materno_student, String nombre_student, String nom_user, String telefono1_student, String telefono2_student, int id_teacher_student, String rango, int id_user_student, int id_payment_student, int id_report_student, String email_student, boolean sale_solo, Object fecha_nacimiento_student) {
         this.id_student = id_student;
         this.apellido_paterno_student = apellido_paterno_student;
         this.apellido_materno_student = apellido_materno_student;
@@ -40,7 +40,7 @@ public class ConsultaAlumnos {
         this.id_report_student = id_report_student;
         this.email_student = email_student;
         this.sale_solo = sale_solo;
-        this.fecha_nacimiento_teacher = fecha_nacimiento_teacher;
+        this.fecha_nacimiento_student = fecha_nacimiento_student;
     }
 
     public int getId_student() {
@@ -155,11 +155,11 @@ public class ConsultaAlumnos {
         this.sale_solo = sale_solo;
     }
 
-    public Object getFecha_nacimiento_teacher() {
-        return fecha_nacimiento_teacher;
+    public Object getFecha_nacimiento_student() {
+        return fecha_nacimiento_student;
     }
 
-    public void setFecha_nacimiento_teacher(Object fecha_nacimiento_teacher) {
-        this.fecha_nacimiento_teacher = fecha_nacimiento_teacher;
+    public void setFecha_nacimiento_student(Object fecha_nacimiento_teacher) {
+        this.fecha_nacimiento_student = fecha_nacimiento_teacher;
     }       
 }

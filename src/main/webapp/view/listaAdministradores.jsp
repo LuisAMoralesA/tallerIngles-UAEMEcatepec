@@ -140,6 +140,10 @@
                            <i class="fa-solid fa-calendar"></i><br>
                             Administrar Calendario
                         </a>
+                        <a id = "link" href="<%=Constantes.Servlets.SERVLET_RESPALDO%>">
+                           <i class="fa-solid fa-file-excel"></i><br>
+                            Crear respaldo en Excel
+                        </a>
                     </div>
                     <thead>
                         <tr>
