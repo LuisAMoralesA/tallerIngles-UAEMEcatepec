@@ -46,4 +46,6 @@ public interface RespaldoStruct {
     public CellStyle formatoFondoNormal(Workbook hojaCalculo, Font dataFont);
     public CellStyle formatoDatosCortos(Workbook hojaCalculo, Font dataFont);
     public void establecerBordes(CellStyle style);
+    
+    public void iniciarRespaldoSQL(OutputStream flujoSalida, String rutaEjecutable);
 }

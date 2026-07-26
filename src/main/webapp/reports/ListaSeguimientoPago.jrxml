@@ -10,6 +10,7 @@
 	<parameter name="PeriodoActual" forPrompting="false" class="java.lang.String"/>
 	<parameter name="id_teacher" class="java.lang.String"/>
 	<parameter name="numMeses" forPrompting="false" class="java.lang.String"/>
+	<parameter name="listaMeses" forPrompting="false" class="java.lang.String[]"/>
 	<query language="SQL"><![CDATA[
 SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, students.nombre_student, students.telefono1_student, 
 payment.id_payment,
@@ -139,7 +140,7 @@ ORDER BY apellido_paterno_student
 			<expression><![CDATA[$P{ruta_imagenes} + "uaem_BN.png"]]></expression>
 		</element>
 	</pageHeader>
-	<columnHeader height="44" splitType="Stretch">
+	<columnHeader height="39" splitType="Stretch">
 		<element kind="staticText" uuid="46d3430a-ec49-4453-976a-1488ada2f22b" mode="Opaque" x="0" y="5" width="100" height="34" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Apellido Paterno]]></text>
 		</element>
@@ -155,29 +156,29 @@ ORDER BY apellido_paterno_student
 		<element kind="staticText" uuid="280a4c51-c9d6-4247-b248-e8ef309a570a" mode="Opaque" x="333" y="23" width="60" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Inscripción]]></text>
 		</element>
-		<element kind="staticText" uuid="c59f755f-6f24-440f-94fc-8c3fd82588fc" mode="Opaque" x="395" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 1]]></text>
-		</element>
-		<element kind="staticText" uuid="197ba0c0-b263-4cd5-96bb-6e69f36ffc17" mode="Opaque" x="437" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 2]]></text>
-		</element>
-		<element kind="staticText" uuid="1790e242-8be5-4da5-9b40-2c62ecf9d2eb" mode="Opaque" x="479" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 3]]></text>
-		</element>
-		<element kind="staticText" uuid="661a4d76-77b9-497d-af5f-cf95e41fca37" mode="Opaque" x="521" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 4]]></text>
-		</element>
-		<element kind="staticText" uuid="46ae2b82-1432-420a-a172-c7cd8115d943" mode="Opaque" x="563" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 5]]></text>
-		</element>
-		<element kind="staticText" uuid="610a44f3-ee3d-4b9d-9a27-b7e0700a26a9" mode="Opaque" x="605" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 6]]></text>
-		</element>
-		<element kind="staticText" uuid="13aefcf0-29fb-4cbf-ab4c-e9a10f20ebec" mode="Opaque" x="647" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Mes 7]]></text>
-		</element>
 		<element kind="staticText" uuid="fab8fe5a-6775-47dd-a313-4ee26fab1324" mode="Opaque" x="690" y="5" width="60" height="34" forecolor="#FFFFFF" backcolor="#030303" markup="html" fontName="DejaVu Sans Mono" fontSize="8.5" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Estatus]]></text>
+		</element>
+		<element kind="textField" uuid="d5ceb6f3-d766-4d1a-b171-de446fcb7d71" mode="Opaque" x="395" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[0] : "Mes 1"]]></expression>
+		</element>
+		<element kind="textField" uuid="60514594-2bcf-404a-988c-6e1b71af2641" mode="Opaque" x="437" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[1] : "Mes 2"]]></expression>
+		</element>
+		<element kind="textField" uuid="14356c9f-c0ab-49bc-bee9-8e4cf3f901d5" mode="Opaque" x="479" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[2] : "Mes 3"]]></expression>
+		</element>
+		<element kind="textField" uuid="9ee35526-dcbd-4831-a6da-6bee050cdcd0" mode="Opaque" x="521" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[3] : "Mes 4"]]></expression>
+		</element>
+		<element kind="textField" uuid="add9fb7e-ebcb-4387-b542-e409ba74e566" mode="Opaque" x="563" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[4] : "Mes 5"]]></expression>
+		</element>
+		<element kind="textField" uuid="7ee5add5-f7c9-4a53-ac5b-266d4e815afe" mode="Opaque" x="605" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[5] : "Mes 6"]]></expression>
+		</element>
+		<element kind="textField" uuid="237a85a0-ba3d-4e84-b267-d37b1091c25b" mode="Opaque" x="647" y="23" width="40" height="16" forecolor="#FFFFFF" backcolor="#808080" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[($P{listaMeses} !=null && $P{listaMeses}.length > 0) ?$P{listaMeses}[6] : "Mes 7"]]></expression>
 		</element>
 	</columnHeader>
 	<detail>
@@ -232,7 +233,7 @@ ORDER BY apellido_paterno_student
 			</element>
 		</band>
 	</detail>
-	<pageFooter height="45" splitType="Stretch">
+	<pageFooter height="66" splitType="Stretch">
 		<element kind="textField" uuid="e67ec7ab-82e0-4dbf-953d-78868b771787" x="0" y="7" width="561" height="30" fontName="DejaVu Sans Condensed" hTextAlign="Left">
 			<expression><![CDATA["NOTA: Tomando en cuenta el semestre actual, solo se toman en cuenta " + $P{numMeses} + " mensualidades." ]]></expression>
 		</element>

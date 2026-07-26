@@ -40,6 +40,7 @@ public class BaseDatos implements BaseDatosStruct{
     public static final class configuracionBD {
         //Constantes para hacer la conexion a la base de datos
         public static final String NOMBRE_DRIVER = "com.mysql.cj.jdbc.Driver";
+        public static final String NOMBRE_BASE_DATOS = "tallerdeingles";
         public static final String URL_DB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
         public static final String NOMBRE_USUARIO = "adminTallerIngles";
         public static final String PASSWORD_USUARIO = "UAEMEX_2026";
@@ -734,6 +735,34 @@ public class BaseDatos implements BaseDatosStruct{
         }
     }
     
+    @Override 
+    public void actualizarCalendario(String periodoActual) {
+        try{
+            conexionBD();
+            String sql = "";
+            switch(periodoActual){
+                case "Periodo A":
+                    sql = "UPDATE pay_simbology SET period_pay = 'Periodo B' WHERE period_pay <> 'Cualquiera'";
+                    break;
+                case "Periodo B":
+                    sql = "UPDATE pay_simbology SET period_pay = 'Periodo A' WHERE period_pay <> 'Cualquiera'";
+                    break;
+            }
+            pstm = con.prepareStatement(sql);
+            pstm.executeUpdate();
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+    }
+    
     /**
      * Este metodo permite hacer una consulta SQL para actualizar la informacion de un grupo especifico
      * @param group: Un objeto de tipo Grupos con todos sus datos 
@@ -1147,6 +1176,34 @@ public class BaseDatos implements BaseDatosStruct{
             }
         }
         return calendario;
+    }
+    
+    public String[] obtenerMesesCalendario(){
+        String[] meses = new String[7];
+        try{
+            conexionBD();
+            String sql = "SELECT month FROM pay_simbology;";
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            int i = 0;
+            
+            while(rs.next()){
+                String mesObtenido = rs.getString("month");
+                meses[i] = mesObtenido;
+                i++;
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return meses;
     }
     
     
@@ -1599,6 +1656,32 @@ public class BaseDatos implements BaseDatosStruct{
         return periodoEncontrado;
     }
     
+    @Override
+    public String obtenerPeriodo(int mes){
+        String periodoEncontrado = "";
+        try{
+            conexionBD();
+            String sql = "SELECT period_pay FROM pay_simbology WHERE id_pay = ?;";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, mes);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                periodoEncontrado = rs.getString("period_pay");
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return periodoEncontrado;
+    }
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un mes especifico
      * @param periodo: Periodo Escolar buscado en la base de datos
@@ -1639,6 +1722,38 @@ public class BaseDatos implements BaseDatosStruct{
         return calendario;
     }
     
+    @Override
+    public ArrayList<Pay_simbology> obtenerCalendarioFiltrado(){
+        ArrayList<Pay_simbology> calendario = new ArrayList<>();
+        try{
+            conexionBD();
+            String sql = "SELECT * FROM pay_simbology WHERE month <> 'NA';";
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                int id_pay = rs.getInt("id_pay");
+                String month = rs.getString("month");
+                String description_pay = rs.getString("description_pay");
+                double cost_pay = rs.getDouble("cost_pay");
+                String period_pay = rs.getString("period_pay");
+                Object deadline_pay = rs.getObject("deadline_pay");
+                Pay_simbology mes = new Pay_simbology(id_pay, month, description_pay, cost_pay, period_pay, deadline_pay);
+                calendario.add(mes);
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return calendario;
+    }
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un mes especifico
      * @param id_month: Periodo Escolar buscado en la base de datos
@@ -2686,13 +2801,12 @@ public class BaseDatos implements BaseDatosStruct{
      * @return int: Cantidad de grupos en la base de datos. 
      **/
     @Override 
-    public int conteoMeses(String periodoActual){
+    public int conteoMeses(){
         int conteo = 0;
         try{
             conexionBD();
-            String sql = "SELECT COUNT(*) FROM PAY_SIMBOLOGY WHERE period_pay = ?;";
+            String sql = "SELECT COUNT(*) FROM PAY_SIMBOLOGY WHERE month <> 'NA';";
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, periodoActual);
             rs = pstm.executeQuery();
             while(rs.next()){
                 conteo = rs.getInt(1);
@@ -3236,5 +3350,44 @@ public class BaseDatos implements BaseDatosStruct{
                 ex.printStackTrace();
             }
         }
+    }
+    
+    @Override
+    public String mensajeAdminEncontrado(ArrayList <ConsultasAdmin> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultasAdmin> iter = usuarioEncontrado.iterator();
+       ConsultasAdmin per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosAdministrador(per.getId_admin());
+       }
+       return mensaje;
+    }
+    
+    @Override
+    public String mensajeAlumnoEncontrado(ArrayList <ConsultaAlumnos> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultaAlumnos> iter = usuarioEncontrado.iterator();
+       ConsultaAlumnos per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosAlumno(per.getId_student());
+       }
+       return mensaje;
+    }
+    
+    @Override
+    public String mensajeProfesorEncontrado(ArrayList <ConsultaTeacher> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultaTeacher> iter = usuarioEncontrado.iterator();
+       ConsultaTeacher per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosProfesor(per.getId_teacher());
+       }
+       return mensaje;
     }
 }

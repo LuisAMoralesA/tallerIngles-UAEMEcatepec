@@ -63,11 +63,9 @@ public class reportesServlet extends HttpServlet {
             
             //Formula para obtener el periodo que solicita el documento
             String periodo = "";
-            LocalDate hoy = LocalDate.now();
-            String mesActual = hoy.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+            LocalDate hoy = Constantes.HOY;
             String año = Integer.toString(hoy.getYear());
-            mesActual = mesActual.substring(0, 1).toUpperCase() + mesActual.substring(1);
-            String periodoActual = bd.obtenerPeriodo(mesActual);
+            String periodoActual = bd.obtenerPeriodo(1);
 
             try{
                 //Si se solicita la bitacora de Asistencia
@@ -78,7 +76,6 @@ public class reportesServlet extends HttpServlet {
                     profesor = bd.concatenarDatosProfesor(id_teacher);
                     classroom = request.getParameter("c");
                     //Define el documento que hay que imprimir
-                    //ruta = getServletContext().getRealPath("/"+URLJasper);
                     ruta = getServletContext().getRealPath("/"+URLJasper);
                     if(ruta==null){
                         ruta = URLJasper;
@@ -93,12 +90,14 @@ public class reportesServlet extends HttpServlet {
                     grupo = bd.concatenarDatosGrupo(id_teacher);
                     profesor = bd.concatenarDatosProfesor(id_teacher);
                     classroom = request.getParameter("c");
-                    numMeses = String.valueOf(bd.conteoMeses(periodoActual));
+                    numMeses = String.valueOf(bd.conteoMeses());
                     ruta = getServletContext().getRealPath("/"+URLJasper);
+                    String listaMeses[] = bd.obtenerMesesCalendario();
                     if(ruta==null){
                         ruta = URLJasper;
                     }
-                    r.listasPagos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, periodo, numMeses);
+                    r.listasPagos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, 
+                            periodo, numMeses, listaMeses);
                 }
                 //Si se solicita la lista de calificaciones
                 else if(grade !=null){

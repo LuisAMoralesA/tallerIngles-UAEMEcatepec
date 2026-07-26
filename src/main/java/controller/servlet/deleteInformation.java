@@ -29,15 +29,19 @@ public class deleteInformation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+            //Obtiene datos de la solicitud HTTP para hacer el proceso de eliminación. 
             String rango = request.getParameter("rango");
             int id_principal = Integer.parseInt(request.getParameter("id"));
             int id_admin, id_student, id_teacher, id_group;
             int id_user = 0;
             String url = "";
+            
+            //Obtiene la sesion de la aplicacion y crea la conexion con la base de datos
             HttpSession sesion = request.getSession();
             BaseDatos bd = new BaseDatos();
+            //Dependiendo del rango que se desea eliminar, cambian los valores y los objetos. 
             switch (rango){
-                //CASO DE ADMINISTRADOR
+                //CASO DE ADMINISTRADOR: Requiere eliminar  su registro de administrador y de usuario. 
                 case "a":
                     id_user = Integer.parseInt(request.getParameter("user"));
                     id_admin = id_principal;
@@ -47,11 +51,12 @@ public class deleteInformation extends HttpServlet {
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Administrador eliminados correctamente");
                     break;
-                //CASO DE ESTUDIANTE
+                    
+                //CASO DE ESTUDIANTE: Requiere eliminar su registro de alumno, sus listas de pago, 
+                //calificaciones y de usuario. 
                 case "s":
                     id_user = Integer.parseInt(request.getParameter("user"));
                     id_student = id_principal;
-                    //bd.desvincularListas(id_student);
                     bd.eliminarAlumno(id_student);
                     bd.eliminarListaDePago(id_student);
                     bd.eliminarListaCalificaciones(id_student);
@@ -60,7 +65,9 @@ public class deleteInformation extends HttpServlet {
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Estudiante eliminados correctamente");
                     break;
-                //CASO DE TEACHER
+                    
+                //CASO DE TEACHER: Requiere desvincular los alumnos y eliminar su registro de profesor 
+                //y de usuario. 
                 case "t":
                     id_user = Integer.parseInt(request.getParameter("user"));
                     id_teacher = id_principal;
@@ -71,7 +78,8 @@ public class deleteInformation extends HttpServlet {
                     //Define el valor de los cuadros de mensaje de confirmación
                     sesion.setAttribute("actualizacionCompleta","Datos del Profesor eliminados correctamente");
                     break;
-                //CASO DE GRUPOS
+                    
+                //CASO DE GRUPOS: Requiere desvincular al grupo del profesor y eliminar el registro dek grupo.
                 case "g":
                     id_group = id_principal;
                     bd.desvincularProfesores(id_group);
@@ -82,44 +90,15 @@ public class deleteInformation extends HttpServlet {
             }
             response.sendRedirect(url);
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

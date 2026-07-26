@@ -17,65 +17,38 @@ import model.Tables.*;
  */
 @WebServlet(name = "addGroup", urlPatterns = {"/addGroup"})
 public class addGroup extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        //Busca los parametros de los cuadros de texto del alumno para inscripción
+        //Busca los parametros de los cuadros de texto del grupo para agregar a la base de datos. 
         int id_group = 1;
         int id_grade = Integer.parseInt(request.getParameter("grade"));
         int level = Integer.parseInt(request.getParameter("level"));
         int id_category = Integer.parseInt(request.getParameter("category"));
         
+        //Recupera la sesion actual e inicia la conexion a la base de datos
         HttpSession sesion = request.getSession();
         BaseDatos base = new BaseDatos();
         
+        //Crea un objeto de tipo Grupo e inserta sus valores en la base de datos. 
         Grupos grupo = new Grupos(id_group, id_grade, level, id_category, "null");
         base.insertarGrupos(grupo);
         
-        //Define el valor de los cuadros de mensaje de confirmación
+        //Define el valor de los cuadros de mensaje de confirmación y redirige a la lista de grupos.
         sesion.setAttribute("actualizacionCompleta","Grupo Agregado correctamente");
         sesion.setAttribute("userNameRegistrado", "");
         response.sendRedirect(Constantes.VentanasJSP.URL_LISTA_GRUPOS);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-
 }

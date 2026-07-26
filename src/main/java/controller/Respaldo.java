@@ -16,9 +16,16 @@ import java.io.InputStream;
 
 import model.Consultas.*;
 import controller.struct.RespaldoStruct;
+import controller.Constantes;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,6 +33,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Tables.*;
 
 
 /**
@@ -543,5 +551,258 @@ public class Respaldo implements RespaldoStruct{
         style.setLeftBorderColor(IndexedColors.GREY_25_PERCENT.getIndex());
         style.setBorderRight(BorderStyle.THIN);
         style.setRightBorderColor(IndexedColors.GREY_25_PERCENT.getIndex());
+    }
+    
+    @Override
+    public void iniciarRespaldoSQL(OutputStream flujoSalida, String rutaEjecutable){
+        //Se define el comando para crear el archivo SQL dentro del sistema. 
+        String [] comando = {
+                rutaEjecutable,
+                "--opt",
+                "--user=" + BaseDatos.configuracionBD.NOMBRE_USUARIO,
+                "--password=" +BaseDatos.configuracionBD.PASSWORD_USUARIO,
+                "--databases",  
+                BaseDatos.configuracionBD.NOMBRE_BASE_DATOS,
+                "-R"
+                };
+        try{
+            //El sistema ejecuta el comando para obtener el dump SQL. 
+            Runtime ejecuta = Runtime.getRuntime();
+            Process creacion = ejecuta.exec(comando);
+            //Leer el dump SQL bit por bit
+            try{
+                //Obtiene el flujo de entrada en bytes para archivo SQL generado en el dump
+                InputStream is = creacion.getInputStream();
+                //Reserva un espacio para almacenar el archivo sql
+                byte[] buffer = new byte[4096];
+                int bytesLeidos;
+                //Mientras se encuentren bytes en el archivo SQL
+                while((bytesLeidos = is.read(buffer))!=-1){
+                    //Obtiene los bites del buffer y los guarda en doc. 
+                    flujoSalida.write(buffer, 0, bytesLeidos);
+                }
+                flujoSalida.flush();
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void iniciarRespaldoCSV(OutputStream flujoSalida){
+        //Obtiene todas las tablas de la base de datos 
+        ArrayList <Admin_school> admin_school = bd.obtenerAdministrador();
+        ArrayList <Category> category = bd.obtenerCategorias();
+        ArrayList <Grade> grade = bd.obtenerNivel();
+        ArrayList <Grupos> grupos = bd.obtenerGrupos();
+        ArrayList <Pay_simbology> pay_simbology = bd.obtenerCalendario();
+        ArrayList <Payment> payment = bd.obtenerSeguimiento();
+        ArrayList <Payment_status> payment_status = bd.obtenerEstatus();
+        ArrayList <Report> report = bd.obtenerCalificaciones();
+        ArrayList <Students> students = bd.obtenerEstudiantes();
+        ArrayList <Teachers> teachers = bd.obtenerTeachers();
+        ArrayList <Users> users = bd.obtenerUsuarios();
+        try{
+            OutputStreamWriter osw = new OutputStreamWriter(flujoSalida, "UTF-8");
+            BufferedWriter bw = new BufferedWriter(osw);
+            this.crearLineaAdmin(admin_school, bw);
+            this.crearLineaCategoria(category, bw);
+            this.crearLineaGrade(grade, bw);
+            this.crearLineaGrupos(grupos, bw);
+            this.crearLineaCalendario(pay_simbology, bw);
+            this.crearLineaPagos(payment, bw);
+            this.crearLineaEstatus(payment_status, bw);
+            this.crearLineaCalificaciones(report, bw);
+            this.crearLineaEstudiantes(students, bw);
+            this.crearLineaTeachers(teachers, bw);
+            this.crearLineaUsuarios(users, bw);
+            bw.flush();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaAdmin(ArrayList <Admin_school> admin_school, BufferedWriter bw){
+        try{
+            for(Admin_school ad: admin_school){
+                int id_admin = ad.getId_admin();
+                int id_user_admin = ad.getId_user_admin();
+                String apellido_paterno_admin = ad.getApellido_paterno_admin();
+                String apellido_materno_admin = ad.getApellido_materno_admin();
+                String nombre_admin = ad.getNombre_admin();
+                Object fecha_nacimiento_admin = ad.getFecha_nacimiento_admin();
+                String telefono_admin = ad.getTelefono_admin();
+                String email_admin = ad.getEmail_admin();
+
+                String linea = id_admin +";"+ id_user_admin +";"+ apellido_paterno_admin +";"+ apellido_materno_admin
+                               +";"+ nombre_admin +";"+ fecha_nacimiento_admin +";"+ telefono_admin +";"+ email_admin;
+                bw.write(linea);
+                bw.newLine();
+            }  
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaCategoria(ArrayList <Category> category, BufferedWriter bw){
+        try{
+            for(Category cat: category){
+                int id_category = cat.getId_category();
+                String description_category = cat.getDescription_category();
+                String linea = id_category +";"+ description_category;
+                bw.write(linea);
+                bw.newLine();
+            }  
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaGrade(ArrayList <Grade> grade, BufferedWriter bw){
+        try{
+            for(Grade nivel: grade){
+                int id_grade = nivel.getId_grade();
+                String description_grade = nivel.getDescription_grade();
+                String linea = id_grade +";"+ description_grade;
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaGrupos(ArrayList <Grupos> grupos, BufferedWriter bw){
+        try{
+            for(Grupos grupo: grupos){
+                int id_group = grupo.getId_group();
+                int id_grade = grupo.getId_grade();
+                int level_group = grupo.getLevel_group();
+                int id_category_group = grupo.getId_category_group();
+                String classroom_group = grupo.getClassroom_group();
+                String linea = id_group + ";" + id_grade + ";" + level_group + ";" + id_category_group
+                        +";" + classroom_group;
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaCalendario(ArrayList <Pay_simbology> pay_simbology, BufferedWriter bw){
+        try{
+            for(Pay_simbology mes: pay_simbology){
+                int id_pay = mes.getId_pay();
+                String month = mes.getMonth();
+                String description_pay = mes.getDescription_pay();
+                double cost_pay = mes.getCost_pay();
+                String period_pay = mes.getPeriod_pay();
+                Object deadline_pay = mes.getDeadline_pay();
+                String linea = id_pay + ";" + month + ";" + description_pay + ";" + cost_pay
+                        +";" + period_pay + ";" + deadline_pay;
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaPagos(ArrayList <Payment> payment, BufferedWriter bw){
+        try{
+            for(Payment pago: payment){
+                int id_payment = pago.getId_payment();
+                boolean register_payment = pago.isRegister_payment();
+                boolean pay_1 = pago.isPay_1();
+                boolean pay_2 = pago.isPay_2();
+                boolean pay_3 = pago.isPay_3();
+                boolean pay_4 = pago.isPay_4();
+                boolean pay_5 = pago.isPay_5();
+                boolean pay_6 = pago.isPay_6();
+                boolean pay_7 = pago.isPay_7();
+                int payment_status = pago.getPayment_status();
+                String linea = id_payment + ";" + register_payment + ";" + pay_1 + ";" + pay_2
+                        +";" + pay_3 + ";" + pay_4  +";" + pay_5 + ";" + pay_6+ ";" + pay_7 + ";" + payment_status;
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaEstatus(ArrayList <Payment_status> payment_status, BufferedWriter bw){
+        try{
+            for(Payment_status p: payment_status){
+                
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaCalificaciones(ArrayList <Report> report, BufferedWriter bw){
+        try{
+            for(Report cal: report){
+                
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaEstudiantes(ArrayList <Students> students, BufferedWriter bw){
+        try{
+            for(Students alu:  students){
+                
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaTeachers(ArrayList <Teachers> teachers, BufferedWriter bw){
+        try{
+            for(Teachers prof: teachers){
+                
+                String linea = ";";
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
+    }
+    
+    public void crearLineaUsuarios(ArrayList <Users> users, BufferedWriter bw){
+        try{
+            for(Users usuario: users){
+                int id_user = usuario.getId_user();
+                String nom_user = usuario.getNom_user();
+                String password = usuario.getPassword();
+                String rango = usuario.getRango(); 
+                String linea = id_user + ";" + nom_user + ";" + password + ";" + rango;
+                bw.write(linea);
+                bw.newLine();
+            }
+        }
+        catch(Exception ex){
+            
+        }
     }
 }

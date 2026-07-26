@@ -5,8 +5,8 @@ window.addEventListener("resize", anchoPagina);
 var contenedor_login_register = document.querySelector(".contenedor_login_register");
 var form_login  = document.querySelector(".form_login");
 var form_register  = document.querySelector(".form_register");
-var caja_trasera_login = document.querySelector(".caja_trasera_login");;
-var caja_trasera_register = document.querySelector(".caja_trasera_register");;
+var caja_trasera_login = document.querySelector(".caja_trasera_login");
+var caja_trasera_register = document.querySelector(".caja_trasera_register");
 
 function anchoPagina(){
     if(window.innerWidth >850){

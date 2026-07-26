@@ -26,7 +26,7 @@ public interface ReportesStruct {
             SQLException, JRException, IOException;
     public void listasPagos(HttpServletResponse response, String ruta, 
             String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
-            int id_teacher, String classroom, String periodoActual, String numMeses) 
+            int id_teacher, String classroom, String periodoActual, String numMeses, String[] listaMeses) 
             throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, SQLException, JRException, IOException;
     public void listaCalificaciones(HttpServletResponse response, String ruta, 
