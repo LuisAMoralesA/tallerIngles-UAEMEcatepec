@@ -26,15 +26,15 @@ public class cerrarSesion extends HttpServlet {
             String rango = sesion.getAttribute("rango").toString();
             if(rango!=null){
                 switch(rango){
-                case "ESTUDIANTE":
-                    url = Constantes.VentanasJSP.URL_LOGIN_ALUMNO;
-                    break;
-                case "ADMINISTRADOR":
-                    url = Constantes.VentanasJSP.URL_LOGIN_ADMIN;
-                    break;
-                case "PROFESOR":
-                    url = Constantes.VentanasJSP.URL_LOGIN_TEACHER;
-                    break;
+                    case "ESTUDIANTE":
+                        url = Constantes.VentanasJSP.URL_LOGIN_ALUMNO;
+                        break;
+                    case "ADMINISTRADOR":
+                        url = Constantes.VentanasJSP.URL_LOGIN_ADMIN;
+                        break;
+                    case "PROFESOR":
+                        url = Constantes.VentanasJSP.URL_LOGIN_TEACHER;
+                        break;
                 }     
             }
             else{
@@ -44,7 +44,7 @@ public class cerrarSesion extends HttpServlet {
             sesion.invalidate();
         }
         else{
-            url = Constantes.VentanasJSP.URL_INDEX;
+            url = Constantes.VentanasJSP.URL_SESION_EXPIRADA;
         }
         response.sendRedirect(url);
     }

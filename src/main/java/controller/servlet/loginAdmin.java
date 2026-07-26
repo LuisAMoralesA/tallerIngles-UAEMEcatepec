@@ -58,7 +58,6 @@ public class loginAdmin extends HttpServlet {
                         break;
                 }
             }      
-        //catch SQL Exception
     }
     
      //Para evitar fallos en el futuro

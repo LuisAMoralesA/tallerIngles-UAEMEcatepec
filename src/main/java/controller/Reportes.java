@@ -89,17 +89,23 @@ public class Reportes implements ReportesStruct{
             parametros.put("ruta_imagenes", ruta_imagenes);
             parametros.put("classroom", classroom);
             
+            
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
             response.setContentType("application/pdf");
+            
             
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que 
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"bitacoraAlumnos.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -142,11 +148,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"bitacoraProfesores.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -179,8 +189,9 @@ public class Reportes implements ReportesStruct{
      * @throws java.io.IOException
      **/
     @Override
-    public void listasPagos(HttpServletResponse response, String ruta, String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
-                                                                                    int id_teacher, String classroom, String periodoActual, String numMeses) 
+    public void listasPagos(HttpServletResponse response, String ruta, String ruta_imagenes, 
+            String nombre_grupo, String nombre_profesor, int id_teacher, String classroom, 
+            String periodoActual, String numMeses, String[] listaMeses) 
                                                                             throws ClassNotFoundException, InstantiationException,
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
@@ -195,7 +206,7 @@ public class Reportes implements ReportesStruct{
             parametros.put("PeriodoActual", periodoActual);
             parametros.put("id_teacher", id_teacher);
             parametros.put("numMeses", numMeses);
-            
+            parametros.put("listaMeses", listaMeses);
             
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
             response.setContentType("application/pdf");
@@ -203,11 +214,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"listaPagos.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -261,11 +276,15 @@ public class Reportes implements ReportesStruct{
             //Usa la plantilla de JaseperReports para cargar la información con los parametros que se cargaron
             JasperReport reporteFinal = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint impresionFinal = JasperFillManager.fillReport(reporteFinal, parametros, con);
+            response.setHeader("Content.Disposition", "inline; filename = \"listaCalificaciones.pdf\""); //Agregado
+            response.setContentLength(JasperExportManager.exportReportToPdf(impresionFinal).length);  //Agregado
             JRPdfExporter salida = new JRPdfExporter();
             
             salida.setExporterInput(new SimpleExporterInput(impresionFinal));
             salida.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
             salida.exportReport();
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{

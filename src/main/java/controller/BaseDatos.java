@@ -40,9 +40,10 @@ public class BaseDatos implements BaseDatosStruct{
     public static final class configuracionBD {
         //Constantes para hacer la conexion a la base de datos
         public static final String NOMBRE_DRIVER = "com.mysql.cj.jdbc.Driver";
+        public static final String NOMBRE_BASE_DATOS = "tallerdeingles";
         public static final String URL_DB = "jdbc:mysql://localhost:3306/tallerdeingles?autoReconnect=true&useSSL=false";
-        public static final String NOMBRE_USUARIO = "nbUser";
-        public static final String PASSWORD_USUARIO = "123456";
+        public static final String NOMBRE_USUARIO = "adminTallerIngles";
+        public static final String PASSWORD_USUARIO = "UAEMEX_2026";
     }
     
     /**
@@ -84,10 +85,12 @@ public class BaseDatos implements BaseDatosStruct{
     @Override
     public void insertarAdministrador(Admin_school admin){
         try{
-            //Configuracion para sistemas web desarrollados en Java
+            //Llama a la conexion a la base de datos
             conexionBD();
+            //Prepara la sentencia SQL para agregar datos
             String sql = "INSERT INTO admin_school (id_user_admin, apellido_paterno_admin, apellido_materno_admin,"
                     + "nombre_admin, fecha_nacimiento_admin, telefono_admin, email_admin) VALUES (?,?,?,?,?,?,?)";
+            //Prepara la sentencia con los parametros que se colocan a continuación
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, admin.getId_user_admin());
             pstm.setString(2, admin.getApellido_paterno_admin());
@@ -96,6 +99,7 @@ public class BaseDatos implements BaseDatosStruct{
             pstm.setObject(5, admin.getFecha_nacimiento_admin());
             pstm.setString(6, admin.getTelefono_admin());
             pstm.setString(7, admin.getEmail_admin());
+            //Ejecuta la sentencia de insersión
             pstm.executeUpdate();
             
         }catch(SQLException ex){
@@ -379,7 +383,7 @@ public class BaseDatos implements BaseDatosStruct{
             conexionBD();
             String sql = "INSERT INTO teachers (id_user_teacher, apellido_paterno_teacher, apellido_materno_teacher,"
                     + "nombre_teacher, telefono_teacher, email_teacher, fecha_nacimiento_teacher, status_teacher, "
-                    + "id_group_teacher) VALUES (?,?,?,?,?,?,?,?,?)";
+                    + "id_group_teacher, classroom_teacher) VALUES (?,?,?,?,?,?,?,?,?,?)";
             pstm = con.prepareStatement(sql);
             pstm.setInt(1, teacher.getId_user_teacher());
             pstm.setString(2, teacher.getApellido_paterno_teacher());
@@ -394,7 +398,7 @@ public class BaseDatos implements BaseDatosStruct{
             else
                 //En caso de que no tenga grupo, marca null en la BD
                 pstm.setNull(9, java.sql.Types.INTEGER);
-            
+            pstm.setString(10, teacher.getClassroom_teacher());
             pstm.executeUpdate();
             
         }catch(SQLException ex){
@@ -731,6 +735,34 @@ public class BaseDatos implements BaseDatosStruct{
         }
     }
     
+    @Override 
+    public void actualizarCalendario(String periodoActual) {
+        try{
+            conexionBD();
+            String sql = "";
+            switch(periodoActual){
+                case "Periodo A":
+                    sql = "UPDATE pay_simbology SET period_pay = 'Periodo B' WHERE period_pay <> 'Cualquiera'";
+                    break;
+                case "Periodo B":
+                    sql = "UPDATE pay_simbology SET period_pay = 'Periodo A' WHERE period_pay <> 'Cualquiera'";
+                    break;
+            }
+            pstm = con.prepareStatement(sql);
+            pstm.executeUpdate();
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+    }
+    
     /**
      * Este metodo permite hacer una consulta SQL para actualizar la informacion de un grupo especifico
      * @param group: Un objeto de tipo Grupos con todos sus datos 
@@ -821,18 +853,22 @@ public class BaseDatos implements BaseDatosStruct{
     public ArrayList<Users> obtenerUsuarios(){
         ArrayList<Users> listaUsuarios = new ArrayList<>();
         try{
+            //Llama a la conexion a la conexion a la base de datos
             conexionBD();
+            //Crea la sentencia SQL para obtener todos los registros de la tabla
             String sql = "SELECT * FROM users;";
             pstm = con.prepareStatement(sql);
+            //Obtiene el resultset de la sentencia SQL
             rs = pstm.executeQuery();
-            
+            //Va leyendo registro por registro de la sentencia
             while(rs.next()){
                 int id_user = rs.getInt("id_user");
                 String nom_user = rs.getString("nom_user");
                 String password = rs.getString("password");
                 String rango = rs.getString("rango");
-                
+                //Junta cada registro en un objeto Java
                 Users user = new Users(id_user, nom_user, password, rango);
+                //Junta todos los registros en una coleccion java
                 listaUsuarios.add(user);
             }
             
@@ -1142,6 +1178,34 @@ public class BaseDatos implements BaseDatosStruct{
         return calendario;
     }
     
+    public String[] obtenerMesesCalendario(){
+        String[] meses = new String[7];
+        try{
+            conexionBD();
+            String sql = "SELECT month FROM pay_simbology;";
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            int i = 0;
+            
+            while(rs.next()){
+                String mesObtenido = rs.getString("month");
+                meses[i] = mesObtenido;
+                i++;
+            }
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return meses;
+    }
+    
     
     /**
      * Este metodo permite hacer una consulta SQL para regresar los datos de la tabla Grupos 
@@ -1266,8 +1330,7 @@ public class BaseDatos implements BaseDatosStruct{
         ArrayList<Users> listaUsuario = new ArrayList<>();
         try{
             conexionBD();
-            String sql = "SELECT * FROM users WHERE nom_user = ? or id_user = ?;";
-            
+            String sql = "SELECT * FROM users WHERE nom_user = ? or id_user = ? ORDER BY id_user DESC;";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, usuario);
             pstm.setString(2, usuario);
@@ -1593,6 +1656,32 @@ public class BaseDatos implements BaseDatosStruct{
         return periodoEncontrado;
     }
     
+    @Override
+    public String obtenerPeriodo(int mes){
+        String periodoEncontrado = "";
+        try{
+            conexionBD();
+            String sql = "SELECT period_pay FROM pay_simbology WHERE id_pay = ?;";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, mes);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                periodoEncontrado = rs.getString("period_pay");
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return periodoEncontrado;
+    }
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un mes especifico
      * @param periodo: Periodo Escolar buscado en la base de datos
@@ -1633,6 +1722,38 @@ public class BaseDatos implements BaseDatosStruct{
         return calendario;
     }
     
+    @Override
+    public ArrayList<Pay_simbology> obtenerCalendarioFiltrado(){
+        ArrayList<Pay_simbology> calendario = new ArrayList<>();
+        try{
+            conexionBD();
+            String sql = "SELECT * FROM pay_simbology WHERE month <> 'NA';";
+            pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                int id_pay = rs.getInt("id_pay");
+                String month = rs.getString("month");
+                String description_pay = rs.getString("description_pay");
+                double cost_pay = rs.getDouble("cost_pay");
+                String period_pay = rs.getString("period_pay");
+                Object deadline_pay = rs.getObject("deadline_pay");
+                Pay_simbology mes = new Pay_simbology(id_pay, month, description_pay, cost_pay, period_pay, deadline_pay);
+                calendario.add(mes);
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return calendario;
+    }
     /**
      * Este metodo permite hacer una consulta SQL para regresar la informacion de un mes especifico
      * @param id_month: Periodo Escolar buscado en la base de datos
@@ -2524,7 +2645,7 @@ public class BaseDatos implements BaseDatosStruct{
                             "teachers.email_teacher, teachers.id_group_teacher, teachers.status_teacher, users.rango, users.id_user, users.nom_user, "
                             + " teachers.classroom_teacher FROM TEACHERS \n" +
                             "INNER JOIN users ON users.id_user = teachers.id_user_teacher \n" +
-                            "WHERE nom_user = (?) OR teachers.id_teacher = (?) ;";
+                            "WHERE nom_user = (?) OR teachers.id_teacher = (?);";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, usuario);
             pstm.setString(2, usuario);
@@ -2680,13 +2801,12 @@ public class BaseDatos implements BaseDatosStruct{
      * @return int: Cantidad de grupos en la base de datos. 
      **/
     @Override 
-    public int conteoMeses(String periodoActual){
+    public int conteoMeses(){
         int conteo = 0;
         try{
             conexionBD();
-            String sql = "SELECT COUNT(*) FROM PAY_SIMBOLOGY WHERE period_pay = ?;";
+            String sql = "SELECT COUNT(*) FROM PAY_SIMBOLOGY WHERE month <> 'NA';";
             pstm = con.prepareStatement(sql);
-            pstm.setString(1, periodoActual);
             rs = pstm.executeQuery();
             while(rs.next()){
                 conteo = rs.getInt(1);
@@ -3136,13 +3256,14 @@ public class BaseDatos implements BaseDatosStruct{
     @Override 
     public void desvincularProfesores(int id_group){
         try{
+            //Llama a la conexion a la Base de datos
             conexionBD();
-            //A la hora de eliminar grupo, se actualiza teachers ya que esta relacionada
+            //A la hora de eliminar grupo, se actualizan las tablas relacionadas
             String sqlActualizar = "UPDATE teachers SET id_group_teacher = null WHERE id_group_teacher = (?)";
             pstm = con.prepareStatement(sqlActualizar);
             pstm.setInt(1, id_group);
+            //Ejecuta la sentencia
             pstm.executeUpdate();
-            
         }
         catch(SQLException ex){
             ex.printStackTrace();
@@ -3183,5 +3304,90 @@ public class BaseDatos implements BaseDatosStruct{
                 ex.printStackTrace();
             }
         }
+    }
+    
+    @Override
+    public void desvincularListas(int id_student){
+        try{
+            conexionBD();
+            //A la hora de eliminar grupo, se actualiza teachers ya que esta relacionada
+            String sqlActualizar = "UPDATE students SET id_payment_student = null AND id_report_student = null WHERE id_student = (?)";
+            pstm = con.prepareStatement(sqlActualizar);
+            pstm.setInt(1, id_student);
+            pstm.executeUpdate();
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    @Override
+    public void desvincularGrupo(int id_teacher){
+        try{
+            conexionBD();
+            //A la hora de eliminar grupo, se actualiza teachers ya que esta relacionada
+            String sqlActualizar = "UPDATE teachers SET id_group_teacher = null WHERE id_teacher = (?)";
+            pstm = con.prepareStatement(sqlActualizar);
+            pstm.setInt(1, id_teacher);
+            pstm.executeUpdate();
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    @Override
+    public String mensajeAdminEncontrado(ArrayList <ConsultasAdmin> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultasAdmin> iter = usuarioEncontrado.iterator();
+       ConsultasAdmin per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosAdministrador(per.getId_admin());
+       }
+       return mensaje;
+    }
+    
+    @Override
+    public String mensajeAlumnoEncontrado(ArrayList <ConsultaAlumnos> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultaAlumnos> iter = usuarioEncontrado.iterator();
+       ConsultaAlumnos per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosAlumno(per.getId_student());
+       }
+       return mensaje;
+    }
+    
+    @Override
+    public String mensajeProfesorEncontrado(ArrayList <ConsultaTeacher> usuarioEncontrado){
+       String mensaje = "";
+       Iterator  <ConsultaTeacher> iter = usuarioEncontrado.iterator();
+       ConsultaTeacher per = null;
+       //Cuando encuentre el registro, ingresa los datos del Form a la tabla de estudiantes
+       if(iter.hasNext()){
+           per = iter.next();
+           mensaje = per.getNom_user() + "--> " + concatenarDatosProfesor(per.getId_teacher());
+       }
+       return mensaje;
     }
 }

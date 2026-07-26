@@ -97,5 +97,13 @@ public class ConsultaCalificaciones {
     public void setSecond_partial_report(double second_partial_report) {
         this.second_partial_report = second_partial_report;
     }
+
+    public String getNom_user() {
+        return nom_user;
+    }
+
+    public void setNom_user(String nom_user) {
+        this.nom_user = nom_user;
+    }
     
 }

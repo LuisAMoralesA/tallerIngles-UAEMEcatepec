@@ -12,7 +12,16 @@
         <jakartaee>10.0.0</jakartaee>
     </properties>
     
+    
     <dependencies>
+        <!-- Source: https://mvnrepository.com/artifact/org.eclipse.jdt/ecj -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
+            <version>3.45.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -29,7 +38,7 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>5.0.0</version>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
        
@@ -38,6 +47,12 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE180</version>
             <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>2.1</version>
         </dependency>
         
         <dependency>
@@ -76,9 +91,26 @@
             <version>2.0.7</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     
     <build>
+        <finalName>
+            tallerDeInglesUAEM
+        </finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -10,11 +10,7 @@ import java.util.Locale;
 public class Constantes {
 
     public static final String DOMINIO =                                        "/tallerDeInglesUAEM/"; //LISTO
-    public static final String DOMINIO_IMAGENES =                               DOMINIO + "Images/";    //LISTO
-    public static final String DOMINIO_CSS =                                    DOMINIO + "css/";       //LISTO
-    public static final String DOMINIO_JS =                                     DOMINIO + "js/";
-    public static final String DOMINIO_JASPERREPORTS =                          "reports/";             //LISTO
-    public static final String DOMINIO_VENTANAS =                               DOMINIO + "view/";      //LISTO
+    public static final String ARCHIVO_MYSQLDUMP =                              DOMINIO + "WEB-INF/mysqldump.exe";
     public static final LocalDate HOY =                                         LocalDate.now();
     public static final String    MES =                                         HOY.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
     
@@ -41,6 +37,8 @@ public class Constantes {
         public static final String TITULO_VISTA_CALIFICACIONES =                "Menu de Calificaciones";
     }
     
+    
+    public static final String DOMINIO_IMAGENES =                               DOMINIO + "Images/";    //LISTO
     public static final class Imagenes {
         //Constantes para URLs de Imagenes
         public static final String URL_FONDO1 =                                 DOMINIO_IMAGENES + "Fondo1.jpg";
@@ -68,6 +66,7 @@ public class Constantes {
         public static final String URL_USER3 =                                  DOMINIO_IMAGENES + "user3.png";
     }
     
+    public static final String DOMINIO_CSS =                                    DOMINIO + "css/";       //LISTO
     public static final class EstilosCSS {
         //Constantes para URLs para Hojas de Estilo en Cascada (CSS) de los JSP
         public static final String URL_CSS_ACTUALIZAR_INFO =                    DOMINIO_CSS + "styleActualizar.css";
@@ -88,6 +87,7 @@ public class Constantes {
         public static final String URL_CSS_VISTA_CALIFICACIONES=                DOMINIO_CSS + "styleVistaCalificaciones.css";
     }
     
+    public static final String DOMINIO_JASPERREPORTS =                          "reports/";             //LISTO
     public static final class Reportes {
         public static final String URL_JASPER_BITACORA_PROFESORES =             DOMINIO_JASPERREPORTS + "BitacoraProfesores.jasper";
         public static final String URL_JASPER_BITACORA_ALUMNOS =                DOMINIO_JASPERREPORTS + "BitacorasDeAlumnos.jasper";
@@ -99,33 +99,63 @@ public class Constantes {
         public static final String URL_XML_LISTA_SEGUIMIENTO_PAGO =             DOMINIO_JASPERREPORTS + "ListaSeguimientoPago.jrxml";
     }
     
+    public static final String DOMINIO_JS =                                     DOMINIO + "js/";
     public static final class JavaScript {
         public static final String URL_JS_LOGIN =                               DOMINIO_JS + "login.js";
         public static final String URL_JS_MENSAJES_EMERGENTES=                  DOMINIO_JS + "mensajesEmergentes.js";
         public static final String URL_JS_SEGUIMIENTO_PAGO =                    DOMINIO_JS + "seguimientoPagoJScript.js";
     }
     
+    public static final String DOMINIO_VENTANAS =                               DOMINIO + "view/";      //LISTO
     public static final class VentanasJSP {
+        //Index principal
         public static final String URL_INDEX =                                  DOMINIO + "index.html";
-        public static final String URL_ACTUALIZAR_INFORMACION =                 DOMINIO_VENTANAS + "actualizarInformacion.jsp";
-        public static final String URL_ACTUALIZAR_USUARIO =                     DOMINIO_VENTANAS + "actualizarUsuario.jsp";
-        public static final String URL_AGREGAR_INFORMACION =                    DOMINIO_VENTANAS + "agregarInformacion.jsp";
-        public static final String URL_ASIGNAR_CALIFICACIONES =                 DOMINIO_VENTANAS + "asignarCalificaciones.jsp";
-        public static final String URL_CALENDARIO =                             DOMINIO_VENTANAS + "calendario.jsp";
-        public static final String URL_LISTA_ADMIN =                            DOMINIO_VENTANAS + "listaAdministradores.jsp";
-        public static final String URL_LISTA_ALUMNOS =                          DOMINIO_VENTANAS + "listaAlumnos.jsp";
-        public static final String URL_LISTA_DOCUMENTOS =                       DOMINIO_VENTANAS + "listaDocumentos.jsp";
-        public static final String URL_LISTA_GRUPOS =                           DOMINIO_VENTANAS + "listaGrupos.jsp";
-        public static final String URL_LISTA_TEACHERS =                         DOMINIO_VENTANAS + "listaTeachers.jsp";
-        public static final String URL_LOGIN_ADMIN =                            DOMINIO_VENTANAS + "loginAdministrador.jsp";
-        public static final String URL_LOGIN_ALUMNO =                           DOMINIO_VENTANAS + "loginAlumno.jsp";
-        public static final String URL_LOGIN_TEACHER =                          DOMINIO_VENTANAS + "loginTeacher.jsp";
-        public static final String URL_MENU_ADMIN =                             DOMINIO_VENTANAS + "menuAdministrador.jsp";
-        public static final String URL_MENU_ALUMNO =                            DOMINIO_VENTANAS + "menuAlumno.jsp";
-        public static final String URL_MENU_TEACHER =                           DOMINIO_VENTANAS + "menuTeacher.jsp";
-        public static final String URL_SEGUIMIENTO_PAGO =                       DOMINIO_VENTANAS + "seguimientoPago.jsp";
+        
+        //Formularios para agregar informacion
+        public static final String URL_AGREGAR_INFORMACION =                    DOMINIO_VENTANAS + "add/agregarInformacion.jsp";
+        
+        //Folder para las operaciones de calificaciones
+        public static final String URL_ASIGNAR_CALIFICACIONES =                 DOMINIO_VENTANAS + "calificaciones/asignarCalificaciones.jsp";
+        public static final String URL_VISTA_CALIFICACIONES =                   DOMINIO_VENTANAS + "calificaciones/vistaCalificaciones.jsp";
+        
+        //Ventanas de listas
+        public static final String URL_LISTA_ADMIN =                            DOMINIO_VENTANAS + "listas/listaAdministradores.jsp";
+        public static final String URL_LISTA_ALUMNOS =                          DOMINIO_VENTANAS + "listas/listaAlumnos.jsp";
+        public static final String URL_LISTA_DOCUMENTOS =                       DOMINIO_VENTANAS + "listas/listaDocumentos.jsp";
+        public static final String URL_LISTA_GRUPOS =                           DOMINIO_VENTANAS + "listas/listaGrupos.jsp";
+        public static final String URL_LISTA_TEACHERS =                         DOMINIO_VENTANAS + "listas/listaTeachers.jsp";
+        
+        //Login de inicio de sesion
+        public static final String URL_LOGIN_ADMIN =                            DOMINIO_VENTANAS + "login/loginAdministrador.jsp";
+        public static final String URL_LOGIN_ALUMNO =                           DOMINIO_VENTANAS + "login/loginStudent.jsp";
+        public static final String URL_LOGIN_TEACHER =                          DOMINIO_VENTANAS + "login/loginTeacher.jsp";
+
+        //Menus laterales
+        public static final String URL_LATERAL_ADMIN =                          DOMINIO_VENTANAS + "menuLateral/menuLateralAdministradores.jsp";
+        public static final String URL_LATERAL_ALUMNO =                         DOMINIO_VENTANAS + "menuLateral/menuLateralAlumnos.jsp";
+        public static final String URL_LATERAL_TEACHER =                        DOMINIO_VENTANAS + "menuLateral/menuLateralProfesores.jsp";
+
+        //Ventanas emergentes desde JSP
+        public static final String URL_WARNING =                                DOMINIO_VENTANAS + "sweetAlert/ventanaAdvertencia.jsp";
+        public static final String URL_CORRECT =                                DOMINIO_VENTANAS + "sweetAlert/ventanaCorrecta.jsp";
+        public static final String URL_ERROR =                                  DOMINIO_VENTANAS + "sweetAlert/ventanaError.jsp";
+        public static final String URL_SUCCESS =                                DOMINIO_VENTANAS + "sweetAlert/ventanaExito.jsp";
+        
+        //Formularios de actualizacion de datos de usuario y personal
+        public static final String URL_ACTUALIZAR_INFORMACION =                 DOMINIO_VENTANAS + "update/actualizarInformacion.jsp";
+        public static final String URL_ACTUALIZAR_USUARIO =                     DOMINIO_VENTANAS + "update/actualizarUsuario.jsp";
+        
+        //Formularios para la cuestion de pagos.
+        public static final String URL_CALENDARIO =                             DOMINIO_VENTANAS + "pagos/calendario.jsp";
+        public static final String URL_SEGUIMIENTO_PAGO =                       DOMINIO_VENTANAS + "pagos/seguimientoPago.jsp";
+        
+        //Menus Principales
+        public static final String URL_MENU_ADMIN =                             DOMINIO_VENTANAS + "principal/menuAdministrador.jsp";
+        public static final String URL_MENU_ALUMNO =                            DOMINIO_VENTANAS + "principal/menuAlumno.jsp";
+        public static final String URL_MENU_TEACHER =                           DOMINIO_VENTANAS + "principal/menuTeacher.jsp";
+        
+        //Ventanas de sesion expirada. 
         public static final String URL_SESION_EXPIRADA =                        DOMINIO_VENTANAS + "sesionExpirada.jsp";
-        public static final String URL_VISTA_CALIFICACIONES =                   DOMINIO_VENTANAS + "vistaCalificaciones.jsp";
     }
     
     public static final class LinksExternos {
@@ -141,21 +171,24 @@ public class Constantes {
     }
     
     public static final class Servlets {
-        public static final String SERVLET_AGREGAR_ADMIN = "../addAdmin";
-        public static final String SERVLET_AGREGAR_GRUPO = "../addGroup";
-        public static final String SERVLET_AGREGAR_ALUMNO = "../addStudent";
-        public static final String SERVLET_AGREGAR_TEACHER = "../addTeacher";
-        public static final String SERVLET_CERRAR_SESION = "../cerrarSesion";
-        public static final String SERVLET_ELIMINAR_INFORMACION = "../deleteInformation";
-        public static final String SERVLET_SESION_ADMIN = "../loginAdmin";
-        public static final String SERVLET_SESION_ALUMNO = "../loginStudent";
-        public static final String SERVLET_SESION_TEACHER = "../loginTeacher";
-        public static final String SERVLET_REGISTRO_ALUMNO = "../registerStudent";
-        public static final String SERVLET_GENERAR_REPORTES = "../reportesServlet";
-        public static final String SERVLET_ACTUALIZAR_CALIFICACIONES = "../updateGrade";
-        public static final String SERVLET_ACTUALIZAR_INFORMACION = "../updateInfo";
-        public static final String SERVLET_ACTUALIZAR_PAGOS = "../updatePay";
-        public static final String SERVLET_ACTUALIZAR_CALENDARIO = "../updateSchedule";
-        public static final String SERVLET_ACTUALIZAR_USUARIO = "../updateUser";
+        //Los servlets como son declarados con etiquetas en la clase Java, hay que declararlos con el dominio + el nombre de la etiqueta. 
+        public static final String SERVLET_AGREGAR_ADMIN =                      DOMINIO + "addAdmin";
+        public static final String SERVLET_AGREGAR_GRUPO =                      DOMINIO + "addGroup";
+        public static final String SERVLET_AGREGAR_ALUMNO =                     DOMINIO + "addStudent";
+        public static final String SERVLET_AGREGAR_TEACHER =                    DOMINIO + "addTeacher";
+        public static final String SERVLET_CERRAR_SESION =                      DOMINIO + "cerrarSesion";
+        public static final String SERVLET_ELIMINAR_INFORMACION =               DOMINIO + "deleteInformation";
+        public static final String SERVLET_SESION_ADMIN =                       DOMINIO + "loginAdmin";
+        public static final String SERVLET_SESION_ALUMNO =                      DOMINIO + "loginStudent";
+        public static final String SERVLET_SESION_TEACHER =                     DOMINIO + "loginTeacher";
+        public static final String SERVLET_REGISTRO_ALUMNO =                    DOMINIO + "registerStudent";
+        public static final String SERVLET_GENERAR_REPORTES =                   DOMINIO + "reportesServlet";
+        public static final String SERVLET_ACTUALIZAR_CALIFICACIONES =          DOMINIO + "updateGrade";
+        public static final String SERVLET_ACTUALIZAR_INFORMACION =             DOMINIO + "updateInfo";
+        public static final String SERVLET_ACTUALIZAR_PAGOS =                   DOMINIO + "updatePay";
+        public static final String SERVLET_ACTUALIZAR_CALENDARIO =              DOMINIO + "updateSchedule";
+        public static final String SERVLET_ACTUALIZAR_USUARIO =                 DOMINIO + "updateUser"; 
+        public static final String SERVLET_RESPALDO =                           DOMINIO + "backupServlet"; 
+        public static final String SERVLET_ACTUALIZAR_PERIODO=                  DOMINIO + "updatePeriodo";
     }
 }

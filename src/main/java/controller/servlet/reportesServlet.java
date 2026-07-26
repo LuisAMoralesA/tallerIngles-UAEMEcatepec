@@ -35,7 +35,18 @@ public class reportesServlet extends HttpServlet {
             //Crear una variable para saber que reporte es el que se quiere imprimir
             String URLJasper = "";
             //Definir la ruta de la carpeta imagenes para no generar rutas estaticas
-            String imagenes = getServletContext().getRealPath("/Images/") + File.separator;
+            String imagenes = getServletContext().getRealPath("/Images/") ;
+            
+            if(imagenes!=null){
+                File folder = new File(imagenes);
+                if (folder.exists()){
+                    imagenes = folder.getAbsolutePath() + File.separator;
+                }
+            }
+            else{
+                imagenes = Constantes.DOMINIO_IMAGENES;
+                //imagenes = getServletContext().getResource("/Images/").toString();
+            }
             
             //Obtiene los atributos de solicitud que hay en cada hipervinculo de documento
             String attendance = request.getParameter("Attendance");
@@ -52,11 +63,9 @@ public class reportesServlet extends HttpServlet {
             
             //Formula para obtener el periodo que solicita el documento
             String periodo = "";
-            LocalDate hoy = LocalDate.now();
-            String mesActual = hoy.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+            LocalDate hoy = Constantes.HOY;
             String año = Integer.toString(hoy.getYear());
-            mesActual = mesActual.substring(0, 1).toUpperCase() + mesActual.substring(1);
-            String periodoActual = bd.obtenerPeriodo(mesActual);
+            String periodoActual = bd.obtenerPeriodo(1);
 
             try{
                 //Si se solicita la bitacora de Asistencia
@@ -67,7 +76,10 @@ public class reportesServlet extends HttpServlet {
                     profesor = bd.concatenarDatosProfesor(id_teacher);
                     classroom = request.getParameter("c");
                     //Define el documento que hay que imprimir
-                    ruta = getServletContext().getRealPath(URLJasper);
+                    ruta = getServletContext().getRealPath("/"+URLJasper);
+                    if(ruta==null){
+                        ruta = URLJasper;
+                    }
                     r.bitacorasDeAlumnos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom);
                 }
                 //Si se solicita la lista de seguimiento de Pagos
@@ -78,9 +90,14 @@ public class reportesServlet extends HttpServlet {
                     grupo = bd.concatenarDatosGrupo(id_teacher);
                     profesor = bd.concatenarDatosProfesor(id_teacher);
                     classroom = request.getParameter("c");
-                    numMeses = String.valueOf(bd.conteoMeses(periodoActual));
-                    ruta = getServletContext().getRealPath(URLJasper);
-                    r.listasPagos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, periodo, numMeses);
+                    numMeses = String.valueOf(bd.conteoMeses());
+                    ruta = getServletContext().getRealPath("/"+URLJasper);
+                    String listaMeses[] = bd.obtenerMesesCalendario();
+                    if(ruta==null){
+                        ruta = URLJasper;
+                    }
+                    r.listasPagos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, 
+                            periodo, numMeses, listaMeses);
                 }
                 //Si se solicita la lista de calificaciones
                 else if(grade !=null){
@@ -89,17 +106,24 @@ public class reportesServlet extends HttpServlet {
                     id_teacher = Integer.parseInt(grade);
                     grupo = bd.concatenarDatosGrupo(id_teacher);
                     profesor = bd.concatenarDatosProfesor(id_teacher);
-                    ruta = getServletContext().getRealPath(URLJasper);
+                    ruta = getServletContext().getRealPath("/" + URLJasper);
+                    if(ruta==null){
+                        ruta = URLJasper;
+                    }
                     r.listaCalificaciones(response, ruta, imagenes, grupo, profesor, id_teacher, periodo);
                 }
                 //Si se solicita la bitacora de profesores
                 else{
                     URLJasper = Constantes.Reportes.URL_JASPER_BITACORA_PROFESORES;
                     periodo = año + " " + periodoActual;
-                    ruta = getServletContext().getRealPath(URLJasper);
+                    ruta = getServletContext().getRealPath("/" + URLJasper);
+                    if(ruta==null){
+                        ruta = URLJasper;
+                    }
                     r.bitacorasDeProfesores(response, ruta, imagenes, periodo);
                 }
-            }catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new ServletException("Error al generar reporte", ex);
             }  
     }

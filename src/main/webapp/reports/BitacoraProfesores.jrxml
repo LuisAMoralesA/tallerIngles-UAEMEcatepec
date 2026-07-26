@@ -132,11 +132,11 @@ ORDER BY grupos.id_group;]]></query>
 				<expression><![CDATA[$F{apellido_materno_teacher}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b03724b-98fa-4b12-96a2-c3f377534aae"/>
 			</element>
-			<element kind="textField" uuid="6cdee315-cbd5-46fe-9a7d-f3c154eba645" x="220" y="0" width="120" height="20" fontName="DejaVu Sans Light">
+			<element kind="textField" uuid="6cdee315-cbd5-46fe-9a7d-f3c154eba645" x="220" y="0" width="120" height="20" fontName="DejaVu Sans Condensed">
 				<expression><![CDATA[$F{nombre_teacher}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f8badf6-a311-4690-a439-a12690c5faba"/>
 			</element>
-			<element kind="textField" uuid="182f0add-213e-4933-97b8-160034343ee9" x="350" y="0" width="130" height="20" fontName="DejaVu Sans Light">
+			<element kind="textField" uuid="182f0add-213e-4933-97b8-160034343ee9" x="350" y="0" width="130" height="20" fontName="DejaVu Sans Condensed">
 				<expression><![CDATA[$F{description_grade} + " " + $F{level_group} + " " +  $F{description_category}]]></expression>
 			</element>
 			<element kind="rectangle" uuid="69e2f8be-2cf4-46a7-a7ec-95c4fb594d51" x="490" y="0" width="120" height="20"/>
@@ -162,10 +162,10 @@ ORDER BY grupos.id_group;]]></query>
 		<element kind="rectangle" uuid="726501e0-e6f5-49f7-813e-063670d7f198" x="520" y="0" width="220" height="20">
 			<pen lineWidth="1.0" lineStyle="Dotted"/>
 		</element>
-		<element kind="textField" uuid="cc12143e-7b4e-48c5-ba31-4b657b2b5261" x="687" y="44" width="53" height="17" fontName="DejaVu Sans Light" evaluationTime="Report">
+		<element kind="textField" uuid="cc12143e-7b4e-48c5-ba31-4b657b2b5261" x="687" y="44" width="53" height="17" fontName="DejaVu Sans Condensed" evaluationTime="Report">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
-		<element kind="textField" uuid="958812fd-a462-4728-8a75-5942f30575d6" x="520" y="44" width="153" height="17" fontName="DejaVu Sans Light" hTextAlign="Right">
+		<element kind="textField" uuid="958812fd-a462-4728-8a75-5942f30575d6" x="520" y="44" width="153" height="17" fontName="DejaVu Sans Condensed" hTextAlign="Right">
 			<expression><![CDATA["Pagina  " + $V{PAGE_NUMBER} + " de "  ]]></expression>
 		</element>
 	</pageFooter>

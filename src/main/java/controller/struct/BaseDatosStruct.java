@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package controller.struct;
+import jakarta.servlet.http.HttpSession;
 import model.Tables.*;
 import model.Consultas.*;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public interface BaseDatosStruct {
     public void actualizarGrupos(Grupos group);
     public void actualizarNivel(Grade grade);
     public void actualizarCalendario(Pay_simbology symbol);
+    public void actualizarCalendario(String periodoActual);
     public void actualizarReporteCalificaciones(Report report);
     public void actualizarTeacher(Teachers teacher);
     public void actualizarUsuario(Users user);
@@ -51,6 +53,7 @@ public interface BaseDatosStruct {
     public ArrayList<Payment_status> obtenerEstatus();
     public ArrayList<Payment> obtenerSeguimiento();
     public ArrayList<Pay_simbology> obtenerCalendario();
+    public ArrayList<Pay_simbology> obtenerCalendarioFiltrado();
     public ArrayList<Grupos> obtenerGrupos();
     public ArrayList<Grade> obtenerNivel();
     public ArrayList<Category> obtenerCategorias();
@@ -64,6 +67,7 @@ public interface BaseDatosStruct {
     public String obtenerEstatus(int id);
     public ArrayList<Payment> obtenerSeguimiento(int id);
     public String obtenerPeriodo(String mes);
+    public String obtenerPeriodo(int mes);
     public ArrayList<Pay_simbology> obtenerCalendario(String periodo);
     public ArrayList<Pay_simbology> obtenerDatosDeMes(int id_month);
     public ArrayList<Grupos> obtenerGrupos(int id);
@@ -94,7 +98,7 @@ public interface BaseDatosStruct {
     public int conteoAlumnos();
     public int conteoAlumnos(int id_teacher);
     public int conteoProfesores();
-    public int conteoMeses(String periodoActual);
+    public int conteoMeses();
     
     //Parte 9: Operaciones para generacion de documentos
     public ArrayList<ConsultaBitacorasAlumnos> obtenerBitacorasDeAlumnos(int id_teacher);
@@ -114,4 +118,11 @@ public interface BaseDatosStruct {
     //Parte 11: Operaciones de desvinculacion de tablas
     public void desvincularProfesores(int id_group);
     public void desvincularAlumnos(int id_teacher);
+    public void desvincularListas(int id_student);
+    public void desvincularGrupo(int id_group);
+    
+    //Parte 12: Mensajes para los cuadros de texto. 
+    public String mensajeAdminEncontrado(ArrayList <ConsultasAdmin> usuarioEncontrado);
+    public String mensajeAlumnoEncontrado(ArrayList <ConsultaAlumnos> usuarioEncontrado);
+    public String mensajeProfesorEncontrado(ArrayList <ConsultaTeacher> usuarioEncontrado);
 }

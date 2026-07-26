@@ -75,6 +75,8 @@ public class updateInfo extends HttpServlet {
         }
         sesion.setAttribute("sesionIniciada", username);
         sesion.setAttribute("actualizacionCompleta","Datos de Usuario modificados correctamente ");
+        sesion.setAttribute("userNameRegistrado","Presione OK para cerrar esta ventana");
+        sesion.setAttribute("userNameBusqueda", apaterno + " " + amaterno + " " + nombre);
         response.sendRedirect(url);
     }
     

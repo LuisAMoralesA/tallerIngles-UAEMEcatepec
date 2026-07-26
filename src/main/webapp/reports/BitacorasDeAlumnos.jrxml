@@ -52,16 +52,16 @@ FROM STUDENTS WHERE id_teacher_student = $P{id_teacher_student};]]></query>
 		<element kind="staticText" uuid="33d6a4d3-9901-4ff3-a374-40593174790b" mode="Opaque" x="80" y="57" width="80" height="16" forecolor="#FFFFFF" backcolor="#030303" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Left">
 			<text><![CDATA[Profesor:]]></text>
 		</element>
-		<element kind="textField" uuid="38a6f4dc-5ae0-4650-9c21-a8e43d5cdbff" x="166" y="41" width="164" height="16" fontName="DejaVu Sans Light" fontSize="8.0">
+		<element kind="textField" uuid="38a6f4dc-5ae0-4650-9c21-a8e43d5cdbff" x="166" y="41" width="234" height="16" fontName="DejaVu Sans Condensed" fontSize="8.0">
 			<expression><![CDATA[$P{nombre_grupo}]]></expression>
 		</element>
-		<element kind="textField" uuid="3d4e5eb0-f63b-4854-86aa-d1802fcd1c6d" x="166" y="57" width="164" height="16" fontName="DejaVu Sans Light" fontSize="8.0">
+		<element kind="textField" uuid="3d4e5eb0-f63b-4854-86aa-d1802fcd1c6d" x="166" y="57" width="234" height="16" fontName="DejaVu Sans Condensed" fontSize="8.0">
 			<expression><![CDATA[$P{nombre_profesor}]]></expression>
 		</element>
-		<element kind="staticText" uuid="1b33f01b-e5d1-4894-80e4-a128ea3b2ca4" mode="Opaque" x="340" y="41" width="80" height="16" forecolor="#FFFFFF" backcolor="#030303" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="1b33f01b-e5d1-4894-80e4-a128ea3b2ca4" mode="Opaque" x="409" y="41" width="80" height="16" forecolor="#FFFFFF" backcolor="#030303" fontName="DejaVu Sans Condensed" fontSize="10.0" bold="false" italic="false" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Salon: ]]></text>
 		</element>
-		<element kind="textField" uuid="75e80d9e-403f-4785-a287-ba8a82bdb861" x="340" y="57" width="80" height="16" fontName="DejaVu Sans Light" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="textField" uuid="75e80d9e-403f-4785-a287-ba8a82bdb861" x="409" y="57" width="80" height="16" fontName="DejaVu Sans Condensed" hTextAlign="Center" vTextAlign="Middle">
 			<expression><![CDATA[$P{classroom}]]></expression>
 		</element>
 	</pageHeader>
@@ -87,16 +87,16 @@ FROM STUDENTS WHERE id_teacher_student = $P{id_teacher_student};]]></query>
 	</columnHeader>
 	<detail>
 		<band height="26">
-			<element kind="textField" uuid="3f4ef771-aaf7-46dd-8d5d-d904c5ac638c" x="0" y="0" width="100" height="20" fontName="DejaVu Sans Light" fontSize="10.0">
+			<element kind="textField" uuid="3f4ef771-aaf7-46dd-8d5d-d904c5ac638c" x="0" y="0" width="100" height="20" fontName="DejaVu Sans Condensed" fontSize="10.0">
 				<expression><![CDATA[$F{apellido_paterno_student}]]></expression>
 			</element>
-			<element kind="textField" uuid="9ffc8282-b6aa-45b7-bf72-8a9064c9f3d6" x="108" y="0" width="100" height="20" fontName="DejaVu Sans Light" fontSize="10.0">
+			<element kind="textField" uuid="9ffc8282-b6aa-45b7-bf72-8a9064c9f3d6" x="108" y="0" width="100" height="20" fontName="DejaVu Sans Condensed" fontSize="10.0">
 				<expression><![CDATA[$F{apellido_materno_student}]]></expression>
 			</element>
-			<element kind="textField" uuid="dfb31922-da43-45bc-9bab-edbb6bc0763d" x="220" y="0" width="120" height="20" fontName="DejaVu Sans Light" fontSize="10.0">
+			<element kind="textField" uuid="dfb31922-da43-45bc-9bab-edbb6bc0763d" x="220" y="0" width="120" height="20" fontName="DejaVu Sans Condensed" fontSize="10.0">
 				<expression><![CDATA[$F{nombre_student}]]></expression>
 			</element>
-			<element kind="textField" uuid="659b2454-1fac-45ee-a193-37d9848cdd2e" x="350" y="0" width="60" height="20" fontName="DejaVu Sans Light" fontSize="10.0">
+			<element kind="textField" uuid="659b2454-1fac-45ee-a193-37d9848cdd2e" x="350" y="0" width="60" height="20" fontName="DejaVu Sans Condensed" fontSize="10.0">
 				<expression><![CDATA[$F{sale_solo} == 1 ? "SI": "NO"]]></expression>
 			</element>
 			<element kind="rectangle" uuid="26cd15ed-66f5-4f37-8c1b-87a40025f282" x="420" y="1" width="60" height="20"/>
@@ -107,10 +107,10 @@ FROM STUDENTS WHERE id_teacher_student = $P{id_teacher_student};]]></query>
 		<element kind="textField" uuid="27e7f288-1b1d-442e-8ea3-03a0db843d44" x="0" y="0" width="249" height="20" fontName="DejaVu Sans Condensed" pattern="MMMMM dd, yyyy" hTextAlign="Left">
 			<expression><![CDATA[new java.util.Date()]]></expression>
 		</element>
-		<element kind="textField" uuid="4ec1635f-03ca-4b02-a59c-725ffa7c3c2e" x="517" y="2" width="53" height="17" fontName="DejaVu Sans Light" evaluationTime="Report">
+		<element kind="textField" uuid="4ec1635f-03ca-4b02-a59c-725ffa7c3c2e" x="517" y="2" width="53" height="17" fontName="DejaVu Sans Condensed" evaluationTime="Report">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
-		<element kind="textField" uuid="03f25a62-5750-4c8c-ad5b-acdb6a273bf9" x="350" y="2" width="153" height="17" fontName="DejaVu Sans Light" hTextAlign="Right">
+		<element kind="textField" uuid="03f25a62-5750-4c8c-ad5b-acdb6a273bf9" x="350" y="2" width="153" height="17" fontName="DejaVu Sans Condensed" hTextAlign="Right">
 			<expression><![CDATA["Pagina  " + $V{PAGE_NUMBER} + " de "  ]]></expression>
 		</element>
 	</pageFooter>

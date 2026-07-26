@@ -30,6 +30,7 @@ public class updateGrade extends HttpServlet {
         bd.actualizarReporteCalificaciones(calificaciones);
         sesion.setAttribute("actualizacionCompleta","Lista de Calificaciones actualizada correctamente ");
         sesion.setAttribute("userNameRegistrado", "Oprimir el boton OK para finalizar");
+        sesion.setAttribute("userNameBusqueda", request.getParameter("nombreCompleto"));
         String url = "";
         if (rangoPrincipal.equals("ADMINISTRADOR"))
             url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
