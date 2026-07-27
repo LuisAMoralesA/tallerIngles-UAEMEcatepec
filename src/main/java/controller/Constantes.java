@@ -123,12 +123,12 @@ public class Constantes {
         public static final String URL_LISTA_ALUMNOS =                          DOMINIO_VENTANAS + "listas/listaAlumnos.jsp";
         public static final String URL_LISTA_DOCUMENTOS =                       DOMINIO_VENTANAS + "listas/listaDocumentos.jsp";
         public static final String URL_LISTA_GRUPOS =                           DOMINIO_VENTANAS + "listas/listaGrupos.jsp";
-        public static final String URL_LISTA_TEACHERS =                         DOMINIO_VENTANAS + "listas/listaTeachers.jsp";
+        public static final String URL_LISTA_TEACHERS =                         DOMINIO_VENTANAS + "listas/listaProfesores.jsp";
         
         //Login de inicio de sesion
         public static final String URL_LOGIN_ADMIN =                            DOMINIO_VENTANAS + "login/loginAdministrador.jsp";
-        public static final String URL_LOGIN_ALUMNO =                           DOMINIO_VENTANAS + "login/loginStudent.jsp";
-        public static final String URL_LOGIN_TEACHER =                          DOMINIO_VENTANAS + "login/loginTeacher.jsp";
+        public static final String URL_LOGIN_ALUMNO =                           DOMINIO_VENTANAS + "login/loginAlumno.jsp";
+        public static final String URL_LOGIN_TEACHER =                          DOMINIO_VENTANAS + "login/loginProfesor.jsp";
 
         //Menus laterales
         public static final String URL_LATERAL_ADMIN =                          DOMINIO_VENTANAS + "menuLateral/menuLateralAdministradores.jsp";
@@ -152,7 +152,7 @@ public class Constantes {
         //Menus Principales
         public static final String URL_MENU_ADMIN =                             DOMINIO_VENTANAS + "principal/menuAdministrador.jsp";
         public static final String URL_MENU_ALUMNO =                            DOMINIO_VENTANAS + "principal/menuAlumno.jsp";
-        public static final String URL_MENU_TEACHER =                           DOMINIO_VENTANAS + "principal/menuTeacher.jsp";
+        public static final String URL_MENU_TEACHER =                           DOMINIO_VENTANAS + "principal/menuProfesor.jsp";
         
         //Ventanas de sesion expirada. 
         public static final String URL_SESION_EXPIRADA =                        DOMINIO_VENTANAS + "sesionExpirada.jsp";
