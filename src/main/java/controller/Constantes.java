@@ -190,5 +190,6 @@ public class Constantes {
         public static final String SERVLET_ACTUALIZAR_USUARIO =                 DOMINIO + "updateUser"; 
         public static final String SERVLET_RESPALDO =                           DOMINIO + "backupServlet"; 
         public static final String SERVLET_ACTUALIZAR_PERIODO=                  DOMINIO + "updatePeriodo";
+        public static final String SERVLET_VACIAR_LISTAS=                       DOMINIO + "clearList";
     }
 }

@@ -44,7 +44,8 @@ public class updateUser extends HttpServlet {
             String rangoActual = sesion.getAttribute("rango").toString();
 
             sesion.setAttribute("actualizacionCompleta","Usuario Actualizado correctamente");
-
+            sesion.setAttribute("userNameRegistrado","Presione OK para cerrar esta ventana");
+            
             switch(rango){
                 case "ESTUDIANTE": 
                     url = rangoActual.equals("ADMINISTRADOR") ? Constantes.VentanasJSP.URL_LISTA_ALUMNOS :

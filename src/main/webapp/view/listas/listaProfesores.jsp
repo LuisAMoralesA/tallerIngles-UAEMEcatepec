@@ -133,6 +133,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -171,7 +172,12 @@
                                 <a href = "<%=Constantes.VentanasJSP.URL_ACTUALIZAR_USUARIO%>?idUser=<%=id_user_teacher%>" title="Modificar Datos de Acceso">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
-                            </td> 
+                            </td>
+                            <td>
+                                <a href = "<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>?&profesor=<%=id_teacher%>" title="Ver alumnos inscritos">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            </td>
                             <td>
                                 <form action = "<%=Constantes.Servlets.SERVLET_ELIMINAR_INFORMACION%>?rango=t&id=<%=id_teacher%>&user=<%=id_user_teacher%>" method = "post">
                                     <button type = "button" id ="del" title="Eliminar Profesor" onclick = "showAlertDelete(this.form)">

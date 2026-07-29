@@ -33,6 +33,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import model.Tables.*;
 
 
@@ -421,19 +424,15 @@ public class Respaldo implements RespaldoStruct{
         Row filaEncabezados = hoja.createRow(7);
         filaEncabezados.setHeightInPoints(24);
         
-        String [] encabezados = {
-            "Nombre Completo del Alumno", 
-            "Pago de inscripción", 
-            "Mensualidad 1",
-            "Mensualidad 2",
-            "Mensualidad 3", 
-            "Mensualidad 4", 
-            "Mensualidad 5", 
-            "Mensualidad 6", 
-            "Mensualidad 7", 
-            "Estatus del Alumno"
-        };
+        ArrayList <String> encabezados1 = new ArrayList<>();
+        encabezados1.add("Nombre Completo del Alumno");
+        encabezados1.add("Pago de inscripcion");
+        String [] mensualidades = bd.obtenerMesesCalendario();
+        encabezados1.addAll(Arrays.asList(mensualidades));
+        encabezados1.add("Estatus del Alumno");
         
+        String [] encabezados = encabezados1.toArray(new String[encabezados1.size()]);
+
         this.crearEncabezados(filaEncabezados, estiloEncabezado, encabezados);
         
         int numeroFila = 8;
@@ -606,203 +605,291 @@ public class Respaldo implements RespaldoStruct{
         ArrayList <Teachers> teachers = bd.obtenerTeachers();
         ArrayList <Users> users = bd.obtenerUsuarios();
         try{
-            OutputStreamWriter osw = new OutputStreamWriter(flujoSalida, "UTF-8");
-            BufferedWriter bw = new BufferedWriter(osw);
-            this.crearLineaAdmin(admin_school, bw);
-            this.crearLineaCategoria(category, bw);
-            this.crearLineaGrade(grade, bw);
-            this.crearLineaGrupos(grupos, bw);
-            this.crearLineaCalendario(pay_simbology, bw);
-            this.crearLineaPagos(payment, bw);
-            this.crearLineaEstatus(payment_status, bw);
-            this.crearLineaCalificaciones(report, bw);
-            this.crearLineaEstudiantes(students, bw);
-            this.crearLineaTeachers(teachers, bw);
-            this.crearLineaUsuarios(users, bw);
-            bw.flush();
+            //Crear el flujo para el formato ZIP
+            ZipOutputStream formatoZIP = new ZipOutputStream(flujoSalida);
+            
+            this.crearLineaAdmin(formatoZIP, admin_school);
+            this.crearLineaCategoria(formatoZIP, category);
+            this.crearLineaGrade(formatoZIP, grade);
+            this.crearLineaGrupos(formatoZIP, grupos);
+            this.crearLineaCalendario(formatoZIP, pay_simbology);
+            this.crearLineaPagos(formatoZIP, payment);
+            this.crearLineaEstatus(formatoZIP, payment_status);
+            this.crearLineaCalificaciones(formatoZIP, report);
+            this.crearLineaEstudiantes(formatoZIP, students);
+            this.crearLineaTeachers(formatoZIP, teachers);
+            this.crearLineaUsuarios(formatoZIP, users);
+            formatoZIP.finish();
         }
         catch(Exception ex){
             ex.printStackTrace();
         }
     }
     
-    public void crearLineaAdmin(ArrayList <Admin_school> admin_school, BufferedWriter bw){
+    public BufferedWriter agregarTabla(ZipOutputStream formatoZIP, String nombreArchivo) throws Exception{
+        ZipEntry archivo = new ZipEntry(nombreArchivo);
+        formatoZIP.putNextEntry(archivo);
+        
+        formatoZIP.write(0xEF);
+        formatoZIP.write(0xBB);
+        formatoZIP.write(0xBF);
+        
+        OutputStreamWriter osw = new OutputStreamWriter(formatoZIP, "UTF-8");
+        BufferedWriter bw = new BufferedWriter(osw);
+        
+        return bw;
+    }
+    
+    public void crearLineaAdmin(ZipOutputStream zos, ArrayList <Admin_school> admin_school){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "admin_school.csv");
             for(Admin_school ad: admin_school){
-                int id_admin = ad.getId_admin();
-                int id_user_admin = ad.getId_user_admin();
-                String apellido_paterno_admin = ad.getApellido_paterno_admin();
-                String apellido_materno_admin = ad.getApellido_materno_admin();
-                String nombre_admin = ad.getNombre_admin();
-                Object fecha_nacimiento_admin = ad.getFecha_nacimiento_admin();
-                String telefono_admin = ad.getTelefono_admin();
-                String email_admin = ad.getEmail_admin();
+                int id_admin                    = ad.getId_admin();
+                int id_user_admin               = ad.getId_user_admin();
+                String apellido_paterno_admin   = ad.getApellido_paterno_admin();
+                String apellido_materno_admin   = ad.getApellido_materno_admin();
+                String nombre_admin             = ad.getNombre_admin();
+                Object fecha_nacimiento_admin   = ad.getFecha_nacimiento_admin();
+                String telefono_admin           = ad.getTelefono_admin();
+                String email_admin              = ad.getEmail_admin();
 
                 String linea = id_admin +";"+ id_user_admin +";"+ apellido_paterno_admin +";"+ apellido_materno_admin
                                +";"+ nombre_admin +";"+ fecha_nacimiento_admin +";"+ telefono_admin +";"+ email_admin;
                 bw.write(linea);
                 bw.newLine();
-            }  
+            }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
             ex.printStackTrace();
         }
     }
     
-    public void crearLineaCategoria(ArrayList <Category> category, BufferedWriter bw){
+    public void crearLineaCategoria(ZipOutputStream zos, ArrayList <Category> category){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "category.csv");
             for(Category cat: category){
-                int id_category = cat.getId_category();
-                String description_category = cat.getDescription_category();
+                int id_category                 = cat.getId_category();
+                String description_category     = cat.getDescription_category();
                 String linea = id_category +";"+ description_category;
                 bw.write(linea);
                 bw.newLine();
-            }  
+            }
+            bw.flush();
+            zos.closeEntry();
         }
+        
         catch(Exception ex){
             ex.printStackTrace();
         }
     }
     
-    public void crearLineaGrade(ArrayList <Grade> grade, BufferedWriter bw){
+    public void crearLineaGrade(ZipOutputStream zos, ArrayList <Grade> grade){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "grade.csv");
             for(Grade nivel: grade){
-                int id_grade = nivel.getId_grade();
-                String description_grade = nivel.getDescription_grade();
+                int id_grade                = nivel.getId_grade();
+                String description_grade    = nivel.getDescription_grade();
                 String linea = id_grade +";"+ description_grade;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
     
-    public void crearLineaGrupos(ArrayList <Grupos> grupos, BufferedWriter bw){
+    public void crearLineaGrupos(ZipOutputStream zos, ArrayList <Grupos> grupos){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "grupos.csv");
             for(Grupos grupo: grupos){
-                int id_group = grupo.getId_group();
-                int id_grade = grupo.getId_grade();
-                int level_group = grupo.getLevel_group();
-                int id_category_group = grupo.getId_category_group();
-                String classroom_group = grupo.getClassroom_group();
+                int id_group            = grupo.getId_group();
+                int id_grade            = grupo.getId_grade();
+                int level_group         = grupo.getLevel_group();
+                int id_category_group   = grupo.getId_category_group();
+                String classroom_group  = grupo.getClassroom_group();
                 String linea = id_group + ";" + id_grade + ";" + level_group + ";" + id_category_group
                         +";" + classroom_group;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
     
-    public void crearLineaCalendario(ArrayList <Pay_simbology> pay_simbology, BufferedWriter bw){
+    public void crearLineaCalendario(ZipOutputStream zos, ArrayList <Pay_simbology> pay_simbology){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "pay_simbology.csv");
             for(Pay_simbology mes: pay_simbology){
-                int id_pay = mes.getId_pay();
-                String month = mes.getMonth();
-                String description_pay = mes.getDescription_pay();
-                double cost_pay = mes.getCost_pay();
-                String period_pay = mes.getPeriod_pay();
-                Object deadline_pay = mes.getDeadline_pay();
+                int id_pay              = mes.getId_pay();
+                String month            = mes.getMonth();
+                String description_pay  = mes.getDescription_pay();
+                double cost_pay         = mes.getCost_pay();
+                String period_pay       = mes.getPeriod_pay();
+                Object deadline_pay     = mes.getDeadline_pay();
                 String linea = id_pay + ";" + month + ";" + description_pay + ";" + cost_pay
                         +";" + period_pay + ";" + deadline_pay;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
     
-    public void crearLineaPagos(ArrayList <Payment> payment, BufferedWriter bw){
+    public void crearLineaPagos(ZipOutputStream zos, ArrayList <Payment> payment){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "payment.csv");
             for(Payment pago: payment){
-                int id_payment = pago.getId_payment();
-                boolean register_payment = pago.isRegister_payment();
-                boolean pay_1 = pago.isPay_1();
-                boolean pay_2 = pago.isPay_2();
-                boolean pay_3 = pago.isPay_3();
-                boolean pay_4 = pago.isPay_4();
-                boolean pay_5 = pago.isPay_5();
-                boolean pay_6 = pago.isPay_6();
-                boolean pay_7 = pago.isPay_7();
-                int payment_status = pago.getPayment_status();
+                int id_payment              = pago.getId_payment();
+                boolean register_payment    = pago.isRegister_payment();
+                boolean pay_1               = pago.isPay_1();
+                boolean pay_2               = pago.isPay_2();
+                boolean pay_3               = pago.isPay_3();
+                boolean pay_4               = pago.isPay_4();
+                boolean pay_5               = pago.isPay_5();
+                boolean pay_6               = pago.isPay_6();
+                boolean pay_7               = pago.isPay_7();
+                int payment_status          = pago.getPayment_status();
                 String linea = id_payment + ";" + register_payment + ";" + pay_1 + ";" + pay_2
                         +";" + pay_3 + ";" + pay_4  +";" + pay_5 + ";" + pay_6+ ";" + pay_7 + ";" + payment_status;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
     
-    public void crearLineaEstatus(ArrayList <Payment_status> payment_status, BufferedWriter bw){
+    public void crearLineaEstatus(ZipOutputStream zos, ArrayList <Payment_status> payment_status){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "payment_status.csv");
             for(Payment_status p: payment_status){
-                
-            }
-        }
-        catch(Exception ex){
-            
-        }
-    }
-    
-    public void crearLineaCalificaciones(ArrayList <Report> report, BufferedWriter bw){
-        try{
-            for(Report cal: report){
-                
-            }
-        }
-        catch(Exception ex){
-            
-        }
-    }
-    
-    public void crearLineaEstudiantes(ArrayList <Students> students, BufferedWriter bw){
-        try{
-            for(Students alu:  students){
-                
-            }
-        }
-        catch(Exception ex){
-            
-        }
-    }
-    
-    public void crearLineaTeachers(ArrayList <Teachers> teachers, BufferedWriter bw){
-        try{
-            for(Teachers prof: teachers){
-                
-                String linea = ";";
+                int id_status               = p.getId_status();
+                String description_status   = p.getDescription_status();
+                String linea = id_status + ";" + description_status;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
     
-    public void crearLineaUsuarios(ArrayList <Users> users, BufferedWriter bw){
+    public void crearLineaCalificaciones(ZipOutputStream zos, ArrayList <Report> report){
         try{
+            BufferedWriter bw = this.agregarTabla(zos, "report.csv");
+            for(Report cal: report){
+                int id_report                   = cal.getId_report();
+                double first_partial_report     = cal.getFirst_partial_report();
+                double second_partial_report    = cal.getSecond_partial_report();
+                String linea = id_report + ";" + first_partial_report + ";" + second_partial_report;
+                bw.write(linea);
+                bw.newLine();
+            }
+            bw.flush();
+            zos.closeEntry();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaEstudiantes(ZipOutputStream zos, ArrayList <Students> students){
+        try{
+            BufferedWriter bw = this.agregarTabla(zos, "students.csv");
+            for(Students alu:  students){
+                int id_student                      = alu.getId_student(); 
+                int id_teacher_student              = alu.getId_teacher_student(); 
+                int id_report_student               = alu.getId_report_student(); 
+                int id_payment_student              = alu.getId_payment_student(); 
+                int id_user_student                 = alu.getId_user_student(); 
+                String apellido_paterno_student     = alu.getApellido_paterno_student(); 
+                String apellido_materno_student     = alu.getApellido_materno_student(); 
+                String nombre_student               = alu.getNombre_student(); 
+                String telefono1_student            = alu.getTelefono1_student(); 
+                String telefono2_student            = alu.getTelefono2_student(); 
+                Object fecha_nacimiento_student     = alu.getFecha_nacimiento_student(); 
+                String email_student                = alu.getEmail_student(); 
+                boolean sale_solo                   = alu.isSale_solo();  
+                String linea = id_student + ";" + id_teacher_student + ";" + id_report_student + ";" + id_payment_student + ";" + 
+                               id_user_student + ";" + apellido_paterno_student + ";" + apellido_materno_student + ";" + nombre_student + ";" +
+                               telefono1_student + ";" + telefono2_student + ";" + fecha_nacimiento_student + ";" + email_student + ";" + sale_solo;
+                bw.write(linea);
+                bw.newLine();
+            }
+            bw.flush();
+            zos.closeEntry();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaTeachers(ZipOutputStream zos, ArrayList <Teachers> teachers){
+        try{
+            BufferedWriter bw = this.agregarTabla(zos, "teachers.csv");
+            for(Teachers prof: teachers){
+                int id_teacher                      = prof.getId_teacher();
+                int id_user_teacher                 = prof.getId_user_teacher();
+                String apellido_paterno_teacher     = prof.getApellido_paterno_teacher();
+                String apellido_materno_teacher     = prof.getApellido_materno_teacher();
+                String nombre_teacher               = prof.getNombre_teacher();
+                String telefono_teacher             = prof.getTelefono_teacher();
+                String email_teacher                = prof.getEmail_teacher(); 
+                Object fecha_nacimiento_teacher     = prof.getFecha_nacimiento_teacher(); 
+                String status_teacher               = prof.getStatus_teacher(); 
+                int id_group_teacher                = prof.getId_group_teacher();
+                String classroom_teacher            = prof.getClassroom_teacher();
+                String linea = id_teacher + ";" + id_user_teacher + ";" + apellido_paterno_teacher + ";" + 
+                               apellido_materno_teacher + ";" + nombre_teacher + ";" + telefono_teacher + ";" +
+                               email_teacher + ";" + fecha_nacimiento_teacher + ";" + status_teacher + ";" +
+                               id_group_teacher + ";" + classroom_teacher;
+                bw.write(linea);
+                bw.newLine();
+            }
+            bw.flush();
+            zos.closeEntry();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public void crearLineaUsuarios(ZipOutputStream zos, ArrayList <Users> users){
+        try{
+            BufferedWriter bw = this.agregarTabla(zos, "users.csv");
             for(Users usuario: users){
-                int id_user = usuario.getId_user();
-                String nom_user = usuario.getNom_user();
-                String password = usuario.getPassword();
-                String rango = usuario.getRango(); 
+                int id_user                 = usuario.getId_user();
+                String nom_user             = usuario.getNom_user();
+                String password             = usuario.getPassword();
+                String rango                = usuario.getRango(); 
                 String linea = id_user + ";" + nom_user + ";" + password + ";" + rango;
                 bw.write(linea);
                 bw.newLine();
             }
+            bw.flush();
+            zos.closeEntry();
         }
         catch(Exception ex){
-            
+            ex.printStackTrace();
         }
     }
 }

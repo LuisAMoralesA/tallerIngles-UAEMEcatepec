@@ -84,6 +84,7 @@ public interface BaseDatosStruct {
     //Parte 6: Visualizacion de Consultas (registros especificos)
     public ArrayList<ConsultasAdmin> obtenerDatosAdministrador(String usuario);
     public ArrayList<ConsultaAlumnos> obtenerDatosAlumno(String usuario);
+    public ArrayList<ConsultaAlumnos> obtenerDatosAlumnosFiltrado(int id);
     public ArrayList<ConsultaGrupos> obtenerDatosGrupo(int id_grupo);
     public ArrayList<ConsultaTeacher> obtenerDatosProfesores(String usuario);
     
@@ -125,4 +126,8 @@ public interface BaseDatosStruct {
     public String mensajeAdminEncontrado(ArrayList <ConsultasAdmin> usuarioEncontrado);
     public String mensajeAlumnoEncontrado(ArrayList <ConsultaAlumnos> usuarioEncontrado);
     public String mensajeProfesorEncontrado(ArrayList <ConsultaTeacher> usuarioEncontrado);
+    
+    //Vaciado de información
+    public void vaciarListasCalificaciones();
+    public void vaciarListasPagos();
 }

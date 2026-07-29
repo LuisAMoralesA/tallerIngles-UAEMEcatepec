@@ -22,6 +22,25 @@ function showAlertDelete(formulario){
       });
 }
 
+function showAlertClear(event, url){
+    event.preventDefault();
+    Swal.fire({
+        title: "¿Estas seguro de limpiar los registros?",
+        text: "Esta accion conservara los registros de alumnos, pero limpiara las listas de calificaciones y de pago. \n\
+              Asegure de realizar un respaldo de la información.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si",
+        cancelButtonText: "No" 
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+      });
+}
+
 //actualizarInformacion.jsp y actualizarUsuario.jsp
 function showAlertUpdateInformation(){
     event.preventDefault();
