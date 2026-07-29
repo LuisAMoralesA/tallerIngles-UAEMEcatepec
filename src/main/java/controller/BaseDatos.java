@@ -24,7 +24,7 @@ public class BaseDatos implements BaseDatosStruct{
     Connection con = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
-    
+
     /**
      * Esas constantes sirven para definir la configuracion de inicio de Sesion
      **/
@@ -1112,7 +1112,7 @@ public class BaseDatos implements BaseDatosStruct{
             rs = pstm.executeQuery();
             
             while(rs.next()){
-                int id_payment = rs.getInt("id_status");
+                int id_payment = rs.getInt("id_payment");
                 boolean register_payment = rs.getBoolean("register_payment");
                 boolean pay_1 = rs.getBoolean("pay_1");
                 boolean pay_2 = rs.getBoolean("pay_2");
@@ -1182,7 +1182,7 @@ public class BaseDatos implements BaseDatosStruct{
         String[] meses = new String[7];
         try{
             conexionBD();
-            String sql = "SELECT month FROM pay_simbology;";
+            String sql = "select month from pay_simbology where month <> 'Inscripcion / Reinscripcion';";
             pstm = con.prepareStatement(sql);
             rs = pstm.executeQuery();
             int i = 0;
@@ -2015,6 +2015,81 @@ public class BaseDatos implements BaseDatosStruct{
                             + " FROM STUDENTS \n" +
                             "INNER JOIN users ON users.id_user = students.id_user_student";
             pstm = con.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                //0. Id del Alumno
+                int id_student = rs.getInt("id_student");
+                //1. Apellido Paterno
+                String apellido_paterno = rs.getString("apellido_paterno_student");
+                //2. Apellido Materno
+                String apellido_materno = rs.getString("apellido_materno_student");
+                //3. Nombre
+                String nombre = rs.getString("nombre_student");
+                //4. Nombre de Usuario
+                String nom_user = rs.getString("nom_user");
+                //5. Numero de Telefono 1
+                String tel1 = rs.getString("telefono1_student");
+                //6. Numero de Telefono 2
+                String tel2 = rs.getString("telefono2_student");
+                //7. Id del Profesor
+                int id_teacher = rs.getInt("id_teacher_student"); 
+                //8. Rango del Usuario
+                String rango = rs.getString("rango");
+                //9. Id de Usuario
+                int id_user = rs.getInt("id_user_student");
+                //10. Id de lista de pagos
+                int pago = rs.getInt("id_payment_student");
+                //11. Id de lista de calificaciones
+                int calificaciones = rs.getInt("id_report_student");
+                //12. Correo electronico
+                String email = rs.getString("email_student");
+                //13. ¿Sale Solo?
+                boolean saleSolo = rs.getBoolean("sale_solo");
+                //14. Fecha de Nacimiento
+                Object fecha = rs.getObject("fecha_nacimiento_student");  
+                
+                ConsultaAlumnos consulta = new ConsultaAlumnos(id_student, apellido_paterno, apellido_materno, nombre, 
+                                            nom_user, tel1, tel2, id_teacher, rango, id_user, pago, calificaciones, email,
+                                            saleSolo, fecha);
+                listaDatos.add(consulta);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+            ex.printStackTrace();
+            }
+        }
+        return listaDatos;
+    }
+    
+    @Override
+    public ArrayList<ConsultaAlumnos> obtenerDatosAlumnosFiltrado(int id){
+        //1. Obtiene los datos de ingreso del usuario
+        ArrayList <ConsultaAlumnos> listaDatos = new ArrayList<>();
+        try{
+            conexionBD();
+            //Lo busca con respecto al id de usuario de su respectiva tabla
+            String sql = "SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, \n" +
+                              "students.nombre_student, users.nom_user, students.telefono1_student, students.telefono2_student, \n" +
+                              "students.id_teacher_student, users.rango,\n" +
+                              "students.id_user_student, students.id_payment_student, \n" +
+                              "students.id_report_student, students.email_student, students.sale_solo, students.fecha_nacimiento_student \n"
+                              + " FROM STUDENTS \n" +
+                              "INNER JOIN users ON users.id_user = students.id_user_student";
+            if(id == 0){
+                sql +=  " WHERE id_teacher_student is null";
+                pstm = con.prepareStatement(sql);
+            }
+            else{
+                sql += " WHERE id_teacher_student = (?)";
+                pstm = con.prepareStatement(sql);
+                pstm.setInt(1, id);
+            }
             rs = pstm.executeQuery();
             
             while(rs.next()){
@@ -3389,5 +3464,48 @@ public class BaseDatos implements BaseDatosStruct{
            mensaje = per.getNom_user() + "--> " + concatenarDatosProfesor(per.getId_teacher());
        }
        return mensaje;
+    }
+    
+    @Override
+    public void vaciarListasCalificaciones() {
+        try{
+            conexionBD();
+            String sql = "UPDATE report SET first_partial_report = 0.00 , "
+                    + "second_partial_report = 0.00, avg_report = 0.00 ;";
+            pstm = con.prepareStatement(sql);
+            pstm.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void vaciarListasPagos() {
+       try{
+            conexionBD();
+            String sql = "UPDATE payment SET register_payment = false, pay_1 = false, pay_2 = false , \n" +
+"			pay_3 = false, pay_4 = false, pay_5 = false, pay_6 = false,  \n" +
+"                       pay_7=false, payment_status = true";
+            pstm = con.prepareStatement(sql);
+            pstm.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        finally{
+            try{
+                pstm.close();
+                con.close();
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        } 
     }
 }

@@ -49,6 +49,12 @@
         }
         //Accede a la base de datos y accede a los datos del usuario principal
         BaseDatos base = new BaseDatos();
+        //Condicion si hay alumnos sin grupo o es filtro de alumnos por grupo
+        String nogroup                  = request.getParameter("nogroup");
+        String filterGrupo              = request.getParameter("profesor");
+        boolean verAlumnosSinGrupos     = nogroup != null && !nogroup.trim().isEmpty();
+        boolean verGrupoFiltrado        = filterGrupo != null && !filterGrupo.trim().isEmpty();
+        boolean listaCompleta           = !verAlumnosSinGrupos && !verGrupoFiltrado;
     %>
     <aside id = "menu_lateral">
         <ul id="menu_opciones">
@@ -62,9 +68,9 @@
                         Cuenta
                 </a>
             </li>
-
+            
             <li>
-                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>" style = "background-color: rgba(44, 82, 52, 1)">
+                <a href="<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>" <%=listaCompleta ? "style = 'background-color: rgba(44, 82, 52, 1)'" : "''"%>>
                    <i class="fa-solid fa-users-line"></i><br>
                     Alumnos
                 </a>
@@ -114,9 +120,10 @@
                 String iconoVentana = (String) sesion.getAttribute("iconoVentana");
             %>
                 <%@include file="../sweetAlert/ventanaExito.jsp" %>
-                <%
-                sesion.setAttribute("iconoVentana", null); 
+            <%
+                sesion.setAttribute("iconoVentana", null);
             %>
+            
             <div class="form-container2">
                 <i class="fa-solid fa-people-group"></i> <br>
                 <h1>Lista de Estudiantes</h1>
@@ -124,8 +131,39 @@
                     <div class = "documents"> 
                         <a id = "link" href="<%=Constantes.VentanasJSP.URL_AGREGAR_INFORMACION%>?add=1">
                            <i class="fa-solid fa-user-plus"></i> <br>
-                            Agregar Alumno
+                            Agregar <br> Alumno
                         </a>
+                        <!--Boton de actualizar periodo. -->
+                        <a id = "link" href="<%=Constantes.Servlets.SERVLET_VACIAR_LISTAS%>" onclick = "showAlertClear(event, this.href)">
+                           <i class="fa-solid fa-broom"></i> <br>
+                            Limpiar <br> listas
+                        </a>
+                        <%if(listaCompleta){%>
+                        <a id = "link" <%=base.conteoAlumnos(0) == 0 ? 
+                                        "style = 'pointer-events: none; background-color:gray'; ": 
+                                        "" %> href = "<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>?nogroup=true"
+                                        title = "Ver alumnos sin grupos">
+                            <i class="fa-solid fa-person-circle-question" ></i> <br>
+                            Ver <%=base.conteoAlumnos(0)%> alumnos sin grupo
+                        </a>
+                        <%}
+                        else{
+                            if(verAlumnosSinGrupos){
+                        %>
+                            <a id = "link" href = "<%=Constantes.VentanasJSP.URL_LISTA_ALUMNOS%>"
+                               title = "Ver todos los alumnos">
+                                <i class="fa-solid fa-desktop"></i> <br>
+                                Ver todos los alumnos
+                            </a>
+                           <%}
+                            else{%>
+                            <a id = "link" href = "<%=Constantes.VentanasJSP.URL_LISTA_TEACHERS%>"
+                               title = "Regresar a lista de Profesores">
+                                <i class="fa-solid fa-chalkboard-user"></i> <br>
+                                Regresar a Lista de Profesores
+                            </a>
+                            <%}%>
+                        <%}%>
                     </div>
                     <thead>
                         <tr>
@@ -148,7 +186,17 @@
                             response.sendRedirect(Constantes.VentanasJSP.URL_SESION_EXPIRADA);
                             return;
                         }
-                        ArrayList <ConsultaAlumnos> listaAlumnos = base.obtenerDatosAlumnos();
+                        ArrayList <ConsultaAlumnos> listaAlumnos = new ArrayList<>();
+                        if(verAlumnosSinGrupos){
+                            listaAlumnos = base.obtenerDatosAlumnosFiltrado(0);
+                        }
+                        else if(verGrupoFiltrado){
+                            int id = Integer.parseInt(filterGrupo);
+                            listaAlumnos = base.obtenerDatosAlumnosFiltrado(id);
+                        }
+                        else{
+                            listaAlumnos = base.obtenerDatosAlumnos();
+                        }
                         Iterator<ConsultaAlumnos> iter = listaAlumnos.iterator();
                         ConsultaAlumnos per = null;
                         int conteo = 0;

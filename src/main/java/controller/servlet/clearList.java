@@ -16,19 +16,30 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Luis Morales
+ * @author anton
  */
-@WebServlet(name = "updatePeriodo", urlPatterns = {"/updatePeriodo"})
-public class updatePeriodo extends HttpServlet {
+@WebServlet(name = "clearList", urlPatterns = {"/clearList"})
+public class clearList extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //
         HttpSession sesion = request.getSession();
-        String periodoActual = request.getParameter("periodoActual");
         BaseDatos bd = new BaseDatos();
-        bd.actualizarCalendario(periodoActual);
-        sesion.setAttribute("actualizacionCompleta","Periodo escolar actualizado correctamente");
+        bd.vaciarListasCalificaciones();
+        bd.vaciarListasPagos();
+        sesion.setAttribute("actualizacionCompleta","Listas de calificaciones y pago han sido vaciadas con exito");
         sesion.setAttribute("userNameRegistrado","Presione OK para cerrar esta ventana");
-        String url = Constantes.VentanasJSP.URL_CALENDARIO;
+        String url = Constantes.VentanasJSP.URL_LISTA_ALUMNOS;
         response.sendRedirect(url);
     }
 
@@ -38,6 +49,7 @@ public class updatePeriodo extends HttpServlet {
         processRequest(request, response);
     }
 
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

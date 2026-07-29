@@ -114,11 +114,8 @@
                 <h1>Documentos para Imprimir</h1>
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
-                        <p>
-                            <i class="fa-solid fa-person-circle-question" ></i> <br>
-                            Alumnos sin grupo: <%=base.conteoAlumnos(0)%>
-                        </p>
-                        <a id = 'link' <%=base.conteoProfesores() == 0 ? "style = 'pointer-events: none; background-color:gray'" : "href = '../reportesServlet'  target = '_blank'"%> >
+                        
+                        <a id = 'link' <%=base.conteoProfesores() == 0 ? "style = 'pointer-events: none; background-color:gray'" : "href = '" + Constantes.Servlets.SERVLET_GENERAR_REPORTES +"'  target = '_blank'"%> >
                            <i class="fa-solid fa-clipboard-user"></i> <br>
                             Bitacora de Profesores
                         </a>

@@ -132,11 +132,15 @@
                         </a>
                         <a id = "link" href="<%=Constantes.Servlets.SERVLET_RESPALDO%>?type=excel">
                            <i class="fa-solid fa-file-excel"></i><br>
-                            Crear respaldo en Excel
+                            Respaldar a Formato XLSX
+                        </a>
+                        <a id = "link" href="<%=Constantes.Servlets.SERVLET_RESPALDO%>?type=csv">
+                           <i class="fa-solid fa-file-excel"></i><br>
+                            Respaldar a formato CSV
                         </a>
                         <a id = "link" href="<%=Constantes.Servlets.SERVLET_RESPALDO%>?type=sql">
                            <i class="fa-solid fa-database"></i><br>
-                            Crear respaldo en SQL
+                            Respaldar a formato SQL
                         </a>
                     </div>
                     <thead>

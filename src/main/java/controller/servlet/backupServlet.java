@@ -99,6 +99,25 @@ public class backupServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            
+            else if("csv".equals(type)){
+                //Define un nombre para el documento de respaldo de Lenguaje SQL
+                String nombreZIP = "Respaldo_TEI_"+ año + "_" + periodoActual.replace(" ", "_")+".zip";
+                // Indicamos que la respuesta es un archivo comprimido ZIP
+                response.setContentType("application/zip");
+                // Forzamos al navegador a abrir la ventana de descarga con el nombre sugerido
+                response.setHeader("Content-Disposition", "attachment; filename=\"" + nombreZIP + "\"");
+                
+                try{
+                    //Genenera el archivo ZIP por medio de la clase de respaldo
+                    OutputStream salida = response.getOutputStream();
+                    Respaldo backup = new Respaldo();
+                    backup.iniciarRespaldoCSV(salida);
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
     }
 
     @Override
