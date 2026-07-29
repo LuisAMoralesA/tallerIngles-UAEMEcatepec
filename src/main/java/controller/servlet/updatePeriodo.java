@@ -27,6 +27,7 @@ public class updatePeriodo extends HttpServlet {
         BaseDatos bd = new BaseDatos();
         bd.actualizarCalendario(periodoActual);
         sesion.setAttribute("actualizacionCompleta","Periodo escolar actualizado correctamente");
+        sesion.setAttribute("userNameRegistrado","Presione OK para cerrar esta ventana");
         String url = Constantes.VentanasJSP.URL_CALENDARIO;
         response.sendRedirect(url);
     }

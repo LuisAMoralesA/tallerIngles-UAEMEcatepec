@@ -115,7 +115,7 @@
                 <table id = "tablaAlumnos" class="table table-striped">
                     <div class = "documents"> 
                         
-                        <a id = 'link' <%=base.conteoProfesores() == 0 ? "style = 'pointer-events: none; background-color:gray'" : "href = '../reportesServlet'  target = '_blank'"%> >
+                        <a id = 'link' <%=base.conteoProfesores() == 0 ? "style = 'pointer-events: none; background-color:gray'" : "href = '" + Constantes.Servlets.SERVLET_GENERAR_REPORTES +"'  target = '_blank'"%> >
                            <i class="fa-solid fa-clipboard-user"></i> <br>
                             Bitacora de Profesores
                         </a>

@@ -88,6 +88,7 @@ public class deleteInformation extends HttpServlet {
                     sesion.setAttribute("actualizacionCompleta","Datos del Grupo eliminados correctamente");
                     break;
             }
+            sesion.setAttribute("userNameRegistrado","Presione OK para cerrar esta ventana");
             response.sendRedirect(url);
     }
     @Override
