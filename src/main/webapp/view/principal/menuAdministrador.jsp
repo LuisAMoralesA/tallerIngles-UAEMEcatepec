@@ -137,7 +137,7 @@
                     return;
                 }       
             %>
-            <h1> Perfil de Adminsitrador </h1>
+            <h1> Perfil de Administrador </h1>
             <div id = "imagen_perfil">
                 <img src="<%=Constantes.Imagenes.URL_USER3%>" alt=""> 
             </div>
