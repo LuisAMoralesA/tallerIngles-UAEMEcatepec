@@ -112,13 +112,16 @@
             <div class="form-container2">
                 <i class="fa-solid fa-print"></i><br>
                 <h1>Documentos para Imprimir</h1>
+
                 <table id = "tablaAlumnos" class="table table-striped">
+                    <br>
                     <div class = "documents"> 
-                        
                         <a id = 'link' <%=base.conteoProfesores() == 0 ? "style = 'pointer-events: none; background-color:gray'" : "href = '" + Constantes.Servlets.SERVLET_GENERAR_REPORTES +"'  target = '_blank'"%> >
                            <i class="fa-solid fa-clipboard-user"></i> <br>
                             Bitacora de Profesores
                         </a>
+                        <label for="documentDate"> Fecha para documentos: </label>
+                        <input type="date" name="documentDate" id="documentDate" />
                     </div>
                     <thead>
                         <tr>
@@ -199,6 +202,28 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             }  
+        });
+        
+        //Funcion para asignar fecha a un documento en Jasperreports
+        //Parametro: Cuadro de entrada de fecha
+        $('#tablaAlumnos tbody, .documents').on('click', 'a', function(event){
+            //Si no se hace clic a ese parametro, no hagas nada
+            if($(this).css('pointer-events') === 'none'){
+                return;
+            }
+            
+            //Obtiene los valores del cuadro de texto de la fecha y el reporte que desea abrir 
+            var fechaSabado = $('#documentDate').val();
+            var reporte     = $(this).attr('href');
+            
+            //Si se modifica una fecha
+            if(fechaSabado !== ""){
+                event.preventDefault();
+                var separador = reporte.indexOf('?') !== -1 ? '&' : '?';
+                var nuevoVinculo = reporte + separador + 'documentDate=' + fechaSabado;
+                
+                window.open(nuevoVinculo, "_blank");
+            }
         });
     });
     </script>

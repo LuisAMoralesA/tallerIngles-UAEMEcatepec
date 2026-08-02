@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 import jakarta.servlet.annotation.WebServlet;
 import java.time.LocalDate;
-import java.time.format.TextStyle;
+import java.time.format.*;
 import java.util.Locale;
 
 
@@ -28,6 +28,22 @@ public class reportesServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            // Busca el parametro del cuadro de texto
+            String fechaSabado = request.getParameter("documentDate");
+            
+            //Si no esta nulo o si se asigno una fecha, cambia el formato antes de imprimir
+            if(fechaSabado != null && !fechaSabado.trim().isEmpty()){
+                try{
+                    //Convertir de String a LocalDate Java
+                    LocalDate fechaPagina = LocalDate.parse(fechaSabado);
+                    DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    fechaSabado = fechaPagina.format(formato);
+                }
+                
+                catch (DateTimeParseException e){
+                    e.printStackTrace();
+                }
+            }
             //Llamar a la clase para crear los reportes
             Reportes r = new Reportes();
             //Llama a la base de datos para obtener ciertos datos
@@ -80,7 +96,7 @@ public class reportesServlet extends HttpServlet {
                     if(ruta==null){
                         ruta = URLJasper;
                     }
-                    r.bitacorasDeAlumnos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom);
+                    r.bitacorasDeAlumnos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, fechaSabado);
                 }
                 //Si se solicita la lista de seguimiento de Pagos
                 else if(payment != null){
@@ -97,7 +113,7 @@ public class reportesServlet extends HttpServlet {
                         ruta = URLJasper;
                     }
                     r.listasPagos(response, ruta, imagenes, grupo, profesor, id_teacher, classroom, 
-                            periodo, numMeses, listaMeses);
+                            periodo, numMeses, listaMeses, fechaSabado);
                 }
                 //Si se solicita la lista de calificaciones
                 else if(grade !=null){
@@ -120,7 +136,7 @@ public class reportesServlet extends HttpServlet {
                     if(ruta==null){
                         ruta = URLJasper;
                     }
-                    r.bitacorasDeProfesores(response, ruta, imagenes, periodo);
+                    r.bitacorasDeProfesores(response, ruta, imagenes, periodo, fechaSabado);
                 }
             }
             catch (Exception ex) {

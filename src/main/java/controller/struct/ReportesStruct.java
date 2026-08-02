@@ -17,16 +17,17 @@ public interface ReportesStruct {
     public void conexionBDReportes();
     public void bitacorasDeAlumnos(HttpServletResponse response, String ruta, 
             String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
-            int id_teacher_student, String classroom) 
+            int id_teacher_student, String classroom, String fechaSabado) 
             throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, SQLException, JRException, IOException;
     public void bitacorasDeProfesores(HttpServletResponse response, String ruta, 
-            String ruta_imagenes, String periodoActual) 
+            String ruta_imagenes, String periodoActual, String fechaSabado) 
             throws ClassNotFoundException, InstantiationException, IllegalAccessException, 
             SQLException, JRException, IOException;
     public void listasPagos(HttpServletResponse response, String ruta, 
             String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
-            int id_teacher, String classroom, String periodoActual, String numMeses, String[] listaMeses) 
+            int id_teacher, String classroom, String periodoActual, String numMeses, String[] listaMeses, 
+            String fechaSabado) 
             throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, SQLException, JRException, IOException;
     public void listaCalificaciones(HttpServletResponse response, String ruta, 

@@ -11,6 +11,7 @@
 	<parameter name="id_teacher" class="java.lang.String"/>
 	<parameter name="numMeses" forPrompting="false" class="java.lang.String"/>
 	<parameter name="listaMeses" forPrompting="false" class="java.lang.String[]"/>
+	<parameter name="fechaSabado" forPrompting="false" class="java.lang.String"/>
 	<query language="SQL"><![CDATA[
 SELECT students.id_student, students.apellido_paterno_student, students.apellido_materno_student, students.nombre_student, students.telefono1_student, 
 payment.id_payment,
@@ -237,14 +238,14 @@ ORDER BY apellido_paterno_student
 		<element kind="textField" uuid="e67ec7ab-82e0-4dbf-953d-78868b771787" x="0" y="7" width="561" height="30" fontName="DejaVu Sans Condensed" hTextAlign="Left">
 			<expression><![CDATA["NOTA: Tomando en cuenta el semestre actual, solo se toman en cuenta " + $P{numMeses} + " mensualidades." ]]></expression>
 		</element>
-		<element kind="textField" uuid="54373441-103f-4337-8890-5c2601175e66" x="564" y="7" width="186" height="13" fontName="DejaVu Sans Condensed" pattern="MMMMM dd, yyyy" hTextAlign="Right">
-			<expression><![CDATA[new java.util.Date()]]></expression>
-		</element>
 		<element kind="textField" uuid="cd9b3bd3-0a06-40e3-830e-7d9fead040ec" x="564" y="20" width="153" height="17" fontName="DejaVu Sans Condensed" hTextAlign="Right">
 			<expression><![CDATA["Pagina  " + $V{PAGE_NUMBER} + " de "  ]]></expression>
 		</element>
 		<element kind="textField" uuid="e72a0152-df6c-4157-8912-d54d7ea06576" x="720" y="20" width="30" height="17" fontName="DejaVu Sans Condensed" evaluationTime="Report" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="1148dc60-ff87-4947-9e1f-758007727fc6" x="564" y="7" width="186" height="12" fontName="DejaVu Sans" hTextAlign="Right">
+			<expression><![CDATA[$P{fechaSabado} != null ? $P{fechaSabado} : "Ninguna fecha seleccionada"]]></expression>
 		</element>
 	</pageFooter>
 </jasperReport>

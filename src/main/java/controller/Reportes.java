@@ -65,6 +65,7 @@ public class Reportes implements ReportesStruct{
      * @param nombre_grupo: Nombre del grupo de la bitacora de Alumnos
      * @param nombre_profesor: Nombre del profesor responsable de ese grupo
      * @param id_teacher_student: Id del profesor en la base de Datos
+     * @param fechaSabado: Fecha de la pagina para asignar al documento.
      * @param classroom: Salon de clases del grupo
      * @throws java.lang.ClassNotFoundException
      * @throws java.lang.InstantiationException
@@ -75,7 +76,7 @@ public class Reportes implements ReportesStruct{
      **/
     @Override
     public void bitacorasDeAlumnos(HttpServletResponse response, String ruta, String ruta_imagenes, String nombre_grupo, String nombre_profesor, 
-                                                                                    int id_teacher_student, String classroom) 
+                                    int id_teacher_student, String classroom, String fechaSabado) 
                                                                                     throws ClassNotFoundException, InstantiationException,
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
@@ -88,6 +89,7 @@ public class Reportes implements ReportesStruct{
             parametros.put("id_teacher_student", id_teacher_student);
             parametros.put("ruta_imagenes", ruta_imagenes);
             parametros.put("classroom", classroom);
+            parametros.put("fechaSabado", fechaSabado);
             
             
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
@@ -123,6 +125,7 @@ public class Reportes implements ReportesStruct{
      * @param ruta: Ubicacion del reporte a utilizar
      * @param ruta_imagenes: Ubicacion de la carpeta Imagenes
      * @param periodoActual: Periodo en curso del Taller
+     * @param fechaSabado: Fecha de la pagina para asignar al documento.
      * @throws java.lang.ClassNotFoundException
      * @throws java.lang.InstantiationException
      * @throws java.lang.IllegalAccessException
@@ -131,7 +134,8 @@ public class Reportes implements ReportesStruct{
      * @throws java.io.IOException
      **/
     @Override
-    public void bitacorasDeProfesores(HttpServletResponse response, String ruta, String ruta_imagenes, String periodoActual) throws ClassNotFoundException, InstantiationException,
+    public void bitacorasDeProfesores(HttpServletResponse response, String ruta, String ruta_imagenes, 
+            String periodoActual, String fechaSabado) throws ClassNotFoundException, InstantiationException,
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
             //Hacer la conexion a la base de datos
@@ -141,6 +145,7 @@ public class Reportes implements ReportesStruct{
             
             parametros.put("ruta_imagenes", ruta_imagenes);
             parametros.put("PeriodoActual", periodoActual);
+            parametros.put("fechaSabado", fechaSabado);
             
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
             response.setContentType("application/pdf");
@@ -180,7 +185,9 @@ public class Reportes implements ReportesStruct{
      * @param nombre_profesor: Nombre del profesor responsable de ese grupo
      * @param id_teacher: Id del profesor en la base de Datos
      * @param numMeses: Numero de meses que posee el semestre
+     * @param listaMeses: Lista de meses del periodo Actual. 
      * @param classroom: Salon de clases del grupo
+     * @param fechaSabado: Fecha de la pagina para asignar al documento.
      * @throws java.lang.ClassNotFoundException
      * @throws java.lang.InstantiationException
      * @throws java.lang.IllegalAccessException
@@ -191,7 +198,7 @@ public class Reportes implements ReportesStruct{
     @Override
     public void listasPagos(HttpServletResponse response, String ruta, String ruta_imagenes, 
             String nombre_grupo, String nombre_profesor, int id_teacher, String classroom, 
-            String periodoActual, String numMeses, String[] listaMeses) 
+            String periodoActual, String numMeses, String[] listaMeses, String fechaSabado) 
                                                                             throws ClassNotFoundException, InstantiationException,
                                                                             IllegalAccessException, SQLException, JRException, IOException {
         try{
@@ -207,6 +214,7 @@ public class Reportes implements ReportesStruct{
             parametros.put("id_teacher", id_teacher);
             parametros.put("numMeses", numMeses);
             parametros.put("listaMeses", listaMeses);
+            parametros.put("fechaSabado", fechaSabado);
             
             //Se crea un archivo para visualizar el PDF y se configura el servlet´
             response.setContentType("application/pdf");
